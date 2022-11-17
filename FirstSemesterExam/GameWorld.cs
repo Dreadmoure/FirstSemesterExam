@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 using System.Collections.Generic;
 
 namespace FirstSemesterExam
@@ -15,7 +16,8 @@ namespace FirstSemesterExam
         private List<GameObject> gameObjectsToAdd = new List<GameObject>();
         // fields for enemy spawner
         private float timeSinceEnemySpawn;
-        private float timeBetweenEnemySpawn; 
+        private float timeBetweenEnemySpawn = 5f;
+        private Random random = new Random();
 
         public Vector2 GetScreenSize
         {
@@ -76,9 +78,39 @@ namespace FirstSemesterExam
 
             RemoveGameObjects();
 
+
+            timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
+            {
+                SpawnEnemy();
+                timeSinceEnemySpawn = 0f; 
+            } 
+
             AddGameObjects();
 
             base.Update(gameTime);
+        }
+
+        private void SpawnEnemy()
+        {
+            // TODO: change the probability for the type of monster that spawns, right now each enemy has a 25% chance of spawning 
+            switch (random.Next(0, 4))
+            {
+                case 0:
+                    InstantiateGameObject(new BlobMonster()); 
+                    break;
+                case 1:
+                    InstantiateGameObject(new HornedGuy()); 
+                    break;
+                case 2:
+                    InstantiateGameObject(new Turned()); 
+                    break;
+                case 3:
+                    InstantiateGameObject(new Robot()); 
+                    break;
+                default:
+                    break; 
+            }
         }
 
         private void RemoveGameObjects()
