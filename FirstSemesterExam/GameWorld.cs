@@ -80,17 +80,18 @@ namespace FirstSemesterExam
             RemoveGameObjects();
 
             totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            // set spawntime lower each 5 min. (5 * 60 = 300sec) 
+            if (totalGameTime % 300 == 0)
+            {
+                timeBetweenEnemySpawn -= 0.5f;
+            }
             timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
             {
                 SpawnEnemy();
                 timeSinceEnemySpawn = 0f; 
             }
-            // set spawntime lower each 5 min. (5 * 60 = 300sec) 
-            if (totalGameTime % 300 == 0)
-            {
-                timeBetweenEnemySpawn -= 0.5f; 
-            }
+            
 
             AddGameObjects();
 
