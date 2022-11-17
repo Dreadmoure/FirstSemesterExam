@@ -81,18 +81,6 @@ namespace FirstSemesterExam
             }
         }
 
-        protected void Animate(GameTime gameTime, int frames)
-        {
-            animationTime += (float)gameTime.ElapsedGameTime.TotalSeconds * animationSpeed;
-
-            currentIndex = (int)animationTime;
-
-            if (animationTime > frames - 1)
-            {
-                animationTime = 0;
-            }
-        }
-
         public void Draw(SpriteBatch spriteBatch)
         {
             if (sprites != null)
