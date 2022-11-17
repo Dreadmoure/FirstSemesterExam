@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam
 {
+
     public class BlobMonster : Enemy
     {
 

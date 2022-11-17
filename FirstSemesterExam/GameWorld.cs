@@ -93,23 +93,22 @@ namespace FirstSemesterExam
 
         private void SpawnEnemy()
         {
-            // TODO: change the probability for the type of monster that spawns, right now each enemy has a 25% chance of spawning 
-            switch (random.Next(0, 4))
+            switch (random.Next(0, 100))
             {
-                case 0:
-                    InstantiateGameObject(new BlobMonster()); 
+                case int r when r >= 0: // 45% chance 
+                    InstantiateGameObject(new BlobMonster());
                     break;
-                case 1:
-                    InstantiateGameObject(new HornedGuy()); 
+                case int r when r >= 45 && r < 65: // 20% chance 
+                    InstantiateGameObject(new HornedGuy());
                     break;
-                case 2:
-                    InstantiateGameObject(new Turned()); 
+                case int r when r >= 65 && r < 85: // 20% chance 
+                    InstantiateGameObject(new Turned());
                     break;
-                case 3:
-                    InstantiateGameObject(new Robot()); 
+                case int r when r >= 85: // 15% chance 
+                    InstantiateGameObject(new Robot());
                     break;
                 default:
-                    break; 
+                    break;
             }
         }
 
