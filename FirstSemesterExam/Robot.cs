@@ -8,5 +8,11 @@ namespace FirstSemesterExam
 {
     public class Robot : Enemy
     {
+        public Robot() : base()
+        {
+            health = 15; 
+            speed = 5f;
+            attackSpeed = 50f; 
+        }
     }
 }

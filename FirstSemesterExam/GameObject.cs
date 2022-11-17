@@ -10,6 +10,7 @@ namespace FirstSemesterExam
         //stats
         protected int health;
         protected float speed;
+        protected float attackSpeed; 
         protected Vector2 position;
         protected Vector2 velocity;
         protected float rotation;
