@@ -81,7 +81,7 @@ namespace FirstSemesterExam
 
             totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             // set spawntime lower each 5 min. (5 * 60 = 300sec) 
-            if (totalGameTime % 300 == 0)
+            if (totalGameTime % 300 == 0 && timeBetweenEnemySpawn > 0f)
             {
                 timeBetweenEnemySpawn -= 0.5f;
             }
