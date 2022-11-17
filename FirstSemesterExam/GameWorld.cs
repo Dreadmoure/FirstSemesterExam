@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace FirstSemesterExam
 {
@@ -8,18 +9,35 @@ namespace FirstSemesterExam
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Vector2 screenSize; 
+        // lists for GameObjects 
+        private List<GameObject> gameObjects = new List<GameObject>(); 
+        private List<GameObject> gameObjectsToAdd = new List<GameObject>();
+        // fields for enemy spawner
+        private float timeSinceEnemySpawn;
+        private float timeBetweenEnemySpawn; 
+
+        public Vector2 GetScreenSize
+        {
+            get { return screenSize; }
+        }
 
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            // set screensize 
+            _graphics.PreferredBackBufferWidth = 1600;
+            _graphics.PreferredBackBufferHeight = 900;
+            screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            this.Window.Title = "Survive Us";
             base.Initialize();
         }
 
@@ -28,6 +46,10 @@ namespace FirstSemesterExam
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.LoadContent(Content); 
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -36,8 +58,65 @@ namespace FirstSemesterExam
                 Exit();
 
             // TODO: Add your update logic here
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Update(gameTime); 
+            }
+            foreach (GameObject gameObject in gameObjects)
+            {
+                foreach (GameObject other in gameObjects)
+                {
+                    if (gameObject.IsColliding(other))
+                    {
+                        gameObject.OnCollision(other);
+                        other.OnCollision(gameObject); 
+                    }
+                }
+            }
+
+            RemoveGameObjects();
+
+            AddGameObjects();
 
             base.Update(gameTime);
+        }
+
+        private void RemoveGameObjects()
+        {
+            // temporary list for objects that should be removed from gameObjects list 
+            List<GameObject> gameObjectsToBeRemoved = new List<GameObject>();
+
+            // add gameObjects that should be removed to the temporary list 
+            foreach (GameObject gameObject in gameObjects)
+            {
+                bool shouldRemoveGameObject = gameObject.ShouldBeRemoved;
+                if (shouldRemoveGameObject)
+                {
+                    gameObjectsToBeRemoved.Add(gameObject);
+                }
+            }
+
+            // remove objects in temporary list from the gameObjects list 
+            foreach (GameObject gameObject in gameObjectsToBeRemoved)
+            {
+                gameObjects.Remove(gameObject);
+            }
+        }
+
+        public void InstantiateGameObject(GameObject gameObject)
+        {
+            gameObjectsToAdd.Add(gameObject);
+        }
+
+        private void AddGameObjects()
+        {
+            foreach (GameObject gameObject in gameObjectsToAdd)
+            {
+                gameObject.LoadContent(Content);
+                gameObjects.Add(gameObject);
+            }
+
+            gameObjectsToAdd.Clear();
         }
 
         protected override void Draw(GameTime gameTime)
@@ -45,6 +124,14 @@ namespace FirstSemesterExam
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp); 
+
+            foreach (GameObject gameObject in gameObjects)
+            {
+                gameObject.Draw(_spriteBatch); 
+            }
+
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
