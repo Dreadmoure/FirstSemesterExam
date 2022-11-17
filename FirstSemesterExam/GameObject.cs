@@ -24,11 +24,6 @@ namespace FirstSemesterExam
         private float animationTime;
         private int currentIndex = 0;
 
-
-
-
-
-
         protected bool shouldBeRemoved;
         public Rectangle CollisionBox
         {
@@ -100,9 +95,11 @@ namespace FirstSemesterExam
 
         public void Draw(SpriteBatch spriteBatch)
         {
-
-            Vector2 origin = new Vector2(CurrentSprite.Width / 2, CurrentSprite.Height / 2);
-            spriteBatch.Draw(CurrentSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, layerDeph);
+            if (sprites != null)
+            {
+                Vector2 origin = new Vector2(CurrentSprite.Width / 2, CurrentSprite.Height / 2);
+                spriteBatch.Draw(CurrentSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, layerDeph);
+            }
             
 
         }
