@@ -48,7 +48,7 @@ namespace FirstSemesterExam
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>(""); 
+            sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy"); 
         }
 
         public override void Update(GameTime gameTime)
@@ -62,8 +62,23 @@ namespace FirstSemesterExam
             // reset velocity 
             velocity = Vector2.Zero;
 
-            // set velocity towards center of screen (TODO: change to player position) 
-            velocity += GameWorld.GetScreenSize/2; 
+            // set velocity towards center of screen (TODO: change to player position later) 
+            if(position.X > GameWorld.GetScreenSize.X / 2)
+            {
+                velocity.X += -GameWorld.GetScreenSize.X / 2; 
+            }
+            else if(position.X < GameWorld.GetScreenSize.X / 2)
+            {
+                velocity.X += GameWorld.GetScreenSize.X / 2;
+            }
+            if(position.Y > GameWorld.GetScreenSize.Y / 2)
+            {
+                velocity.Y += -GameWorld.GetScreenSize.Y / 2; 
+            }
+            else if(position.Y < GameWorld.GetScreenSize.Y / 2)
+            {
+                velocity.Y += GameWorld.GetScreenSize.Y / 2;
+            }
 
             // set the length of the velocity vector to 1 no matter direction. 
             if(velocity != Vector2.Zero)
