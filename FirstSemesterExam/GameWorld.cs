@@ -15,6 +15,7 @@ namespace FirstSemesterExam
         private List<GameObject> gameObjects = new List<GameObject>(); 
         private List<GameObject> gameObjectsToAdd = new List<GameObject>();
         // fields for enemy spawner
+        private float totalGameTime; 
         private float timeSinceEnemySpawn;
         private float timeBetweenEnemySpawn = 5f;
         private Random random = new Random();
@@ -78,13 +79,18 @@ namespace FirstSemesterExam
 
             RemoveGameObjects();
 
-
+            totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
             timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
             {
                 SpawnEnemy();
                 timeSinceEnemySpawn = 0f; 
-            } 
+            }
+            // set spawntime lower each 5 min. (5 * 60 = 300sec) 
+            if (totalGameTime % 300 == 0)
+            {
+                timeBetweenEnemySpawn -= 0.5f; 
+            }
 
             AddGameObjects();
 
