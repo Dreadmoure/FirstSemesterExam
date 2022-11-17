@@ -8,5 +8,11 @@ namespace FirstSemesterExam
 {
     public class HornedGuy : Enemy
     {
+        public HornedGuy() : base()
+        {
+            health = 7; 
+            speed = 10f;
+            attackSpeed = 10f; 
+        }
     }
 }

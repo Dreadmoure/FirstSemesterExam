@@ -8,5 +8,11 @@ namespace FirstSemesterExam
 {
     public class Turned : Enemy
     {
+        public Turned() : base()
+        {
+            health = 10; 
+            speed = 25f;
+            attackSpeed = 20f; 
+        }
     }
 }

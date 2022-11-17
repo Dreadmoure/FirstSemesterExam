@@ -10,7 +10,7 @@ namespace FirstSemesterExam
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Vector2 screenSize; 
+        private static Vector2 screenSize; 
         // lists for GameObjects 
         private List<GameObject> gameObjects = new List<GameObject>(); 
         private List<GameObject> gameObjectsToAdd = new List<GameObject>();
@@ -20,7 +20,7 @@ namespace FirstSemesterExam
         private float timeBetweenEnemySpawn = 5f;
         private Random random = new Random();
 
-        public Vector2 GetScreenSize
+        public static Vector2 GetScreenSize
         {
             get { return screenSize; }
         }
@@ -99,7 +99,7 @@ namespace FirstSemesterExam
 
         private void SpawnEnemy()
         {
-            switch (random.Next(0, 100))
+            switch (random.Next(0, 100)) // 0 to 99 
             {
                 case int r when r >= 0: // 45% chance 
                     InstantiateGameObject(new BlobMonster());
