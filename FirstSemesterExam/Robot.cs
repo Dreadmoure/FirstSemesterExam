@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam
 {
-    public class Robot
+    public class Robot : Enemy
     {
     }
 }
