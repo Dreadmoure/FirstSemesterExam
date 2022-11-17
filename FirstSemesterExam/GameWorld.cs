@@ -91,7 +91,6 @@ namespace FirstSemesterExam
                 SpawnEnemy();
                 timeSinceEnemySpawn = 0f; 
             }
-            
 
             AddGameObjects();
 
