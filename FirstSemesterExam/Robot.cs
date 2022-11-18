@@ -14,18 +14,14 @@ namespace FirstSemesterExam
         {
             health = 15; 
             speed = 5f;
-            attackSpeed = 50f; 
+            attackSpeed = 50f;
+            attackRange = 1000f; 
         }
 
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
             sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy");
-        }
-
-        public override void Attack()
-        {
-            GameWorld.InstantiateGameObject(new EnemyProjectile(position, velocity));
         }
     }
 }

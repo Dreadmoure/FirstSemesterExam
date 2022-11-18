@@ -11,14 +11,7 @@ namespace FirstSemesterExam
 {
     public class EnemyProjectile : Projectile
     {
-        public EnemyProjectile(Vector2 enemyPosition, Vector2 enemyVelocity)
-        {
-            position = enemyPosition;
-            speed = 500f;
-            velocity = enemyVelocity; // same direction as the enemy 
-            attackDamage = 5f; 
-        }
-        public EnemyProjectile(Vector2 enemyPosition, Vector2 enemyVelocity, float enemyAttackRange)
+        public EnemyProjectile(Vector2 enemyPosition, Vector2 enemyVelocity, float enemyAttackRange) : base(enemyPosition)
         {
             position = enemyPosition;
             speed = 500f;
@@ -30,15 +23,15 @@ namespace FirstSemesterExam
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>(""); 
+            sprites[0] = content.Load<Texture2D>("Projectiles\\testEnemyProjectile"); 
         }
 
         public override void OnCollision(GameObject other)
         {
-            if(other is Player)
-            {
-                ShouldBeRemoved = true; 
-            }
+            //if(other is Player)
+            //{
+            //    ShouldBeRemoved = true; 
+            //}
         }
     }
 }

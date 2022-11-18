@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam
 {
-
     public class BlobMonster : Enemy
     {
         public BlobMonster() : base()
@@ -17,7 +16,7 @@ namespace FirstSemesterExam
             health = 5; 
             speed = 5f;
             attackSpeed = 2f;
-            attackRange = 5f; 
+            attackRange = 25f; 
         }
 
         public override void LoadContent(ContentManager content)
