@@ -14,6 +14,7 @@ namespace FirstSemesterExam
         protected Vector2 position;
         protected Vector2 velocity;
         protected float rotation;
+        protected float attackDamage;
 
         //Sprite
         protected Texture2D[] sprites;
@@ -26,6 +27,12 @@ namespace FirstSemesterExam
         private int currentIndex = 0;
 
         protected bool shouldBeRemoved;
+
+        public float GetAttackDamage
+        {
+            get { return attackDamage; }
+        }
+
         public Rectangle CollisionBox
         {
             get

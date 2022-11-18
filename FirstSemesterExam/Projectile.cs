@@ -10,13 +10,7 @@ namespace FirstSemesterExam
 {
     public abstract class Projectile : GameObject
     {
-        protected float attackDamage;
         protected float attackRange; 
-
-        public float GetAttackDamage
-        {
-            get { return attackDamage; }
-        }
 
         public override void LoadContent(ContentManager content)
         {

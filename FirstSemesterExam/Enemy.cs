@@ -102,7 +102,7 @@ namespace FirstSemesterExam
         {
             if(other is PlayerProjectile)
             {
-                health -= GetAttackDamage; 
+                health -= (int)other.GetAttackDamage; 
                 if(health <= 0)
                 {
                     ShouldBeRemoved = true; 
