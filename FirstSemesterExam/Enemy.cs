@@ -15,6 +15,8 @@ namespace FirstSemesterExam
     {
         private Random random = new Random(); 
         enum Edge { Upper, Lower, Left, Right }
+        private float attackTime;
+        protected float attackRange; 
 
         public Enemy()
         {
@@ -54,7 +56,16 @@ namespace FirstSemesterExam
         public override void Update(GameTime gameTime)
         {
             HandlePosition(); 
-            Move(gameTime); 
+            Move(gameTime);
+
+            // attack when ready 
+            attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed; 
+            if(attackTime > 100f) // TODO: check if it should be lower 
+            {
+                Attack();
+                attackTime = 0f; 
+            }
+            
         }
 
         private void HandlePosition()
@@ -89,12 +100,19 @@ namespace FirstSemesterExam
 
         public override void OnCollision(GameObject other)
         {
-
+            if(other is PlayerProjectile)
+            {
+                health -= (int)other.GetAttackDamage; 
+                if(health <= 0)
+                {
+                    ShouldBeRemoved = true; 
+                }
+            }
         }
 
         public virtual void Attack()
         {
-
+            GameWorld.InstantiateGameObject(new EnemyProjectile(position, velocity, attackRange)); 
         }
     }
 }
