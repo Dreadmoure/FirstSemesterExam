@@ -10,6 +10,14 @@ namespace FirstSemesterExam
 {
     public abstract class Projectile : GameObject
     {
+        protected float attackDamage;
+        protected float attackRange; 
+
+        public float GetAttackDamage
+        {
+            get { return attackDamage; }
+        }
+
         public override void LoadContent(ContentManager content)
         {
             // projectile sprites are handled in the classes that inherits from Projectile 
@@ -17,7 +25,13 @@ namespace FirstSemesterExam
 
         public override void Update(GameTime gameTime)
         {
-            CheckIfOutsideBounds(); 
+            CheckIfOutsideBounds();
+
+            if(attackRange != 0)
+            {
+                CheckIfOutsideRange();
+            }
+
             Move(gameTime); 
         }
 
@@ -28,6 +42,16 @@ namespace FirstSemesterExam
             if (position.X <= min.X || position.X >= max.X || position.Y <= min.Y || position.Y >= max.Y)
             {
                 ShouldBeRemoved = true; 
+            }
+        }
+
+        private void CheckIfOutsideRange()
+        {
+            Vector2 min = new Vector2(position.X - attackRange, position.Y - attackRange);
+            Vector2 max = new Vector2(position.X + attackRange, position.Y + attackRange);
+            if (position.X <= min.X || position.X >= max.X || position.Y <= min.Y || position.Y >= max.Y)
+            {
+                ShouldBeRemoved = true;
             }
         }
     }

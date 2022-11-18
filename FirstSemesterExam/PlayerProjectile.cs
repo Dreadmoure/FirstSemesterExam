@@ -14,6 +14,7 @@ namespace FirstSemesterExam
         public PlayerProjectile(Vector2 playerPosition)
         {
             position = playerPosition;
+            attackDamage = 10f; 
         }
 
         public override void LoadContent(ContentManager content)

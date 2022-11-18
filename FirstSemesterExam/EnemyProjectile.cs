@@ -16,6 +16,15 @@ namespace FirstSemesterExam
             position = enemyPosition;
             speed = 500f;
             velocity = enemyVelocity; // same direction as the enemy 
+            attackDamage = 5f; 
+        }
+        public EnemyProjectile(Vector2 enemyPosition, Vector2 enemyVelocity, float enemyAttackRange)
+        {
+            position = enemyPosition;
+            speed = 500f;
+            velocity = enemyVelocity; // same direction as the enemy 
+            attackDamage = 5f;
+            attackRange = enemyAttackRange; 
         }
 
         public override void LoadContent(ContentManager content)

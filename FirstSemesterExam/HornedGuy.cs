@@ -14,7 +14,8 @@ namespace FirstSemesterExam
         {
             health = 7; 
             speed = 10f;
-            attackSpeed = 10f; 
+            attackSpeed = 10f;
+            attackRange = 10f; 
         }
 
         public override void LoadContent(ContentManager content)
