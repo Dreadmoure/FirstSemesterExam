@@ -9,20 +9,25 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam
 {
-
-    public class BlobMonster : Enemy
+    public class PlayerProjectile : Projectile
     {
-        public BlobMonster() : base()
+        public PlayerProjectile(Vector2 playerPosition)
         {
-            health = 5; 
-            speed = 5f;
-            attackSpeed = 2f; 
+            position = playerPosition;
         }
 
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy");
+            sprites[0] = content.Load<Texture2D>("");
+        }
+
+        public override void OnCollision(GameObject other)
+        {
+            if (other is Enemy)
+            {
+                ShouldBeRemoved = true;
+            }
         }
     }
 }
