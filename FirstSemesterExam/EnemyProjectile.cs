@@ -11,9 +11,11 @@ namespace FirstSemesterExam
 {
     public class EnemyProjectile : Projectile
     {
-        public EnemyProjectile(Vector2 enemyPosition)
+        public EnemyProjectile(Vector2 enemyPosition, Vector2 enemyVelocity)
         {
-            position = enemyPosition; 
+            position = enemyPosition;
+            speed = 500f;
+            velocity = enemyVelocity; // same direction as the enemy 
         }
 
         public override void LoadContent(ContentManager content)
