@@ -60,12 +60,11 @@ namespace FirstSemesterExam
 
             // attack when ready 
             attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed; 
-            if(attackTime > 100f) // TODO: check if it should be lower 
+            if(attackTime > 10f) // TODO: check if it should be lower 
             {
                 Attack();
                 attackTime = 0f; 
             }
-            
         }
 
         private void HandlePosition()
