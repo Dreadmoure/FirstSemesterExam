@@ -25,7 +25,7 @@ namespace FirstSemesterExam
 
         public override void Attack()
         {
-            
+            GameWorld.InstantiateGameObject(new EnemyProjectile(position, velocity));
         }
     }
 }

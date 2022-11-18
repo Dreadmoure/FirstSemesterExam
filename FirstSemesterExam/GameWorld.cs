@@ -13,7 +13,7 @@ namespace FirstSemesterExam
         private static Vector2 screenSize; 
         // lists for GameObjects 
         private List<GameObject> gameObjects = new List<GameObject>(); 
-        private List<GameObject> gameObjectsToAdd = new List<GameObject>();
+        private static List<GameObject> gameObjectsToAdd = new List<GameObject>();
         // fields for enemy spawner
         private float totalGameTime; 
         private float timeSinceEnemySpawn;
@@ -141,7 +141,7 @@ namespace FirstSemesterExam
             }
         }
 
-        public void InstantiateGameObject(GameObject gameObject)
+        public static void InstantiateGameObject(GameObject gameObject)
         {
             gameObjectsToAdd.Add(gameObject);
         }
