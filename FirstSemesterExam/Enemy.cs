@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using SharpDX;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Graphics;
+using System.Diagnostics;
 
 namespace FirstSemesterExam
 {
