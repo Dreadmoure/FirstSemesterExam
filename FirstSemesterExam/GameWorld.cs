@@ -114,6 +114,7 @@ namespace FirstSemesterExam
                     InstantiateGameObject(new Robot());
                     break;
                 default:
+                    // throw exception 
                     break;
             }
         }

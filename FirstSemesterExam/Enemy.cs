@@ -41,14 +41,14 @@ namespace FirstSemesterExam
                     position.Y = random.NextFloat(0, GameWorld.GetScreenSize.Y);
                     break;
                 default:
+                    // throw exception 
                     break;
             }
         }
 
         public override void LoadContent(ContentManager content)
         {
-            sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy"); 
+            // sprites are handled in the classes that inherits from Enemy 
         }
 
         public override void Update(GameTime gameTime)
@@ -92,7 +92,7 @@ namespace FirstSemesterExam
 
         }
 
-        public void Attack()
+        public virtual void Attack()
         {
 
         }
