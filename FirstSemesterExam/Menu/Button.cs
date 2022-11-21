@@ -8,5 +8,12 @@ namespace FirstSemesterExam.Menu
 {
     public class Button
     {
+
+        public Button()
+        {
+
+        }
+
+
     }
 }
