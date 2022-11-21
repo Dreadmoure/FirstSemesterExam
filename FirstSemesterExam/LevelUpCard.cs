@@ -25,7 +25,7 @@ namespace FirstSemesterExam
         private SpriteFont textFont;
         private int index;
         private LevelUpCard[] cardArray = new LevelUpCard[3]; // needs to be moved to gamestate/gameworld
-        private Random random;
+        private Random random = new Random();
 
         private MouseState _currentMouse;
         private MouseState _previousMouse;
@@ -148,6 +148,7 @@ namespace FirstSemesterExam
         {
             textFont = content.Load<SpriteFont>("textFont");
 
+            sprites = new Texture2D[7];
             sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[1] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[2] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed

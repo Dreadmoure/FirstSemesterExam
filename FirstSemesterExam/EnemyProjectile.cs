@@ -23,7 +23,7 @@ namespace FirstSemesterExam
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>("Projectiles\\testEnemyProjectile"); 
+            sprites[0] = content.Load<Texture2D>("Projectiles\\Projectile1"); 
         }
 
         public override void OnCollision(GameObject other)
