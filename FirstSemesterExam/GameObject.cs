@@ -20,6 +20,8 @@ namespace FirstSemesterExam
         protected Texture2D[] sprites;
         protected float scale = 2f;
         protected float layerDeph;
+        protected Vector2 originOffset = Vector2.Zero;
+        protected SpriteEffects spriteEffects = SpriteEffects.None;
 
         //Animation
         protected float animationSpeed = 10;
@@ -65,6 +67,8 @@ namespace FirstSemesterExam
         public int Health { get => health; }
         public bool ShouldBeRemoved { get { return shouldBeRemoved; } set { shouldBeRemoved = value; } }
 
+        public int CurrentIndex { get => currentIndex; set => currentIndex = value; }
+
         public abstract void LoadContent(ContentManager content);
 
         public abstract void Update(GameTime gameTime);
@@ -81,20 +85,20 @@ namespace FirstSemesterExam
         {
             animationTime += (float)gameTime.ElapsedGameTime.TotalSeconds * animationSpeed;
 
-            currentIndex = (int)animationTime;
 
-            if (animationTime > sprites.Length - 1)
+            if (animationTime > sprites.Length )
             {
                 animationTime = 0;
             }
+            currentIndex = (int)animationTime;
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
             if (sprites != null)
             {
-                Vector2 origin = new Vector2(CurrentSprite.Width / 2, CurrentSprite.Height / 2);
-                spriteBatch.Draw(CurrentSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, layerDeph);
+                Vector2 origin = new Vector2((CurrentSprite.Width / 2 ), CurrentSprite.Height / 2) + originOffset;
+                spriteBatch.Draw(CurrentSprite, position, null, Color.White, rotation, origin, scale, spriteEffects, layerDeph);
             }
             
 
