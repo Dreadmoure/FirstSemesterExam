@@ -33,37 +33,52 @@ namespace FirstSemesterExam
             get { return attackDamage; }
         }
 
-        public Rectangle CollisionBox
+        public Rectangle GetCollisionBox
         {
             get
             {
                 return new Rectangle(
-                    (int)(position.X - SpriteSize.X / 2),
-                    (int)(position.Y - SpriteSize.Y / 2),
-                    (int)SpriteSize.X,
-                    (int)SpriteSize.Y
+                    (int)(position.X - GetSpriteSize.X / 2),
+                    (int)(position.Y - GetSpriteSize.Y / 2),
+                    (int)GetSpriteSize.X,
+                    (int)GetSpriteSize.Y
                 );
             }
         }
 
-        protected Texture2D CurrentSprite
+        protected Texture2D GetCurrentSprite
         {
             get
             {
                 return sprites[currentIndex];
             }
         }
-        protected Vector2 SpriteSize
+        protected Vector2 GetSpriteSize
         {
             get
             {
-                return new Vector2(CurrentSprite.Width * scale, CurrentSprite.Height * scale);
+                return new Vector2(GetCurrentSprite.Width * scale, GetCurrentSprite.Height * scale);
             }
         }
-        public Vector2 Velocity { get => velocity; set => velocity = value; }
-        public Vector2 Position { get => position; set => position = value; }
-        public int Health { get => health; }
-        public bool ShouldBeRemoved { get { return shouldBeRemoved; } set { shouldBeRemoved = value; } }
+        public Vector2 Velocity 
+        {
+            get { return velocity; }
+            set { velocity = value; }
+        }
+        public Vector2 Position 
+        {
+            get { return position; }
+            set { position = value; }
+        }
+        public int Health 
+        {
+            get { return health; }
+        }
+        public bool ShouldBeRemoved 
+        { 
+            get { return shouldBeRemoved; } 
+            set { shouldBeRemoved = value; } 
+        }
 
         public abstract void LoadContent(ContentManager content);
 
@@ -93,8 +108,8 @@ namespace FirstSemesterExam
         {
             if (sprites != null)
             {
-                Vector2 origin = new Vector2(CurrentSprite.Width / 2, CurrentSprite.Height / 2);
-                spriteBatch.Draw(CurrentSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, layerDeph);
+                Vector2 origin = new Vector2(GetCurrentSprite.Width / 2, GetCurrentSprite.Height / 2);
+                spriteBatch.Draw(GetCurrentSprite, position, null, Color.White, rotation, origin, scale, SpriteEffects.None, layerDeph);
             }
             
 
@@ -105,7 +120,7 @@ namespace FirstSemesterExam
             if (this == other)
                 return false;
 
-            return CollisionBox.Intersects(other.CollisionBox);
+            return GetCollisionBox.Intersects(other.GetCollisionBox);
         }
 
         public virtual void TakeDamage(int damage)
