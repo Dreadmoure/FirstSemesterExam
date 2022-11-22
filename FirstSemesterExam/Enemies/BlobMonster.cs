@@ -17,12 +17,14 @@ namespace FirstSemesterExam.Enemies
             speed = 5f;
             attackSpeed = 2f;
             attackRange = 25f;
+            animationSpeed = 2f;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy");
+            sprites = new Texture2D[2];
+            sprites[0] = content.Load<Texture2D>("Enemies\\BlobMonster1");
+            sprites[1] = content.Load<Texture2D>("Enemies\\BlobMonster2");
         }
     }
 }

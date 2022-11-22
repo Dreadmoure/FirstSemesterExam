@@ -15,10 +15,10 @@ namespace FirstSemesterExam
         
         public Player()
         {
-            scale = 3;
             speed = 600;
-            animationSpeed = 3;
+            animationSpeed = 9;
             health = 100;
+            layerDepth = 0.5f;
 
         }
 
@@ -50,7 +50,7 @@ namespace FirstSemesterExam
             }
             else
             {
-                CurrentIndex = 1;
+                CurrentIndex = 0;
             }
         }
 

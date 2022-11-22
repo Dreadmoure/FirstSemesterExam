@@ -16,7 +16,8 @@ namespace FirstSemesterExam
         {
             this.player = player;
             scale = 3;
-            offset = 50;
+            offset = 35;
+            layerDepth = 0.51f;
             //originOffset = new Vector2(-11, 0);
         }
 

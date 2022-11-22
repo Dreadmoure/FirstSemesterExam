@@ -24,7 +24,7 @@ namespace FirstSemesterExam.Enemies
         public Enemy()
         {
             animationSpeed = 1f;
-            rotation = 0.01f;
+            //rotation = 0.01f;
 
             // set initial position randomly 
             switch (random.Next(0, 4)) // 0 to 3 
@@ -60,6 +60,7 @@ namespace FirstSemesterExam.Enemies
         {
             HandlePosition();
             Move(gameTime);
+            Animate(gameTime);
 
             // attack when ready 
             attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed;
