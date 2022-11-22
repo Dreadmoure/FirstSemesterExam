@@ -78,24 +78,7 @@ namespace FirstSemesterExam.Enemies
             // reset velocity 
             velocity = Vector2.Zero;
 
-            // set velocity towards center of screen (TODO: change to player position later) 
-            //if (position.X > GameWorld.GetScreenSize.X / 2)
-            //{
-            //    velocity.X += -GameWorld.GetScreenSize.X / 2;
-            //}
-            //else if (position.X < GameWorld.GetScreenSize.X / 2)
-            //{
-            //    velocity.X += GameWorld.GetScreenSize.X / 2;
-            //}
-            //if (position.Y > GameWorld.GetScreenSize.Y / 2)
-            //{
-            //    velocity.Y += -GameWorld.GetScreenSize.Y / 2;
-            //}
-            //else if (position.Y < GameWorld.GetScreenSize.Y / 2)
-            //{
-            //    velocity.Y += GameWorld.GetScreenSize.Y / 2;
-            //}
-
+            // set velocity towards player position 
             if (position.X > player.Position.X)
             {
                 velocity.X += -player.Position.X;
@@ -134,7 +117,7 @@ namespace FirstSemesterExam.Enemies
 
         public virtual void Attack()
         {
-            GameState.InstantiateGameObject(new EnemyProjectile(position, velocity, attackRange));
+            GameState.InstantiateGameObject(new EnemyProjectile(position, player.Position, attackRange));
         }
     }
 }
