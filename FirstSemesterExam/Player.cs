@@ -4,7 +4,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
 using FirstSemesterExam.Menu;
 using FirstSemesterExam.Enemies;
 using FirstSemesterExam.Projectiles;
@@ -14,7 +13,7 @@ namespace FirstSemesterExam
     public class Player : GameObject
     {
         private MouseState mouseState;
-        
+        private Weapon weapon;
         public Player()
         {
             speed = 600;
@@ -28,7 +27,8 @@ namespace FirstSemesterExam
 
         public override void LoadContent(ContentManager content)
         {
-            GameState.InstantiateGameObject(new Weapon(this));
+            weapon = new laserGun(this);
+            GameState.InstantiateGameObject(weapon);
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
@@ -87,13 +87,14 @@ namespace FirstSemesterExam
 
             if (keyState.IsKeyDown(Keys.Space))
             {
-                //Shoot(gameTime);
+                weapon.Shoot(gameTime);
             }
         }
 
         public float MouseAngle()
         {
-            float f = MathF.Atan2(mouseState.Y - position.Y, mouseState.X - position.X);
+            //Regner vinkel ud mellem spiller og musen.
+            float f = MathF.Atan2((mouseState.Y ) - position.Y, mouseState.X - position.X);
             if (f < 0)
             {
                 return f + 2 * MathF.PI;
