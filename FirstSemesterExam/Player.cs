@@ -85,7 +85,7 @@ namespace FirstSemesterExam
                 velocity.Normalize();
             }
 
-            if (keyState.IsKeyDown(Keys.Space))
+            if (mouseState.LeftButton == ButtonState.Pressed)
             {
                 weapon.Shoot(gameTime);
             }
