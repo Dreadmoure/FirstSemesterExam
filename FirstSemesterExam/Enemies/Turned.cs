@@ -10,7 +10,7 @@ namespace FirstSemesterExam.Enemies
 {
     public class Turned : Enemy
     {
-        public Turned() : base()
+        public Turned(Player player) : base(player)
         {
             health = 10;
             speed = 25f;

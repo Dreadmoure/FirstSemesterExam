@@ -11,7 +11,7 @@ namespace FirstSemesterExam.Enemies
 {
     public class BlobMonster : Enemy
     {
-        public BlobMonster() : base()
+        public BlobMonster(Player player) : base(player)
         {
             health = 5;
             speed = 5f;

@@ -9,7 +9,7 @@ using FirstSemesterExam.Menu;
 
 namespace FirstSemesterExam
 {
-    internal class Player : GameObject
+    public class Player : GameObject
     {
         private MouseState mouseState;
         

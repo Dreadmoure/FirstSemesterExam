@@ -10,7 +10,7 @@ namespace FirstSemesterExam.Enemies
 {
     public class Robot : Enemy
     {
-        public Robot() : base()
+        public Robot(Player player) : base(player)
         {
             health = 15;
             speed = 5f;

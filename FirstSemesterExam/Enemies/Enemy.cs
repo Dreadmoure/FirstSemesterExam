@@ -20,9 +20,11 @@ namespace FirstSemesterExam.Enemies
         enum Edge { Upper, Lower, Left, Right }
         private float attackTime;
         protected float attackRange;
+        private Player player; 
 
-        public Enemy()
+        public Enemy(Player player)
         {
+            this.player = player; 
             animationSpeed = 1f;
             rotation = 0.01f;
 
@@ -76,21 +78,38 @@ namespace FirstSemesterExam.Enemies
             velocity = Vector2.Zero;
 
             // set velocity towards center of screen (TODO: change to player position later) 
-            if (position.X > GameWorld.GetScreenSize.X / 2)
+            //if (position.X > GameWorld.GetScreenSize.X / 2)
+            //{
+            //    velocity.X += -GameWorld.GetScreenSize.X / 2;
+            //}
+            //else if (position.X < GameWorld.GetScreenSize.X / 2)
+            //{
+            //    velocity.X += GameWorld.GetScreenSize.X / 2;
+            //}
+            //if (position.Y > GameWorld.GetScreenSize.Y / 2)
+            //{
+            //    velocity.Y += -GameWorld.GetScreenSize.Y / 2;
+            //}
+            //else if (position.Y < GameWorld.GetScreenSize.Y / 2)
+            //{
+            //    velocity.Y += GameWorld.GetScreenSize.Y / 2;
+            //}
+
+            if (position.X > player.Position.X)
             {
-                velocity.X += -GameWorld.GetScreenSize.X / 2;
+                velocity.X += -player.Position.X;
             }
-            else if (position.X < GameWorld.GetScreenSize.X / 2)
+            else if (position.X < player.Position.X)
             {
-                velocity.X += GameWorld.GetScreenSize.X / 2;
+                velocity.X += player.Position.X;
             }
-            if (position.Y > GameWorld.GetScreenSize.Y / 2)
+            if (position.Y > player.Position.Y)
             {
-                velocity.Y += -GameWorld.GetScreenSize.Y / 2;
+                velocity.Y += -player.Position.Y;
             }
-            else if (position.Y < GameWorld.GetScreenSize.Y / 2)
+            else if (position.Y < player.Position.Y)
             {
-                velocity.Y += GameWorld.GetScreenSize.Y / 2;
+                velocity.Y += player.Position.Y;
             }
 
             // set the length of the velocity vector to 1 no matter direction. 
