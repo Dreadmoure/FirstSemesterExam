@@ -113,8 +113,8 @@ namespace FirstSemesterExam
             if (sprites != null)
             {
 
-                Vector2 origin = new Vector2((CurrentSprite.Width / 2 ), CurrentSprite.Height / 2) + originOffset;
-                spriteBatch.Draw(CurrentSprite, position, null, Color.White, rotation, origin, scale, spriteEffects, layerDeph);
+                Vector2 origin = new Vector2((GetCurrentSprite.Width / 2 ), GetCurrentSprite.Height / 2) + originOffset;
+                spriteBatch.Draw(GetCurrentSprite, position, null, Color.White, rotation, origin, scale, spriteEffects, layerDeph);
 
             }
             
