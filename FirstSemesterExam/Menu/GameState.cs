@@ -37,7 +37,7 @@ namespace FirstSemesterExam.Menu
 
         public override void LoadContent()
         {
-            font = content.Load<SpriteFont>("Font");
+            font = content.Load<SpriteFont>("Fonts\\textFont");
 
             foreach (GameObject gameObject in gameObjects)
             {
