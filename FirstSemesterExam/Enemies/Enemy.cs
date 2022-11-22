@@ -117,7 +117,7 @@ namespace FirstSemesterExam.Enemies
 
         public virtual void Attack()
         {
-            GameState.InstantiateGameObject(new EnemyProjectile(position, velocity, attackRange));
+            GameState.InstantiateGameObject(new EnemyProjectile(position, player.Position, attackRange));
         }
     }
 }

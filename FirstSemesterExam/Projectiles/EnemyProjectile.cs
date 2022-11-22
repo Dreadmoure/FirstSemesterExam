@@ -1,9 +1,12 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using SharpDX.MediaFoundation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,11 +18,14 @@ namespace FirstSemesterExam.Projectiles
         {
             position = enemyPosition;
             speed = 1000f;
-            velocity = playerPosition; // same direction as the enemy (TODO direction of player)
             attackDamage = 5f;
             attackRange = enemyAttackRange;
-        }
 
+            // angle of projectile 
+            float angle = MathF.Atan2(playerPosition.Y - enemyPosition.Y, playerPosition.X - enemyPosition.X);
+            velocity = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
+            rotation = angle; 
+        }
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
