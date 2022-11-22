@@ -11,13 +11,15 @@ namespace FirstSemesterExam.Enemies
 {
     internal class Slime : Enemy
     {
-        public Slime() : base()
+        public Slime(Player player) : base(player)
         {
             health = 20;
             speed = 10f;
             attackSpeed = 10f;
             attackRange = 10f;
+            animationSpeed = 3f;
         }
+
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];

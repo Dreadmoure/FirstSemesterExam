@@ -90,7 +90,7 @@ namespace FirstSemesterExam.Menu
                     InstantiateGameObject(new BlobMonster(player));
                     break;
                 case int r when r >= 30 && r < 45: // 15% chance 
-                    InstantiateGameObject(new BlobMonster(player));
+                    InstantiateGameObject(new Slime(player));
                     break;
                 case int r when r >= 45 && r < 65: // 20% chance 
                     InstantiateGameObject(new HornedGuy(player));
