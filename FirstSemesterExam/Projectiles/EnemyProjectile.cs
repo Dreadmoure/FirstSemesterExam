@@ -11,11 +11,11 @@ namespace FirstSemesterExam.Projectiles
 {
     public class EnemyProjectile : Projectile
     {
-        public EnemyProjectile(Vector2 enemyPosition, Vector2 enemyVelocity, float enemyAttackRange) : base(enemyPosition)
+        public EnemyProjectile(Vector2 enemyPosition, Vector2 playerPosition, float enemyAttackRange) : base(enemyPosition)
         {
             position = enemyPosition;
-            speed = 500f;
-            velocity = enemyVelocity; // same direction as the enemy 
+            speed = 1000f;
+            velocity = playerPosition; // same direction as the enemy (TODO direction of player)
             attackDamage = 5f;
             attackRange = enemyAttackRange;
         }
