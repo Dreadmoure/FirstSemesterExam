@@ -34,10 +34,11 @@ namespace FirstSemesterExam.Projectiles
 
         public override void OnCollision(GameObject other)
         {
-            //if(other is Player)
-            //{
-            //    ShouldBeRemoved = true; 
-            //}
+            if (other is Player)
+            {
+
+                ShouldBeRemoved = true;
+            }
         }
     }
 }

@@ -6,6 +6,8 @@ using System;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using FirstSemesterExam.Menu;
+using FirstSemesterExam.Enemies;
+using FirstSemesterExam.Projectiles;
 
 namespace FirstSemesterExam
 {
@@ -113,5 +115,16 @@ namespace FirstSemesterExam
             }
         }
 
+        public override void OnCollision(GameObject other)
+        {
+            if(other is Enemy)
+            {
+                health -= (int)other.GetAttackDamage; 
+            }
+            if(other is EnemyProjectile)
+            {
+                health -= (int)other.GetAttackDamage;
+            }
+        }
     } 
 }
