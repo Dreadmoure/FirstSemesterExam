@@ -99,10 +99,13 @@ namespace FirstSemesterExam.Enemies
             if (position.X > player.Position.X)
             {
                 velocity.X += -player.Position.X;
+                spriteEffects = SpriteEffects.FlipHorizontally;
+
             }
             else if (position.X < player.Position.X)
             {
                 velocity.X += player.Position.X;
+                spriteEffects = SpriteEffects.None;
             }
             if (position.Y > player.Position.Y)
             {

@@ -12,13 +12,23 @@ namespace FirstSemesterExam
     public class Player : GameObject
     {
         private MouseState mouseState;
-        
+        private int experiencePoints;
+
+        #region Properties
+        public int ExperiencePoints
+        {
+            get { return experiencePoints; }
+            set { experiencePoints = value; }
+        }
+        #endregion
+
         public Player()
         {
             speed = 600;
             animationSpeed = 9;
             health = 100;
             layerDepth = 0.5f;
+            experiencePoints = 0;
 
         }
 
@@ -42,6 +52,7 @@ namespace FirstSemesterExam
         {
             mouseState = Mouse.GetState();
             HandleInput(gameTime);
+            HandleLimits();
             Move(gameTime);
             Flip();
             if ( velocity != Vector2.Zero)
@@ -86,6 +97,13 @@ namespace FirstSemesterExam
             {
                 //Shoot(gameTime);
             }
+
+            //checks experience points
+            if(experiencePoints >= 100)
+            {
+                LevelUp();
+                experiencePoints = 0;
+            }
         }
 
         public float MouseAngle()
@@ -111,6 +129,17 @@ namespace FirstSemesterExam
             {
                 spriteEffects = SpriteEffects.None;
             }
+        }
+
+        private void HandleLimits()
+        {
+            position.X = Math.Clamp(position.X, GetSpriteSize.X / 2, GameWorld.GetScreenSize.X - GetSpriteSize.X / 2);
+            position.Y = Math.Clamp(position.Y, GetSpriteSize.Y / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
+        }
+
+        public void LevelUp()
+        {
+            //Do something
         }
 
     } 

@@ -27,13 +27,22 @@ namespace FirstSemesterExam.Menu
 
         private SpriteFont font;
         private Player player;
+
+        private bool paused;
         #endregion
 
+        #region Properties
+        
+        #endregion
+
+        #region Constructor
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             player = new Player();
             gameObjects.Add(player);
+            paused = false;
         }
+        #endregion
 
         public override void LoadContent()
         {
@@ -47,39 +56,53 @@ namespace FirstSemesterExam.Menu
 
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-            foreach (GameObject gameObject in gameObjects)
+            if (!paused)
             {
-                gameObject.Update(gameTime);
-            }
-            foreach (GameObject gameObject in gameObjects)
-            {
-                foreach (GameObject other in gameObjects)
+                // TODO: Add your update logic here
+                foreach (GameObject gameObject in gameObjects)
                 {
-                    if (gameObject.IsColliding(other))
+                    gameObject.Update(gameTime);
+                }
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    foreach (GameObject other in gameObjects)
                     {
-                        gameObject.OnCollision(other);
-                        other.OnCollision(gameObject);
+                        if (gameObject.IsColliding(other))
+                        {
+                            gameObject.OnCollision(other);
+                            other.OnCollision(gameObject);
+                        }
                     }
                 }
+
+                RemoveGameObjects();
+
+                totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // set spawntime lower each 5 min. (5 * 60 = 300sec) 
+                if (totalGameTime % 300 == 0 && timeBetweenEnemySpawn > 0f)
+                {
+                    timeBetweenEnemySpawn -= 0.5f;
+                }
+                timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
+                {
+                    SpawnEnemy();
+                    timeSinceEnemySpawn = 0f;
+                }
+
+                //checks experience points
+                if (player.ExperiencePoints >= 100) //værdi kan ændres hvis vi vil
+                {
+                    player.LevelUp();
+                    player.ExperiencePoints = 0;
+                }
+
+                AddGameObjects();
             }
-
-            RemoveGameObjects();
-
-            totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            // set spawntime lower each 5 min. (5 * 60 = 300sec) 
-            if (totalGameTime % 300 == 0 && timeBetweenEnemySpawn > 0f)
+            else if (paused)
             {
-                timeBetweenEnemySpawn -= 0.5f;
-            }
-            timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
-            {
-                SpawnEnemy();
-                timeSinceEnemySpawn = 0f;
-            }
 
-            AddGameObjects();
+            }
         }
 
         private void SpawnEnemy()
