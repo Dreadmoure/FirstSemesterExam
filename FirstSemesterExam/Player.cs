@@ -44,6 +44,7 @@ namespace FirstSemesterExam
         {
             mouseState = Mouse.GetState();
             HandleInput(gameTime);
+            HandleLimits();
             Move(gameTime);
             Flip();
             if ( velocity != Vector2.Zero)
@@ -113,6 +114,12 @@ namespace FirstSemesterExam
             {
                 spriteEffects = SpriteEffects.None;
             }
+        }
+
+        private void HandleLimits()
+        {
+            position.X = Math.Clamp(position.X, GetSpriteSize.X / 2, GameWorld.GetScreenSize.X - GetSpriteSize.X / 2);
+            position.Y = Math.Clamp(position.Y, GetSpriteSize.Y / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
         }
 
         public override void OnCollision(GameObject other)
