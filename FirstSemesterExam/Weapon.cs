@@ -11,10 +11,12 @@ namespace FirstSemesterExam
         Texture2D sprite;
         Texture2D spriteFlipped;
         float angle;
+        protected float offset;
         public Weapon(Player player)
         {
             this.player = player;
-            scale = 5;
+            scale = 3;
+            offset = 50;
             //originOffset = new Vector2(-11, 0);
         }
 
@@ -29,7 +31,7 @@ namespace FirstSemesterExam
         public override void Update(GameTime gameTime)
         {
             angle = player.MouseAngle();
-            position = new Vector2(100 * MathF.Cos(angle) + player.Position.X, 100 * MathF.Sin(angle) + player.Position.Y );
+            position = new Vector2(offset * MathF.Cos(angle) + player.Position.X, offset * MathF.Sin(angle) + player.Position.Y );
             rotation = angle;
             Flip();
             

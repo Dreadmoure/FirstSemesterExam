@@ -14,7 +14,7 @@ namespace FirstSemesterExam
         
         public Player()
         {
-            scale = 5;
+            scale = 3;
             speed = 600;
             animationSpeed = 3;
             health = 100;
