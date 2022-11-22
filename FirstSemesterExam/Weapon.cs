@@ -7,11 +7,14 @@ namespace FirstSemesterExam
 {
     internal class Weapon : GameObject
     {
-        Player player;
-        Texture2D sprite;
-        Texture2D spriteFlipped;
-        float angle;
+        protected Player player;
+        protected Texture2D sprite;
+        protected Texture2D spriteFlipped;
+        protected float angle;
         protected float offset;
+        protected Vector2 dirVector;
+        protected Vector2 shootingPos;
+        protected float shootingPosOffset;
         public Weapon(Player player)
         {
             this.player = player;
@@ -32,20 +35,29 @@ namespace FirstSemesterExam
         {
             angle = player.MouseAngle();
             position = new Vector2(offset * MathF.Cos(angle) + player.Position.X, offset * MathF.Sin(angle) + player.Position.Y );
+            shootingPos = new Vector2((offset + shootingPosOffset) * MathF.Cos(angle) + player.Position.X, (offset + shootingPosOffset) * MathF.Sin(angle) + player.Position.Y);
+            
+            dirVector = position;
+            dirVector.Normalize();
             rotation = angle;
             Flip();
             
+        }
+
+        public virtual void Shoot()
+        {
+
         }
 
         protected void Flip()
         {
             if (rotation > (MathF.PI / 2) && rotation < (3 * Math.PI) / 2)
             {
-                sprites[0] = spriteFlipped;
+                spriteEffects = SpriteEffects.FlipVertically;
             }
             else
             {
-                sprites[0] = sprite;
+                spriteEffects = SpriteEffects.None;
             }
         }
 

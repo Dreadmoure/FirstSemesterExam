@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Input;
-using SharpDX.Direct3D9;
+
 
 namespace FirstSemesterExam
 {
