@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.Projectiles
 {
     public abstract class Projectile : GameObject
     {
         protected float attackRange;
-        private Vector2 initialAttackPosition; 
+        private Vector2 initialAttackPosition;
 
         public Projectile(Vector2 attackPosition)
         {
-            initialAttackPosition = attackPosition; 
+            initialAttackPosition = attackPosition;
         }
 
         public override void LoadContent(ContentManager content)
@@ -27,21 +27,21 @@ namespace FirstSemesterExam
         {
             CheckIfOutsideBounds();
 
-            if(attackRange != 0)
+            if (attackRange != 0)
             {
                 CheckIfOutsideRange();
             }
 
-            Move(gameTime); 
+            Move(gameTime);
         }
 
         private void CheckIfOutsideBounds()
         {
             Vector2 min = new Vector2(GetSpriteSize.X / 2, GetSpriteSize.Y / 2);
-            Vector2 max = new Vector2(GameWorld.GetScreenSize.X - GetSpriteSize.X / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2); 
+            Vector2 max = new Vector2(GameWorld.GetScreenSize.X - GetSpriteSize.X / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
             if (position.X <= min.X || position.X >= max.X || position.Y <= min.Y || position.Y >= max.Y)
             {
-                ShouldBeRemoved = true; 
+                ShouldBeRemoved = true;
             }
         }
 

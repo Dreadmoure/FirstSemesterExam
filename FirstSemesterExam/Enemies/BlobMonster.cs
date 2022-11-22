@@ -7,16 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.Enemies
 {
     public class BlobMonster : Enemy
     {
         public BlobMonster() : base()
         {
-            health = 5; 
+            health = 5;
             speed = 5f;
             attackSpeed = 2f;
-            attackRange = 25f; 
+            attackRange = 25f;
         }
 
         public override void LoadContent(ContentManager content)

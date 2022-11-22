@@ -6,23 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.Enemies
 {
-    public class HornedGuy : Enemy
+    public class Robot : Enemy
     {
-        public HornedGuy() : base()
+        public Robot() : base()
         {
-            health = 7; 
-            speed = 10f;
-            attackSpeed = 10f;
-            attackRange = 50f; 
+            health = 15;
+            speed = 5f;
+            attackSpeed = 50f;
+            attackRange = 1000f;
         }
 
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
-            sprites[0] = content.Load<Texture2D>("Enemies\\HornGuy1");
-            sprites[1] = content.Load<Texture2D>("Enemies\\HornGuy2");
+            sprites[0] = content.Load<Texture2D>("Enemies\\Robot1");
+            sprites[1] = content.Load<Texture2D>("Enemies\\Robot2");
         }
     }
 }

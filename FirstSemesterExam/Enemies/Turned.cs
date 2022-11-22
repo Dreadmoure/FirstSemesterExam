@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.Enemies
 {
     public class Turned : Enemy
     {
         public Turned() : base()
         {
-            health = 10; 
+            health = 10;
             speed = 25f;
             attackSpeed = 20f;
-            attackRange = 10f; 
+            attackRange = 10f;
         }
 
         public override void LoadContent(ContentManager content)
