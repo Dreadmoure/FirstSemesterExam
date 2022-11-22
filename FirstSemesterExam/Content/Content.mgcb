@@ -97,9 +97,6 @@
 /processorParam:TextureFormat=Color
 /build:Enemies/testEnemy.png
 
-
-
-
 #begin Enemies/Turned1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -125,16 +122,13 @@
 /build:Enemies/Turned2.png
 
 #begin Fonts/textFont.spritefont
-
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-
 /build:Fonts/textFont.spritefont
 
-#begin Player/PlayerWalk_1.png
-
+#begin Player/playerTest_1.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -144,11 +138,21 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
+/build:Player/playerTest_1.png
 
+#begin Player/PlayerWalk_1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
 /build:Player/PlayerWalk_1.png
 
 #begin Player/PlayerWalk_2.png
-
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -158,15 +162,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-
-/build:Player/playerTest_1.png
-
-#begin Weapons/testGun.png
-
 /build:Player/PlayerWalk_2.png
 
 #begin Projectiles/Projectile1.png
-
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -176,15 +174,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-
-/build:Weapons/testGun.png
-
-#begin Weapons/testGunFlipped.png
-
 /build:Projectiles/Projectile1.png
 
 #begin Projectiles/testEnemyProjectile.png
-
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -194,9 +186,41 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-
-/build:Weapons/testGunFlipped.png
-
 /build:Projectiles/testEnemyProjectile.png
 
+#begin Weapons/testGun.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/testGun.png
+
+#begin Weapons/testGunFlipped.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/testGunFlipped.png
+
+#begin Weapons/Weapon1.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Weapons/Weapon1.png
 
