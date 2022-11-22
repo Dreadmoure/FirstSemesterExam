@@ -20,6 +20,8 @@ namespace FirstSemesterExam
         private float timeBetweenEnemySpawn = 5f;
         private Random random = new Random();
 
+        private SpriteFont font;
+        private Player player;
         public static Vector2 GetScreenSize
         {
             get { return screenSize; }
@@ -41,12 +43,16 @@ namespace FirstSemesterExam
         {
             // TODO: Add your initialization logic here
             this.Window.Title = "Survive Us";
+            player = new Player();
+            gameObjects.Add(player);
+
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("Font");
 
             // TODO: use this.Content to load your game content here
             foreach (GameObject gameObject in gameObjects)
@@ -162,7 +168,9 @@ namespace FirstSemesterExam
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp); 
+            _spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
+
+            _spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle {player.MouseAngle()}", Vector2.Zero, Color.White);
 
             foreach (GameObject gameObject in gameObjects)
             {
