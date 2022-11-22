@@ -30,7 +30,7 @@ namespace FirstSemesterExam
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
             {
-                sprites[i] = content.Load<Texture2D>($"Player\\playerTest_{i}");
+                sprites[i] = content.Load<Texture2D>($"Player\\PlayerWalk_{i +1}");
             }
 
             position.X = GameWorld.GetScreenSize.X / 2;

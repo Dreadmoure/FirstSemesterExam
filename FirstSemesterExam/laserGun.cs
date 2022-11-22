@@ -10,6 +10,7 @@ namespace FirstSemesterExam
     {
         public laserGun(Player player) : base(player)
         {
+
         }
     }
 }
