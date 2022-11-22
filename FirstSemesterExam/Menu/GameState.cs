@@ -87,16 +87,16 @@ namespace FirstSemesterExam.Menu
             switch (random.Next(0, 100)) // 0 to 99 
             {
                 case int r when r >= 0 && r < 45: // 45% chance 
-                    InstantiateGameObject(new BlobMonster());
+                    InstantiateGameObject(new BlobMonster(player));
                     break;
                 case int r when r >= 45 && r < 65: // 20% chance 
-                    InstantiateGameObject(new HornedGuy());
+                    InstantiateGameObject(new HornedGuy(player));
                     break;
                 case int r when r >= 65 && r < 85: // 20% chance 
-                    InstantiateGameObject(new Turned());
+                    InstantiateGameObject(new Turned(player));
                     break;
                 case int r when r >= 85: // 15% chance 
-                    InstantiateGameObject(new Robot());
+                    InstantiateGameObject(new Robot(player));
                     break;
                 default:
                     // throw exception 
