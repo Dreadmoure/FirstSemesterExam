@@ -33,7 +33,7 @@ namespace FirstSemesterExam.Menu
         #region methods 
         public override void LoadContent()
         {
-            menuBackgroundTexture = content.Load<Texture2D>("");
+            //menuBackgroundTexture = content.Load<Texture2D>("");
 
             foreach (Button button in buttons)
             {
