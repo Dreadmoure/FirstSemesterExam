@@ -60,8 +60,8 @@ namespace FirstSemesterExam.Menu
 
         public void LoadContent(ContentManager content)
         {
-            buttonTexture = content.Load<Texture2D>("");
-            textFont = content.Load<SpriteFont>(""); 
+            buttonTexture = content.Load<Texture2D>("Menus\\button1");
+            textFont = content.Load<SpriteFont>("Fonts\\textFont"); 
         }
 
         public void Update(GameTime gameTime)
