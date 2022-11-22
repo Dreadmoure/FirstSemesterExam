@@ -24,7 +24,7 @@ namespace FirstSemesterExam
 
             offset = 30;
             shootingPosOffset = 10;
-            layerDeph = 0.51f;
+            layerDepth = 0.51f;
 
         }
 

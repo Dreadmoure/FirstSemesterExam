@@ -21,7 +21,7 @@ namespace FirstSemesterExam
             this.rotation = rotation;
             attackDamage = 10f;
             speed = 1000;
-            layerDeph = 0.1f;
+            layerDepth = 0.1f;
         }
 
         public override void LoadContent(ContentManager content)
