@@ -16,10 +16,14 @@ namespace FirstSemesterExam
 
         }
 
-        public override void Shoot()
+        public override void Shoot(GameTime gameTime)
         {
-            PlayerProjectile projectile = new PlayerProjectile(shootingPos, dirVector);
-            GameState.InstantiateGameObject(projectile);
+            if (timeSinceFire > fireRate)
+            {
+                timeSinceFire = 0;
+                PlayerProjectile projectile = new PlayerProjectile(shootingPos, dirVector, angle);
+                GameState.InstantiateGameObject(projectile);
+            }
         }
 
     }

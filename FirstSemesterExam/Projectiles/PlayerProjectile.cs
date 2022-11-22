@@ -14,18 +14,20 @@ namespace FirstSemesterExam
 {
     public class PlayerProjectile : Projectile
     {
-        public PlayerProjectile(Vector2 position, Vector2 velocity) : base(position)
+        public PlayerProjectile(Vector2 position, Vector2 velocity, float rotation) : base(position)
         {
             this.velocity = velocity;
             this.position = position;
+            this.rotation = rotation;
             attackDamage = 10f;
             speed = 1000;
+            layerDeph = 0.1f;
         }
 
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>("Projectile1");
+            sprites[0] = content.Load<Texture2D>("Projectiles\\Projectile1");
         }
 
         public override void OnCollision(GameObject other)
