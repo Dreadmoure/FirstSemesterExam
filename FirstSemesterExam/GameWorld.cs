@@ -68,6 +68,9 @@ namespace FirstSemesterExam
         /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
             if (_nextState != null)
             {
                 _currentState = _nextState;
