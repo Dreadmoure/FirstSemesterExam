@@ -10,12 +10,13 @@ namespace FirstSemesterExam.Enemies
 {
     public class Turned : Enemy
     {
-        public Turned() : base()
+        public Turned(Player player) : base(player)
         {
             health = 10;
             speed = 25f;
             attackSpeed = 20f;
             attackRange = 10f;
+            animationSpeed = 6f;
         }
 
         public override void LoadContent(ContentManager content)

@@ -21,9 +21,11 @@ namespace FirstSemesterExam
         {
             this.player = player;
             scale = 3;
+
             offset = 30;
             shootingPosOffset = 10;
             layerDeph = 0.51f;
+
         }
 
         public override void LoadContent(ContentManager content)

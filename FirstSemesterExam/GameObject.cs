@@ -18,8 +18,8 @@ namespace FirstSemesterExam
 
         //Sprite
         protected Texture2D[] sprites;
-        protected float scale = 2f;
-        protected float layerDeph;
+        protected float scale = 3f;
+        protected float layerDepth;
         protected Vector2 originOffset = Vector2.Zero;
         protected SpriteEffects spriteEffects = SpriteEffects.None;
 
@@ -114,7 +114,7 @@ namespace FirstSemesterExam
             {
 
                 Vector2 origin = new Vector2((GetCurrentSprite.Width / 2 ), GetCurrentSprite.Height / 2) + originOffset;
-                spriteBatch.Draw(GetCurrentSprite, position, null, Color.White, rotation, origin, scale, spriteEffects, layerDeph);
+                spriteBatch.Draw(GetCurrentSprite, position, null, Color.White, rotation, origin, scale, spriteEffects, layerDepth);
 
             }
             

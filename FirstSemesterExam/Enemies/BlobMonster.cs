@@ -11,18 +11,20 @@ namespace FirstSemesterExam.Enemies
 {
     public class BlobMonster : Enemy
     {
-        public BlobMonster() : base()
+        public BlobMonster(Player player) : base(player)
         {
             health = 5;
             speed = 5f;
             attackSpeed = 2f;
             attackRange = 25f;
+            animationSpeed = 2f;
         }
 
         public override void LoadContent(ContentManager content)
         {
-            sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy");
+            sprites = new Texture2D[2];
+            sprites[0] = content.Load<Texture2D>("Enemies\\BlobMonster1");
+            sprites[1] = content.Load<Texture2D>("Enemies\\BlobMonster2");
         }
     }
 }

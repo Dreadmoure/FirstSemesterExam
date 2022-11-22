@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,22 +9,22 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.Enemies
 {
-    public class HornedGuy : Enemy
+    internal class Slime : Enemy
     {
-        public HornedGuy(Player player) : base(player)
+        public Slime(Player player) : base(player)
         {
-            health = 7;
+            health = 20;
             speed = 10f;
             attackSpeed = 10f;
-            attackRange = 50f;
+            attackRange = 10f;
             animationSpeed = 3f;
         }
 
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
-            sprites[0] = content.Load<Texture2D>("Enemies\\HornGuy1");
-            sprites[1] = content.Load<Texture2D>("Enemies\\HornGuy2");
+            sprites[0] = content.Load<Texture2D>("Enemies\\Slime1");
+            sprites[1] = content.Load<Texture2D>("Enemies\\Slime2");
         }
     }
 }

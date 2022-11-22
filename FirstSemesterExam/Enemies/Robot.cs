@@ -10,12 +10,13 @@ namespace FirstSemesterExam.Enemies
 {
     public class Robot : Enemy
     {
-        public Robot() : base()
+        public Robot(Player player) : base(player)
         {
             health = 15;
             speed = 5f;
             attackSpeed = 50f;
             attackRange = 1000f;
+            animationSpeed = 4f;
         }
 
         public override void LoadContent(ContentManager content)

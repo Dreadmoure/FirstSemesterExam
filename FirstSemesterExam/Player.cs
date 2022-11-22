@@ -5,19 +5,21 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Input;
 using FirstSemesterExam.Menu;
+using FirstSemesterExam.Enemies;
+using FirstSemesterExam.Projectiles;
 
 namespace FirstSemesterExam
 {
-    internal class Player : GameObject
+    public class Player : GameObject
     {
         private MouseState mouseState;
         private Weapon weapon;
         public Player()
         {
-            scale = 3;
             speed = 600;
-            animationSpeed = 3;
+            animationSpeed = 9;
             health = 100;
+            layerDepth = 0.5f;
 
         }
 
@@ -42,6 +44,7 @@ namespace FirstSemesterExam
         {
             mouseState = Mouse.GetState();
             HandleInput(gameTime);
+            HandleLimits();
             Move(gameTime);
             Flip();
             if ( velocity != Vector2.Zero)
@@ -114,5 +117,22 @@ namespace FirstSemesterExam
             }
         }
 
+        private void HandleLimits()
+        {
+            position.X = Math.Clamp(position.X, GetSpriteSize.X / 2, GameWorld.GetScreenSize.X - GetSpriteSize.X / 2);
+            position.Y = Math.Clamp(position.Y, GetSpriteSize.Y / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
+        }
+
+        public override void OnCollision(GameObject other)
+        {
+            if(other is Enemy)
+            {
+                health -= (int)other.GetAttackDamage; 
+            }
+            if(other is EnemyProjectile)
+            {
+                health -= (int)other.GetAttackDamage;
+            }
+        }
     } 
 }
