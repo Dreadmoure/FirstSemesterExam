@@ -1,4 +1,4 @@
-﻿using System; 
+﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using System.Collections.Generic;
@@ -9,15 +9,16 @@ using SharpDX;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
+using FirstSemesterExam.Projectiles;
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.Enemies
 {
     public abstract class Enemy : GameObject
     {
-        private Random random = new Random(); 
+        private Random random = new Random();
         enum Edge { Upper, Lower, Left, Right }
         private float attackTime;
-        protected float attackRange; 
+        protected float attackRange;
 
         public Enemy()
         {
@@ -56,15 +57,15 @@ namespace FirstSemesterExam
 
         public override void Update(GameTime gameTime)
         {
-            HandlePosition(); 
+            HandlePosition();
             Move(gameTime);
 
             // attack when ready 
-            attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed; 
-            if(attackTime > 10f) // TODO: check if it should be lower 
+            attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed;
+            if (attackTime > 10f) // TODO: check if it should be lower 
             {
                 Attack();
-                attackTime = 0f; 
+                attackTime = 0f;
             }
         }
 
@@ -74,45 +75,45 @@ namespace FirstSemesterExam
             velocity = Vector2.Zero;
 
             // set velocity towards center of screen (TODO: change to player position later) 
-            if(position.X > GameWorld.GetScreenSize.X / 2)
+            if (position.X > GameWorld.GetScreenSize.X / 2)
             {
-                velocity.X += -GameWorld.GetScreenSize.X / 2; 
+                velocity.X += -GameWorld.GetScreenSize.X / 2;
             }
-            else if(position.X < GameWorld.GetScreenSize.X / 2)
+            else if (position.X < GameWorld.GetScreenSize.X / 2)
             {
                 velocity.X += GameWorld.GetScreenSize.X / 2;
             }
-            if(position.Y > GameWorld.GetScreenSize.Y / 2)
+            if (position.Y > GameWorld.GetScreenSize.Y / 2)
             {
-                velocity.Y += -GameWorld.GetScreenSize.Y / 2; 
+                velocity.Y += -GameWorld.GetScreenSize.Y / 2;
             }
-            else if(position.Y < GameWorld.GetScreenSize.Y / 2)
+            else if (position.Y < GameWorld.GetScreenSize.Y / 2)
             {
                 velocity.Y += GameWorld.GetScreenSize.Y / 2;
             }
 
             // set the length of the velocity vector to 1 no matter direction. 
-            if(velocity != Vector2.Zero)
+            if (velocity != Vector2.Zero)
             {
-                velocity.Normalize(); 
+                velocity.Normalize();
             }
         }
 
         public override void OnCollision(GameObject other)
         {
-            if(other is PlayerProjectile)
+            if (other is PlayerProjectile)
             {
-                health -= (int)other.GetAttackDamage; 
-                if(health <= 0)
+                health -= (int)other.GetAttackDamage;
+                if (health <= 0)
                 {
-                    ShouldBeRemoved = true; 
+                    ShouldBeRemoved = true;
                 }
             }
         }
 
         public virtual void Attack()
         {
-            GameWorld.InstantiateGameObject(new EnemyProjectile(position, velocity, attackRange)); 
+            GameWorld.InstantiateGameObject(new EnemyProjectile(position, velocity, attackRange));
         }
     }
 }

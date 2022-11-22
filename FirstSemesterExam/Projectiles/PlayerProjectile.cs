@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FirstSemesterExam.Enemies;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,14 +8,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.Projectiles
 {
     public class PlayerProjectile : Projectile
     {
         public PlayerProjectile(Vector2 playerPosition) : base(playerPosition)
         {
             position = playerPosition;
-            attackDamage = 10f; 
+            attackDamage = 10f;
         }
 
         public override void LoadContent(ContentManager content)
