@@ -1,4 +1,5 @@
 ﻿using FirstSemesterExam.Enemies;
+using FirstSemesterExam.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -11,18 +12,11 @@ namespace FirstSemesterExam
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private static Vector2 screenSize; 
-        // lists for GameObjects 
-        private List<GameObject> gameObjects = new List<GameObject>(); 
-        private static List<GameObject> gameObjectsToAdd = new List<GameObject>();
-        // fields for enemy spawner
-        private float totalGameTime; 
-        private float timeSinceEnemySpawn;
-        private float timeBetweenEnemySpawn = 5f;
-        private Random random = new Random();
+        private static Vector2 screenSize;
 
-        private SpriteFont font;
-        private Player player;
+        private State _currentState;
+        private State _nextState;
+
         public static Vector2 GetScreenSize
         {
             get { return screenSize; }
@@ -44,8 +38,6 @@ namespace FirstSemesterExam
         {
             // TODO: Add your initialization logic here
             this.Window.Title = "Survive Us";
-            player = new Player();
-            gameObjects.Add(player);
 
             base.Initialize();
         }
@@ -53,132 +45,37 @@ namespace FirstSemesterExam
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            font = Content.Load<SpriteFont>("Font");
 
-            // TODO: use this.Content to load your game content here
-            foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.LoadContent(Content); 
-            }
+            _currentState = new MenuState(Content, GraphicsDevice, this);
+            _currentState.LoadContent();
+            _nextState = null;
         }
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
+            if (_nextState != null)
+            {
+                _currentState = _nextState;
+                _currentState.LoadContent();
 
-            // TODO: Add your update logic here
-            foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.Update(gameTime); 
-            }
-            foreach (GameObject gameObject in gameObjects)
-            {
-                foreach (GameObject other in gameObjects)
-                {
-                    if (gameObject.IsColliding(other))
-                    {
-                        gameObject.OnCollision(other);
-                        other.OnCollision(gameObject); 
-                    }
-                }
+                _nextState = null;
             }
 
-            RemoveGameObjects();
-
-            totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            // set spawntime lower each 5 min. (5 * 60 = 300sec) 
-            if (totalGameTime % 300 == 0 && timeBetweenEnemySpawn > 0f)
-            {
-                timeBetweenEnemySpawn -= 0.5f;
-            }
-            timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
-            {
-                SpawnEnemy();
-                timeSinceEnemySpawn = 0f; 
-            }
-
-            AddGameObjects();
+            _currentState.Update(gameTime);
 
             base.Update(gameTime);
         }
 
-        private void SpawnEnemy()
+        public void ChangeState(State state)
         {
-            switch (random.Next(0, 100)) // 0 to 99 
-            {
-                case int r when r >= 0 && r < 45: // 45% chance 
-                    InstantiateGameObject(new BlobMonster());
-                    break;
-                case int r when r >= 45 && r < 65: // 20% chance 
-                    InstantiateGameObject(new HornedGuy());
-                    break;
-                case int r when r >= 65 && r < 85: // 20% chance 
-                    InstantiateGameObject(new Turned());
-                    break;
-                case int r when r >= 85: // 15% chance 
-                    InstantiateGameObject(new Robot());
-                    break;
-                default:
-                    // throw exception 
-                    break;
-            }
-        }
-
-        private void RemoveGameObjects()
-        {
-            // temporary list for objects that should be removed from gameObjects list 
-            List<GameObject> gameObjectsToBeRemoved = new List<GameObject>();
-
-            // add gameObjects that should be removed to the temporary list 
-            foreach (GameObject gameObject in gameObjects)
-            {
-                bool shouldRemoveGameObject = gameObject.ShouldBeRemoved;
-                if (shouldRemoveGameObject)
-                {
-                    gameObjectsToBeRemoved.Add(gameObject);
-                }
-            }
-
-            // remove objects in temporary list from the gameObjects list 
-            foreach (GameObject gameObject in gameObjectsToBeRemoved)
-            {
-                gameObjects.Remove(gameObject);
-            }
-        }
-
-        public static void InstantiateGameObject(GameObject gameObject)
-        {
-            gameObjectsToAdd.Add(gameObject);
-        }
-
-        private void AddGameObjects()
-        {
-            foreach (GameObject gameObject in gameObjectsToAdd)
-            {
-                gameObject.LoadContent(Content);
-                gameObjects.Add(gameObject);
-            }
-
-            gameObjectsToAdd.Clear();
+            _nextState = state;
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
-            _spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
-
-            _spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle {player.MouseAngle()}", Vector2.Zero, Color.White);
-
-            foreach (GameObject gameObject in gameObjects)
-            {
-                gameObject.Draw(_spriteBatch); 
-            }
-
-            _spriteBatch.End();
+            _currentState.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
         }
