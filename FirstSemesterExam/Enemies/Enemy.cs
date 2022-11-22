@@ -10,6 +10,7 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using FirstSemesterExam.Projectiles;
+using FirstSemesterExam.Menu;
 
 namespace FirstSemesterExam.Enemies
 {
@@ -113,7 +114,7 @@ namespace FirstSemesterExam.Enemies
 
         public virtual void Attack()
         {
-            GameWorld.InstantiateGameObject(new EnemyProjectile(position, velocity, attackRange));
+            GameState.InstantiateGameObject(new EnemyProjectile(position, velocity, attackRange));
         }
     }
 }

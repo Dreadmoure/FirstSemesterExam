@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
+using FirstSemesterExam.Menu;
 
 namespace FirstSemesterExam
 {
@@ -25,12 +26,12 @@ namespace FirstSemesterExam
 
         public override void LoadContent(ContentManager content)
         {
-            GameWorld.InstantiateGameObject(new Weapon(this));
+            GameState.InstantiateGameObject(new Weapon(this));
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
             {
-                sprites[i] = content.Load<Texture2D>($"Player\\playerTest_{i}");
+                sprites[i] = content.Load<Texture2D>($"Player\\PlayerWalk_{i}");
             }
 
             position.X = GameWorld.GetScreenSize.X / 2;
