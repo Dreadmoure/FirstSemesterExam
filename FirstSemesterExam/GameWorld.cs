@@ -107,7 +107,7 @@ namespace FirstSemesterExam
         {
             switch (random.Next(0, 100)) // 0 to 99 
             {
-                case int r when r >= 0: // 45% chance 
+                case int r when r >= 0 && r < 45: // 45% chance 
                     InstantiateGameObject(new BlobMonster());
                     break;
                 case int r when r >= 45 && r < 65: // 20% chance 

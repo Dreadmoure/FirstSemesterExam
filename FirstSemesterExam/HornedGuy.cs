@@ -15,13 +15,14 @@ namespace FirstSemesterExam
             health = 7; 
             speed = 10f;
             attackSpeed = 10f;
-            attackRange = 10f; 
+            attackRange = 50f; 
         }
 
         public override void LoadContent(ContentManager content)
         {
-            sprites = new Texture2D[1];
-            sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy");
+            sprites = new Texture2D[2];
+            sprites[0] = content.Load<Texture2D>("Enemies\\HornGuy1");
+            sprites[1] = content.Load<Texture2D>("Enemies\\HornGuy2");
         }
     }
 }

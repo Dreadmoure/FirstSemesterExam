@@ -11,7 +11,7 @@ namespace FirstSemesterExam
 {
     public class PlayerProjectile : Projectile
     {
-        public PlayerProjectile(Vector2 playerPosition)
+        public PlayerProjectile(Vector2 playerPosition) : base(playerPosition)
         {
             position = playerPosition;
             attackDamage = 10f; 
