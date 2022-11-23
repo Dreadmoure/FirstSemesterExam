@@ -24,6 +24,7 @@ namespace FirstSemesterExam.Enemies
         private Player player;
         protected int expValue;
         private float hitTimer;
+        private bool hasJustBeenHit; 
 
         public Enemy(Player player)
         {
@@ -76,16 +77,21 @@ namespace FirstSemesterExam.Enemies
                 attackTime = 0f;
             }
 
-            hitTimer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (hasJustBeenHit)
+            {
+                hitTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (hitTimer < 1)
-            {
-                color = Color.Blue;
+                if (hitTimer <= 0.5f)
+                {
+                    color = Color.Red;
+                }
+                else
+                {
+                    color = Color.White;
+                    hasJustBeenHit = false; 
+                }
             }
-            else
-            {
-                color = Color.White;
-            }
+            
         }
 
         private void HandlePosition()
@@ -127,7 +133,7 @@ namespace FirstSemesterExam.Enemies
             {
                 health -= (int)other.GetAttackDamage;
 
-                
+                hasJustBeenHit = true; 
 
                 if (health <= 0)
                 {
