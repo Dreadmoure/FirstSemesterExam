@@ -27,7 +27,9 @@ namespace FirstSemesterExam
             animationSpeed = 9;
             health = 100;
             layerDepth = 0.5f;
+
             healthBarLayerDepth = 0.95f;
+
 
         }
 
