@@ -15,7 +15,12 @@ namespace FirstSemesterExam
     {
         private MouseState mouseState;
         private Weapon weapon;
+
+        private float defense;
+        private float itemAttackCoolDown;
+
         private Texture2D crosshair; 
+
 
         //health bar
         private Texture2D healthBarTexture;
@@ -26,9 +31,18 @@ namespace FirstSemesterExam
 
         public Player()
         {
+            //stats
+            health = 100f;
             speed = 600;
+            attackDamage = 10;
+            attackSpeed = 10f;
+            defense = 0.5f;
+            itemAttackCoolDown = 5f;
+
+            
+
             animationSpeed = 9;
-            health = 100;
+            
             layerDepth = 0.5f;
 
             healthBarLayerDepth = 0.95f;
@@ -73,9 +87,9 @@ namespace FirstSemesterExam
                 CurrentIndex = 0;
             }
 
-            healthBarPosition.X = position.X - (GetSpriteSize.X /0.95f);
+            healthBarPosition.X = position.X - (GetSpriteSize.X /0.70f);
             healthBarPosition.Y = position.Y - 45;
-            healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, health -30, 10);
+            healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)health, 10);
         }
 
         private void HandleInput(GameTime gameTime)

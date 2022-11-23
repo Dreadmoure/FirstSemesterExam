@@ -12,7 +12,7 @@ namespace FirstSemesterExam.Enemies
     {
         public HornedGuy(Player player) : base(player)
         {
-            health = 7;
+            health = 7f;
             speed = 10f;
             attackSpeed = 10f;
             attackRange = 50f;

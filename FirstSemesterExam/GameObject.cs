@@ -8,13 +8,15 @@ namespace FirstSemesterExam
     public abstract class GameObject
     {
         //stats
-        protected int health;
+        protected float health;
         protected float speed;
-        protected float attackSpeed; 
+        protected float attackSpeed;
+        protected float attackDamage;
+
         protected Vector2 position;
         protected Vector2 velocity;
         protected float rotation;
-        protected float attackDamage;
+        
 
         //Sprite
         protected Texture2D[] sprites;
@@ -66,7 +68,7 @@ namespace FirstSemesterExam
         {
             get { return position; }
         }
-        public int GetHealth 
+        public float GetHealth 
         {
             get { return health; }
         }
