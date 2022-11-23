@@ -12,7 +12,7 @@ namespace FirstSemesterExam.Enemies
     {
         public Robot(Player player) : base(player)
         {
-            health = 15;
+            health = 15f;
             speed = 5f;
             attackSpeed = 50f;
             attackRange = 1000f;

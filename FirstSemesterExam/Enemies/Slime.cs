@@ -13,7 +13,7 @@ namespace FirstSemesterExam.Enemies
     {
         public Slime(Player player) : base(player)
         {
-            health = 20;
+            health = 20f;
             speed = 10f;
             attackSpeed = 10f;
             attackRange = 10f;
