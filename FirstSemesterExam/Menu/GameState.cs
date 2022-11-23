@@ -27,6 +27,8 @@ namespace FirstSemesterExam.Menu
 
         private SpriteFont font;
         private Player player;
+
+        
         #endregion
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
@@ -80,6 +82,8 @@ namespace FirstSemesterExam.Menu
             }
 
             AddGameObjects();
+
+            
         }
 
         private void SpawnEnemy()
@@ -155,6 +159,7 @@ namespace FirstSemesterExam.Menu
             {
                 gameObject.Draw(spriteBatch);
             }
+
 
             spriteBatch.End();
         }

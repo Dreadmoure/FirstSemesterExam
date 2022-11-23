@@ -102,7 +102,7 @@ namespace FirstSemesterExam
             currentIndex = (int)animationTime;
         }
 
-        public void Draw(SpriteBatch spriteBatch)
+        public virtual void Draw(SpriteBatch spriteBatch)
         {
             if (sprites != null)
             {
@@ -132,6 +132,7 @@ namespace FirstSemesterExam
         {
 
         }
+
 
 
     }
