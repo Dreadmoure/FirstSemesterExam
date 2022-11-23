@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Diagnostics;
 using FirstSemesterExam.Projectiles;
 using FirstSemesterExam.Menu;
+using Color = Microsoft.Xna.Framework.Color;
 
 namespace FirstSemesterExam.Enemies
 {
@@ -22,6 +23,7 @@ namespace FirstSemesterExam.Enemies
         protected float attackRange;
         private Player player;
         protected int expValue;
+        private float hitTimer;
 
         public Enemy(Player player)
         {
@@ -73,6 +75,17 @@ namespace FirstSemesterExam.Enemies
                 Attack();
                 attackTime = 0f;
             }
+
+            hitTimer = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+            if (hitTimer < 1)
+            {
+                color = Color.Blue;
+            }
+            else
+            {
+                color = Color.White;
+            }
         }
 
         private void HandlePosition()
@@ -113,6 +126,9 @@ namespace FirstSemesterExam.Enemies
             if (other is PlayerProjectile)
             {
                 health -= (int)other.GetAttackDamage;
+
+                
+
                 if (health <= 0)
                 {
                     player.Exp += expValue;
