@@ -164,7 +164,7 @@ namespace FirstSemesterExam
             position.Y = Math.Clamp(position.Y, GetSpriteSize.Y / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
         }
 
-        public override void OnCollision(GameObject other)
+        public override void OnCollision(GameObject other, GameTime gameTime)
         {
             if(other is Enemy)
             {
