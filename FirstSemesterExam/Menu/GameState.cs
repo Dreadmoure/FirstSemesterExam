@@ -22,7 +22,7 @@ namespace FirstSemesterExam.Menu
         // fields for enemy spawner
         private float totalGameTime;
         private float timeSinceEnemySpawn;
-        private float timeBetweenEnemySpawn = 5f;
+        private float timeBetweenEnemySpawn = 1f;
         private Random random = new Random();
 
         private SpriteFont font;

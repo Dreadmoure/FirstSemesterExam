@@ -61,6 +61,7 @@ namespace FirstSemesterExam
         {
             weapon = new LaserGun(this);
             GameState.InstantiateGameObject(weapon);
+            GameState.InstantiateGameObject(new LightSaber(this));
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)

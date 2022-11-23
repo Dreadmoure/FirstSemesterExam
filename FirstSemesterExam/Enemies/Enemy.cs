@@ -91,7 +91,13 @@ namespace FirstSemesterExam.Enemies
                     hasJustBeenHit = false; 
                 }
             }
-            
+
+            if (health <= 0)
+            {
+                player.Exp += expValue;
+                ShouldBeRemoved = true;
+            }
+
         }
 
         private void HandlePosition()
@@ -135,11 +141,7 @@ namespace FirstSemesterExam.Enemies
 
                 hasJustBeenHit = true; 
 
-                if (health <= 0)
-                {
-                    player.Exp += expValue;
-                    ShouldBeRemoved = true;
-                }
+                
             }
         }
 
