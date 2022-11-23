@@ -40,8 +40,8 @@ namespace FirstSemesterExam
         {
             timeSinceFire += (float)gameTime.ElapsedGameTime.TotalSeconds;
             angle = player.MouseAngle();
-            position = new Vector2(offset * MathF.Cos(angle) + player.Position.X, offset * MathF.Sin(angle) + player.Position.Y );
-            shootingPos = new Vector2((offset + shootingPosOffset) * MathF.Cos(angle) + player.Position.X, (offset + shootingPosOffset) * MathF.Sin(angle) + player.Position.Y );
+            position = new Vector2(offset * MathF.Cos(angle) + player.GetPosition.X, offset * MathF.Sin(angle) + player.GetPosition.Y );
+            shootingPos = new Vector2((offset + shootingPosOffset) * MathF.Cos(angle) + player.GetPosition.X, (offset + shootingPosOffset) * MathF.Sin(angle) + player.GetPosition.Y );
 
             dirVector = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
             //dirVector.Normalize();
