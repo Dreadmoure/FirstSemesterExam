@@ -26,6 +26,7 @@ namespace FirstSemesterExam.Enemies
         {
             this.player = player; 
             animationSpeed = 1f;
+            spriteEffects = SpriteEffects.None;
             //rotation = 0.01f;
 
             // set initial position randomly 
@@ -82,10 +83,13 @@ namespace FirstSemesterExam.Enemies
             if (position.X > player.GetPosition.X)
             {
                 velocity.X += -player.GetPosition.X;
+                spriteEffects = SpriteEffects.None;
             }
             else if (position.X < player.GetPosition.X)
             {
                 velocity.X += player.GetPosition.X;
+                spriteEffects = SpriteEffects.FlipHorizontally;
+                
             }
             if (position.Y > player.GetPosition.Y)
             {
