@@ -17,13 +17,22 @@ namespace FirstSemesterExam
         private Weapon weapon;
         private Texture2D crosshair; 
 
+        //health bar
+        private Texture2D healthBarTexture;
+        private Rectangle healthBarRectangle;
+        private Vector2 healthBarPosition;
+        private float healthBarLayerDepth;
+
+
         public Player()
         {
             speed = 600;
             animationSpeed = 9;
             health = 100;
             layerDepth = 0.5f;
-            
+
+            healthBarLayerDepth = 0.95f;
+
         }
 
         public MouseState MouseState { get => mouseState; }
@@ -38,6 +47,8 @@ namespace FirstSemesterExam
             {
                 sprites[i] = content.Load<Texture2D>($"Player\\PlayerWalk_{i +1}");
             }
+
+            healthBarTexture = content.Load<Texture2D>("Player\\Health");
 
             position.X = GameWorld.GetScreenSize.X / 2;
             position.Y = GameWorld.GetScreenSize.Y / 2;
@@ -61,6 +72,10 @@ namespace FirstSemesterExam
             {
                 CurrentIndex = 0;
             }
+
+            healthBarPosition.X = position.X - (GetSpriteSize.X /0.95f);
+            healthBarPosition.Y = position.Y - 45;
+            healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, health -30, 10);
         }
 
         private void HandleInput(GameTime gameTime)
@@ -140,5 +155,12 @@ namespace FirstSemesterExam
                 health -= (int)other.GetAttackDamage;
             }
         }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(healthBarTexture, healthBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, healthBarLayerDepth);
+            base.Draw(spriteBatch);
+        }
+
     } 
 }
