@@ -73,6 +73,11 @@ namespace FirstSemesterExam
         {
             get { return health; }
         }
+        public float GetRotation
+        {
+            get { return rotation; }
+        }
+        public Vector2 GetVelocity { get => velocity;}
         public bool ShouldBeRemoved 
         { 
             get { return shouldBeRemoved; } 
@@ -126,9 +131,9 @@ namespace FirstSemesterExam
             return GetCollisionBox.Intersects(other.GetCollisionBox);
         }
 
-        public virtual void TakeDamage(int damage)
+        public virtual void TakeDamage(float damage)
         {
-
+            health -= damage;
         }
 
         public virtual void OnCollision(GameObject other)
