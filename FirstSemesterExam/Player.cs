@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Input;
 using FirstSemesterExam.Menu;
 using FirstSemesterExam.Enemies;
 using FirstSemesterExam.Projectiles;
+using SharpDX.Direct3D9;
 
 namespace FirstSemesterExam
 {
@@ -14,12 +15,14 @@ namespace FirstSemesterExam
     {
         private MouseState mouseState;
         private Weapon weapon;
+        private Texture2D crosshair; 
 
         //health bar
         private Texture2D healthBarTexture;
         private Rectangle healthBarRectangle;
         private Vector2 healthBarPosition;
         private float healthBarLayerDepth;
+
 
         public Player()
         {
@@ -29,7 +32,6 @@ namespace FirstSemesterExam
             layerDepth = 0.5f;
 
             healthBarLayerDepth = 0.95f;
-
 
         }
 
@@ -50,6 +52,9 @@ namespace FirstSemesterExam
 
             position.X = GameWorld.GetScreenSize.X / 2;
             position.Y = GameWorld.GetScreenSize.Y / 2;
+
+            crosshair = content.Load<Texture2D>("Player\\crosshair");
+            Mouse.SetCursor(MouseCursor.FromTexture2D(crosshair, mouseState.X, mouseState.Y));
         }
 
         public override void Update(GameTime gameTime)
