@@ -20,7 +20,6 @@ namespace FirstSemesterExam
             animationSpeed = 9;
             health = 100;
             layerDepth = 0.5f;
-
         }
 
         public MouseState MouseState { get => mouseState; }
