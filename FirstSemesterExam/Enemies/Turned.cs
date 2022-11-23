@@ -17,6 +17,7 @@ namespace FirstSemesterExam.Enemies
             attackSpeed = 20f;
             attackRange = 10f;
             animationSpeed = 6f;
+            expValue = 5;
         }
 
         public override void LoadContent(ContentManager content)

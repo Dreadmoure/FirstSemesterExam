@@ -61,7 +61,6 @@ namespace FirstSemesterExam.Menu
                     if (gameObject.IsColliding(other))
                     {
                         gameObject.OnCollision(other);
-                        other.OnCollision(gameObject);
                     }
                 }
             }
@@ -153,7 +152,7 @@ namespace FirstSemesterExam.Menu
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.GetHealth}", Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.GetHealth}\nPlayer EXP: {player.Exp}", Vector2.Zero, Color.White);
 
             foreach (GameObject gameObject in gameObjects)
             {
