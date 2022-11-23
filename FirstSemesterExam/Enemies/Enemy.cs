@@ -20,7 +20,8 @@ namespace FirstSemesterExam.Enemies
         enum Edge { Upper, Lower, Left, Right }
         private float attackTime;
         protected float attackRange;
-        private Player player; 
+        private Player player;
+        protected int expValue;
 
         public Enemy(Player player)
         {
@@ -114,6 +115,7 @@ namespace FirstSemesterExam.Enemies
                 health -= (int)other.GetAttackDamage;
                 if (health <= 0)
                 {
+                    player.Exp += expValue;
                     ShouldBeRemoved = true;
                 }
             }

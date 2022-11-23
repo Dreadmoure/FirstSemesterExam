@@ -14,12 +14,12 @@ namespace FirstSemesterExam
 {
     public class PlayerProjectile : Projectile
     {
-        public PlayerProjectile(Vector2 position, Vector2 velocity, float rotation) : base(position)
+        public PlayerProjectile(Vector2 position, Vector2 velocity, float rotation, float attackDamage) : base(position)
         {
             this.velocity = velocity;
             this.position = position;
             this.rotation = rotation;
-            attackDamage = 10f;
+            this.attackDamage = attackDamage;
             speed = 1000;
             layerDepth = 0.1f;
         }

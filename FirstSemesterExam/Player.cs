@@ -15,6 +15,7 @@ namespace FirstSemesterExam
     {
         private MouseState mouseState;
         private Weapon weapon;
+        private int exp;
 
         private float defense;
         private float itemAttackCoolDown;
@@ -28,18 +29,23 @@ namespace FirstSemesterExam
         private Vector2 healthBarPosition;
         private float healthBarLayerDepth;
 
+        public int Exp
+        {
+            get { return exp; }
+            set { exp = value; }
+        }
 
         public Player()
         {
             //stats
             health = 100f;
             speed = 600;
-            attackDamage = 10;
+            //attackDamage = 10;
             attackSpeed = 10f;
             defense = 0.5f;
             itemAttackCoolDown = 5f;
 
-            
+            exp = 0;
 
             animationSpeed = 9;
             
@@ -53,7 +59,7 @@ namespace FirstSemesterExam
 
         public override void LoadContent(ContentManager content)
         {
-            weapon = new laserGun(this);
+            weapon = new LaserGun(this);
             GameState.InstantiateGameObject(weapon);
 
             sprites = new Texture2D[2];
