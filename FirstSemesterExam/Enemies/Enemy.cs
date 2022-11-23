@@ -79,21 +79,21 @@ namespace FirstSemesterExam.Enemies
             velocity = Vector2.Zero;
 
             // set velocity towards player position 
-            if (position.X > player.Position.X)
+            if (position.X > player.GetPosition.X)
             {
-                velocity.X += -player.Position.X;
+                velocity.X += -player.GetPosition.X;
             }
-            else if (position.X < player.Position.X)
+            else if (position.X < player.GetPosition.X)
             {
-                velocity.X += player.Position.X;
+                velocity.X += player.GetPosition.X;
             }
-            if (position.Y > player.Position.Y)
+            if (position.Y > player.GetPosition.Y)
             {
-                velocity.Y += -player.Position.Y;
+                velocity.Y += -player.GetPosition.Y;
             }
-            else if (position.Y < player.Position.Y)
+            else if (position.Y < player.GetPosition.Y)
             {
-                velocity.Y += player.Position.Y;
+                velocity.Y += player.GetPosition.Y;
             }
 
             // set the length of the velocity vector to 1 no matter direction. 
@@ -117,7 +117,7 @@ namespace FirstSemesterExam.Enemies
 
         public virtual void Attack()
         {
-            GameState.InstantiateGameObject(new EnemyProjectile(position, player.Position, attackRange));
+            GameState.InstantiateGameObject(new EnemyProjectile(position, player.GetPosition, attackRange));
         }
     }
 }

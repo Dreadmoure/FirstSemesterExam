@@ -62,17 +62,11 @@ namespace FirstSemesterExam
                 return new Vector2(GetCurrentSprite.Width * scale, GetCurrentSprite.Height * scale);
             }
         }
-        public Vector2 Velocity 
-        {
-            get { return velocity; }
-            set { velocity = value; }
-        }
-        public Vector2 Position 
+        public Vector2 GetPosition 
         {
             get { return position; }
-            set { position = value; }
         }
-        public int Health 
+        public int GetHealth 
         {
             get { return health; }
         }
