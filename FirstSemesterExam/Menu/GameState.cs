@@ -221,10 +221,15 @@ namespace FirstSemesterExam.Menu
 
         public void SaveScore()
         {
-            string name = "kage";
-            int score = 300; 
+            //string name = "kage";
+            //int score = 300; 
 
-            File.AppendAllText("./scores.txt", name + " " + score + "\n");
+            //File.AppendAllText("./scores.txt", name + " " + score + "\n");
+
+
+            File.AppendAllText("./scores.txt", "123456789 123456\n");
+            File.AppendAllText("./scores.txt", "123 1\n");
+            File.AppendAllText("./scores.txt", "12345 123 \n");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

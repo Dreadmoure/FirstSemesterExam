@@ -74,12 +74,14 @@ namespace FirstSemesterExam.Menu
             //}
 
             List<Score> scores = highscore.Scores; 
-            Vector2 offsetScoreText = new Vector2(GameWorld.GetScreenSize.X/2, GameWorld.GetScreenSize.Y/2);
-            //Vector2 offsetScoreText = new Vector2(0, 0);
-            for (int i = 0; i < 10; i++)
+            Vector2 scoreTextPosition = new Vector2(GameWorld.GetScreenSize.X/2.3f, GameWorld.GetScreenSize.Y/2);
+            spriteBatch.DrawString(textFont, "Name", scoreTextPosition + new Vector2(0, -20), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
+            spriteBatch.DrawString(textFont, "Score", scoreTextPosition + new Vector2(215, -20), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
+            for (int i = 0; i < 3; i++)
             {
-                spriteBatch.DrawString(textFont, scores[i].name, offsetScoreText + new Vector2(0, i * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
-                spriteBatch.DrawString(textFont, scores[i].score.ToString(), offsetScoreText + new Vector2(100, i * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
+                float offsetScorePositionX = -textFont.MeasureString(scores[i].score.ToString()).X;
+                spriteBatch.DrawString(textFont, scores[i].name, scoreTextPosition + new Vector2(0, i * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
+                spriteBatch.DrawString(textFont, scores[i].score.ToString(), scoreTextPosition + new Vector2(250 + offsetScorePositionX, i * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
             }
 
             foreach (Button button in buttons)
