@@ -36,7 +36,8 @@ namespace FirstSemesterExam.Menu
         private Button backToMenuButton;
         private Button quitGameButton;
         #endregion
-
+        private List<GameObject> currentCollisions = new List<GameObject>();
+        private List<GameObject> previousCollisions = new List<GameObject>();
         public static bool HandlePause
         {
             set { paused = value; }
@@ -89,15 +90,24 @@ namespace FirstSemesterExam.Menu
                     gameObject.Update(gameTime);
                 }
                 foreach (GameObject gameObject in gameObjects)
-                {
+                { 
                     foreach (GameObject other in gameObjects)
                     {
                         if (gameObject.IsColliding(other))
                         {
                             gameObject.OnCollision(other);
+                            currentCollisions.Add(other);
+
+                            if (!previousCollisions.Contains(other))
+                            {
+                                gameObject.OnCollisionEnter(other);
+                            }
                         }
                     }
                 }
+                previousCollisions = currentCollisions;
+                currentCollisions = new List<GameObject>();
+
 
                 RemoveGameObjects();
 
