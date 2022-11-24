@@ -20,6 +20,7 @@ namespace FirstSemesterExam.Projectiles
             speed = 1000f;
             attackDamage = 5f;
             attackRange = enemyAttackRange;
+            
 
             // angle of projectile 
             float angle = MathF.Atan2(playerPosition.Y - enemyPosition.Y, playerPosition.X - enemyPosition.X);
@@ -36,7 +37,8 @@ namespace FirstSemesterExam.Projectiles
         {
             if (other is Player)
             {
-                
+                other.TakeDamage(attackDamage);
+
                 ShouldBeRemoved = true;
             }
         }

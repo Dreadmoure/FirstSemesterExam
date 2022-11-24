@@ -24,7 +24,9 @@ namespace FirstSemesterExam.Enemies
         private Player player;
         protected int expValue;
         private float hitTimer;
-        private bool hasJustBeenHit; 
+        private bool hasJustBeenHit;
+
+        public bool HasJustBeenHit { get => hasJustBeenHit; set => hasJustBeenHit = value; }
 
         public Enemy(Player player)
         {
@@ -135,13 +137,9 @@ namespace FirstSemesterExam.Enemies
 
         public override void OnCollision(GameObject other)
         {
-            if (other is PlayerProjectile)
+            if ( other is Player)
             {
-                health -= (int)other.GetAttackDamage;
-
-                hasJustBeenHit = true; 
-
-                
+                other.TakeDamage(attackDamage);
             }
         }
 
