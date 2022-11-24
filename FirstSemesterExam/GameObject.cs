@@ -60,9 +60,17 @@ namespace FirstSemesterExam
         }
         protected Vector2 GetSpriteSize
         {
+            
             get
             {
-                return new Vector2(GetCurrentSprite.Width * scale, GetCurrentSprite.Height * scale);
+                if (sprites != null)
+                {
+                    return new Vector2(GetCurrentSprite.Width * scale, GetCurrentSprite.Height * scale);
+                }
+                else
+                {
+                    return new Vector2(0,0);
+                }
             }
         }
         public Vector2 GetPosition 
