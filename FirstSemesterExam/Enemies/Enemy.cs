@@ -96,10 +96,20 @@ namespace FirstSemesterExam.Enemies
 
             if (health <= 0)
             {
-                player.Exp += expValue;
-                ShouldBeRemoved = true;
+                Die();
             }
 
+        }
+
+        private void Die()
+        {
+            float rnd = random.Next(100);
+            if (rnd < 10)
+            {
+                GameState.InstantiateGameObject(new PickUp(position));
+            }
+            player.Exp += expValue;
+            ShouldBeRemoved = true;
         }
 
         private void HandlePosition()

@@ -77,9 +77,10 @@ namespace FirstSemesterExam
         {
             get { return position; }
         }
-        public float GetHealth 
+        public float Health 
         {
             get { return health; }
+            set { health = value; }
         }
         public float GetRotation
         {
