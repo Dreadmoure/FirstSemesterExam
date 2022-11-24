@@ -34,8 +34,7 @@ namespace FirstSemesterExam
         {
             if (other is Enemy)
             {
-                Enemy enemy = (Enemy)other;
-                enemy.HasJustBeenHit = true;
+                other.HasJustBeenHit = true;
                 other.TakeDamage(attackDamage);
                 ShouldBeRemoved = true;
             }

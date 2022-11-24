@@ -26,12 +26,17 @@ namespace FirstSemesterExam
         protected SpriteEffects spriteEffects = SpriteEffects.None;
         protected Color color = Color.White;
 
+        protected bool hasJustBeenHit;
+        protected float hitTimer;
+
         //Animation
         protected float animationSpeed = 10;
         private float animationTime;
         private int currentIndex = 0;
 
         protected bool shouldBeRemoved;
+
+        public bool HasJustBeenHit { get => hasJustBeenHit; set => hasJustBeenHit = value; }
 
         public float GetAttackDamage
         {
