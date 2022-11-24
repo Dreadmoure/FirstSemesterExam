@@ -8,6 +8,10 @@ using FirstSemesterExam.Menu;
 using FirstSemesterExam.Enemies;
 using FirstSemesterExam.Projectiles;
 using SharpDX.Direct3D9;
+using SharpDX.MediaFoundation;
+using SharpDX.Direct2D1;
+using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch; //blev added for a fixe linje 183 spritebatch, why I dunno
+using System.Drawing.Text;
 
 namespace FirstSemesterExam
 {
@@ -22,6 +26,7 @@ namespace FirstSemesterExam
 
         private Texture2D crosshair; 
 
+        
 
         //health bar
         private Texture2D healthBarTexture;
@@ -80,9 +85,11 @@ namespace FirstSemesterExam
 
         public override void Update(GameTime gameTime)
         {
+            //KeyboardState keyState = Keyboard.GetState();
             mouseState = Mouse.GetState();
             HandleInput(gameTime);
             HandleLimits();
+            //dashCooldown = (dashCooldown >= 5000 && keyState.IsKeyDown(Keys.Space)) ? 0 : dashCooldown + gameTime.ElapsedGameTime.TotalMilliseconds;
             Move(gameTime);
             Flip();
             if ( velocity != Vector2.Zero)
@@ -98,28 +105,44 @@ namespace FirstSemesterExam
             healthBarPosition.Y = position.Y - 45;
             healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)health, 10);
         }
-
+        //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
+        //private KeyboardState oldState;
+        private Keys movementKey;
+        //private Vector2 lastMovedDirection;
+        float dashCooldown = 5; // Vores Dash Cooldown, hver
+        float nextDashCooldown = 0; //start cooldown ligger på 0, så man kan bruge dash til at starte med
+        
+        float currentTime = 0f;
+        
         private void HandleInput(GameTime gameTime)
         {
             velocity = Vector2.Zero;
+            bool isIdle = velocity.X == 0 && velocity.Y == 0;
+            if (isIdle)
+            {
 
+            }
             KeyboardState keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.W))
             {
                 velocity.Y -= 1;
+                
             }
             if (keyState.IsKeyDown(Keys.S))
             {
                 velocity.Y += 1;
+                
             }
             if (keyState.IsKeyDown(Keys.A))
             {
                 velocity.X -= 1;
+                
             }
             if (keyState.IsKeyDown(Keys.D))
             {
                 velocity.X += 1;
+                
             }
 
             if (velocity != Vector2.Zero)
@@ -131,6 +154,45 @@ namespace FirstSemesterExam
             {
                 weapon.Shoot(gameTime);
             }
+            //if (keyState.IsKeyDown(Keys.Space))
+            //{
+            //    float dashDistance = 5f;
+
+
+            //}
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;//Tjekker hvor lang tid der er gået i spillet
+            if (currentTime >= nextDashCooldown)
+            {
+                
+                if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.W))
+                {
+
+                    velocity.Y = -10;
+
+                    nextDashCooldown = currentTime + dashCooldown;
+
+                }
+                if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.S))
+                {
+
+                    velocity.Y = 10;
+                    nextDashCooldown = currentTime + dashCooldown;
+                }
+                if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.A))
+                {
+
+                    velocity.X = -10;
+                    nextDashCooldown = currentTime + dashCooldown;
+                }
+                if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.D))
+                {
+
+                    velocity.X = 10;
+                    nextDashCooldown = currentTime + dashCooldown;
+
+                }
+            }
+
         }
 
         public float MouseAngle()
@@ -182,6 +244,14 @@ namespace FirstSemesterExam
             spriteBatch.Draw(healthBarTexture, healthBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, healthBarLayerDepth);
             base.Draw(spriteBatch);
         }
+        //Overvejde at lave Dash til en funktion der kunne blive kaldt
+        //private void Dash()
+        //{
+        //    if (keyState.IsKeyDown(Keys.S))
+        //    {
+
+        //    }
+        //}
 
     } 
 }
