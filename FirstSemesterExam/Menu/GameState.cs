@@ -1,4 +1,5 @@
 ﻿using FirstSemesterExam.Enemies;
+using FirstSemesterExam.HighScore;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -7,10 +8,12 @@ using Microsoft.Xna.Framework.Media;
 using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace FirstSemesterExam.Menu
@@ -26,7 +29,8 @@ namespace FirstSemesterExam.Menu
         private float timeSinceEnemySpawn;
         private float timeBetweenEnemySpawn = 1f;
         private Random random = new Random();
-
+        // 
+        private float gameTimer; 
         private SpriteFont font;
         private Player player;
         // pause menu 
@@ -40,6 +44,10 @@ namespace FirstSemesterExam.Menu
         public static bool HandlePause
         {
             set { paused = value; }
+        }
+        public float GetGameTimer
+        {
+            get { return gameTimer; }
         }
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
@@ -79,6 +87,8 @@ namespace FirstSemesterExam.Menu
         {
             if (!paused)
             {
+                gameTimer += (float)gameTime.ElapsedGameTime.TotalSeconds; 
+                
                 if (Keyboard.GetState().IsKeyDown(Keys.P))
                 {
                     paused = true;
@@ -115,6 +125,11 @@ namespace FirstSemesterExam.Menu
                 }
 
                 AddGameObjects();
+
+                if(player.Health <= 0)
+                {
+                    SaveScore(); 
+                }
             }
             else if(paused)
             {
@@ -202,6 +217,14 @@ namespace FirstSemesterExam.Menu
             }
 
             gameObjectsToAdd.Clear();
+        }
+
+        public void SaveScore()
+        {
+            string name = "kage";
+            int score = 300; 
+
+            File.AppendAllText("./scores.txt", name + " " + score + "\n");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
