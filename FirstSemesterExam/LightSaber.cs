@@ -19,7 +19,7 @@ namespace FirstSemesterExam
         {
             this.player = player;
             offset = 150;
-            speed = 5;
+            speed = 2;
             attackDamage = 1;
             //originOffset = new Vector2(-15, 0);
         }
