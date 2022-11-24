@@ -143,6 +143,11 @@ namespace FirstSemesterExam.Enemies
 
                 
             }
+
+            if ( other is Player)
+            {
+                other.TakeDamage(attackDamage);
+            }
         }
 
         public virtual void Attack()

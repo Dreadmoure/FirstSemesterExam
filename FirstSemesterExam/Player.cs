@@ -109,7 +109,7 @@ namespace FirstSemesterExam
         //private KeyboardState oldState;
         private Keys movementKey;
         //private Vector2 lastMovedDirection;
-        float dashCooldown = 5; // Vores Dash Cooldown, hver
+        float dashCooldown = 1; // Vores Dash Cooldown, hver
         float nextDashCooldown = 0; //start cooldown ligger på 0, så man kan bruge dash til at starte med
         
         float currentTime = 0f;
@@ -209,6 +209,13 @@ namespace FirstSemesterExam
             }
         }
 
+        public override void TakeDamage(float damage)
+        {
+            
+            health -= damage;
+             
+        }
+
         protected void Flip()
         {
             if (MouseAngle() > (MathF.PI / 2) && MouseAngle() < (3 * Math.PI) / 2)
@@ -225,18 +232,6 @@ namespace FirstSemesterExam
         {
             position.X = Math.Clamp(position.X, GetSpriteSize.X / 2, GameWorld.GetScreenSize.X - GetSpriteSize.X / 2);
             position.Y = Math.Clamp(position.Y, GetSpriteSize.Y / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
-        }
-
-        public override void OnCollision(GameObject other)
-        {
-            if(other is Enemy)
-            {
-                health -= (int)other.GetAttackDamage; 
-            }
-            if(other is EnemyProjectile)
-            {
-                health -= (int)other.GetAttackDamage;
-            }
         }
 
         public override void Draw(SpriteBatch spriteBatch)
