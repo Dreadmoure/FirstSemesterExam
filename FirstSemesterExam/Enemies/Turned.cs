@@ -13,7 +13,7 @@ namespace FirstSemesterExam.Enemies
         public Turned(Player player) : base(player)
         {
             health = 10f;
-            speed = 25f;
+            speed = 250f;
             attackSpeed = 20f;
             attackRange = 10f;
             animationSpeed = 6f;
