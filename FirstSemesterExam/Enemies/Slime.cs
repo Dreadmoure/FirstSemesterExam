@@ -17,7 +17,7 @@ namespace FirstSemesterExam.Enemies
     {
         public Slime(Player player) : base(player)
         {
-            health = 100f;
+            health = 20;
             speed = 100f;
             attackSpeed = 10f;
             attackRange = 10f;
@@ -27,7 +27,7 @@ namespace FirstSemesterExam.Enemies
         public Slime(Player player, Vector2 parentPosition) : base(player)
         {
             health = 20f;
-            speed = 10f;
+            speed = 100f;
             attackSpeed = 10f;
             attackRange = 10f;
             animationSpeed = 3f;

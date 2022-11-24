@@ -13,7 +13,7 @@ namespace FirstSemesterExam
         {
             this.position = position;
             this.velocity = velocity;
-            attackDamage = 1;
+            attackDamage = 10;
             speed = 1000;
             sprites = new Texture2D[1];
             sprites[0] = sprite;
