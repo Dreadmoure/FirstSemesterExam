@@ -208,7 +208,7 @@ namespace FirstSemesterExam.Menu
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.GetHealth}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}", Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}", Vector2.Zero, Color.White);
 
             foreach (GameObject gameObject in gameObjects)
             {
