@@ -30,14 +30,17 @@ namespace FirstSemesterExam.Menu
         private SpriteFont font;
         private Player player;
         // pause menu 
-        private bool paused = false;
+        private static bool paused = false;
         private List<Button> buttons;
         private Button resumeGameButton;
         private Button backToMenuButton;
         private Button quitGameButton;
-
-
         #endregion
+
+        public static bool HandlePause
+        {
+            set { paused = value; }
+        }
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {

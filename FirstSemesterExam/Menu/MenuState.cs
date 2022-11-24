@@ -53,11 +53,14 @@ namespace FirstSemesterExam.Menu
             if (continueGameButton.isClicked)
             {
                 continueGameButton.isClicked = false;
-                game.ChangeState(GameWorld.HandleGameState); // TODO: loads the previous game, but mouse gets wierd??? 
+                GameState.HandlePause = false; 
+                game.ChangeState(GameWorld.HandleGameState); 
+                // TODO: loads the previous game, but mouse gets wierd??? There are 2 players??? 
             }
             if (newGameButton.isClicked)
             {
                 newGameButton.isClicked = false;
+                GameState.HandlePause = false;
                 GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
                 game.ChangeState(GameWorld.HandleGameState);
             }
