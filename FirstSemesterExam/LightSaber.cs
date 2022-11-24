@@ -19,7 +19,7 @@ namespace FirstSemesterExam
             this.player = player;
             offset = 150;
             speed = 2;
-            attackDamage = 1;
+            attackDamage = 10;
             //originOffset = new Vector2(-15, 0);
         }
 
@@ -37,7 +37,7 @@ namespace FirstSemesterExam
             position = new Vector2(offset * MathF.Cos(angle) + player.GetPosition.X, offset * MathF.Sin(angle) + player.GetPosition.Y);
         }
 
-        public override void OnCollision(GameObject other)
+        public override void OnCollisionEnter(GameObject other)
         {
             if (other is Enemy)
             {

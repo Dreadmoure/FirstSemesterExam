@@ -128,6 +128,13 @@ namespace FirstSemesterExam.Enemies
 
         }
 
+        public override void TakeDamage(float damage)
+        {
+            hasJustBeenHit = true;
+            health -= damage;
+
+        }
+
         public override void OnCollision(GameObject other)
         {
             if ( other is Player)
