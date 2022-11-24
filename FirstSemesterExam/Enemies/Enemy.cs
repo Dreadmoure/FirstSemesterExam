@@ -117,6 +117,15 @@ namespace FirstSemesterExam.Enemies
         {
             velocity = (player.GetPosition - position);
             velocity.Normalize();
+            if (velocity.X > 0)
+            {
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
+                spriteEffects = SpriteEffects.None;
+            }
+
         }
 
         public override void OnCollision(GameObject other)
