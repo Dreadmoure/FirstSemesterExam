@@ -52,7 +52,8 @@ namespace FirstSemesterExam.Menu
             if (newGameButton.isClicked)
             {
                 newGameButton.isClicked = false;
-                game.ChangeState(GameWorld.GetGameState);
+                //game.ChangeState(GameWorld.GetGameState); // TODO: loads the previous game, but mouse gets wierd??? 
+                game.ChangeState(new GameState(content, graphicsDevice, game));
             }
             if (quitGameButton.isClicked)
             {

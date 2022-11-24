@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
@@ -27,14 +29,29 @@ namespace FirstSemesterExam.Menu
 
         private SpriteFont font;
         private Player player;
+        // pause menu 
+        private bool paused = false;
+        private List<Button> buttons;
+        private Button resumeGameButton;
+        private Button backToMenuButton;
+        private Button quitGameButton;
 
-        
+
         #endregion
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             player = new Player();
             gameObjects.Add(player);
+
+            // buttons for pause screen 
+            float buttonLayer = 0.2f;
+            float buttonScale = 6f;
+            resumeGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Resume Game", buttonLayer, buttonScale);
+            backToMenuButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "Main Menu", buttonLayer, buttonScale);
+            quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
+
+            buttons = new List<Button>() { resumeGameButton, backToMenuButton, quitGameButton };
         }
 
         public override void LoadContent()
@@ -45,43 +62,79 @@ namespace FirstSemesterExam.Menu
             {
                 gameObject.LoadContent(content);
             }
+
+            //loads the content for all the buttons
+            foreach (Button button in buttons)
+            {
+                button.LoadContent(content);
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
-            // TODO: Add your update logic here
-            foreach (GameObject gameObject in gameObjects)
+            if (!paused)
             {
-                gameObject.Update(gameTime);
-            }
-            foreach (GameObject gameObject in gameObjects)
-            {
-                foreach (GameObject other in gameObjects)
+                if (Keyboard.GetState().IsKeyDown(Keys.P))
                 {
-                    if (gameObject.IsColliding(other))
+                    paused = true;
+                }
+
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    gameObject.Update(gameTime);
+                }
+                foreach (GameObject gameObject in gameObjects)
+                {
+                    foreach (GameObject other in gameObjects)
                     {
-                        gameObject.OnCollision(other);
+                        if (gameObject.IsColliding(other))
+                        {
+                            gameObject.OnCollision(other);
+                        }
                     }
                 }
+
+                RemoveGameObjects();
+
+                totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // set spawntime lower each 5 min. (5 * 60 = 300sec) 
+                if (totalGameTime % 300 == 0 && timeBetweenEnemySpawn > 0f)
+                {
+                    timeBetweenEnemySpawn -= 0.5f;
+                }
+                timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
+                {
+                    SpawnEnemy();
+                    timeSinceEnemySpawn = 0f;
+                }
+
+                AddGameObjects();
             }
-
-            RemoveGameObjects();
-
-            totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            // set spawntime lower each 5 min. (5 * 60 = 300sec) 
-            if (totalGameTime % 300 == 0 && timeBetweenEnemySpawn > 0f)
+            else if(paused)
             {
-                timeBetweenEnemySpawn -= 0.5f;
-            }
-            timeSinceEnemySpawn += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeSinceEnemySpawn >= timeBetweenEnemySpawn)
-            {
-                SpawnEnemy();
-                timeSinceEnemySpawn = 0f;
-            }
+                foreach (Button button in buttons)
+                {
+                    button.Update(gameTime);
+                }
 
-            AddGameObjects();
-
+                if (resumeGameButton.isClicked)
+                {
+                    resumeGameButton.isClicked = false;
+                    paused = false;
+                }
+                if (backToMenuButton.isClicked)
+                {
+                    backToMenuButton.isClicked = false;
+                    MediaPlayer.Stop();
+                    game.ChangeState(GameWorld.GetMenuState);
+                }
+                if (quitGameButton.isClicked)
+                {
+                    quitGameButton.isClicked = false;
+                    game.Exit();
+                }
+            }
             
         }
 
@@ -159,6 +212,13 @@ namespace FirstSemesterExam.Menu
                 gameObject.Draw(spriteBatch);
             }
 
+            if (paused)
+            {
+                foreach (Button button in buttons)
+                {
+                    button.Draw(gameTime, spriteBatch);
+                }
+            }
 
             spriteBatch.End();
         }
