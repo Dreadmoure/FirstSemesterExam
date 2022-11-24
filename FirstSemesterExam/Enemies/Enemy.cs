@@ -23,10 +23,10 @@ namespace FirstSemesterExam.Enemies
         protected float attackRange;
         private Player player;
         protected int expValue;
-        private float hitTimer;
-        private bool hasJustBeenHit;
+        
+        
 
-        public bool HasJustBeenHit { get => hasJustBeenHit; set => hasJustBeenHit = value; }
+        
 
         public Enemy(Player player)
         {
@@ -79,18 +79,19 @@ namespace FirstSemesterExam.Enemies
                 attackTime = 0f;
             }
 
-            if (hasJustBeenHit)
+            if (HasJustBeenHit)
             {
                 hitTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (hitTimer <= 0.5f)
+                if (hitTimer <= 0.1f)
                 {
                     color = Color.Red;
                 }
                 else
                 {
+                    hitTimer = 0;
                     color = Color.White;
-                    hasJustBeenHit = false; 
+                    HasJustBeenHit = false; 
                 }
             }
 

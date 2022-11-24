@@ -131,7 +131,21 @@ namespace FirstSemesterExam
                 CurrentIndex = 0;
             }
 
-            
+            if (HasJustBeenHit)
+            {
+                hitTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (hitTimer <= 0.1f)
+                {
+                    color = Color.Red;
+                }
+                else
+                {
+                    hitTimer = 0;
+                    color = Color.White;
+                    HasJustBeenHit = false;
+                }
+            }
 
             healthBarPosition.X = position.X - (GetSpriteSize.X /0.70f);
             healthBarPosition.Y = position.Y - 45;
