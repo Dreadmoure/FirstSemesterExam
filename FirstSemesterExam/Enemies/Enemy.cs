@@ -17,7 +17,7 @@ namespace FirstSemesterExam.Enemies
 {
     public abstract class Enemy : GameObject
     {
-        private Random random = new Random();
+        protected Random random = new Random();
         enum Edge { Upper, Lower, Left, Right }
         private float attackTime;
         protected float attackRange;
