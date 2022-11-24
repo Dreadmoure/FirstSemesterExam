@@ -38,6 +38,7 @@ namespace FirstSemesterExam.Projectiles
             if (other is Player)
             {
                 other.TakeDamage(attackDamage);
+
                 ShouldBeRemoved = true;
             }
         }

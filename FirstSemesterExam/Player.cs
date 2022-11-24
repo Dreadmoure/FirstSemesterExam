@@ -12,6 +12,7 @@ using SharpDX.MediaFoundation;
 using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch; //blev added for a fixe linje 183 spritebatch, why I dunno
 using System.Drawing.Text;
+using System.Dynamic;
 
 namespace FirstSemesterExam
 {
@@ -20,24 +21,37 @@ namespace FirstSemesterExam
         private MouseState mouseState;
         private Weapon weapon;
         private int exp;
+        private int levelIndicator;
 
         private float defense;
         private float itemAttackCoolDown;
 
         private Texture2D crosshair; 
 
-        
-
         //health bar
         private Texture2D healthBarTexture;
+        private Texture2D healthBarBackgroundTexture;
         private Rectangle healthBarRectangle;
+        private Rectangle healthBarBackgroundRectangle;
         private Vector2 healthBarPosition;
         private float healthBarLayerDepth;
+        private float healthBarBackgroundLayerDepth;
+
+        //exp bar
+        private Texture2D expBarTexture;
+        private Rectangle expBarRectangle;
+        private Vector2 expBarPosition;
+        private float expBarLayerDepth;
 
         public int Exp
         {
             get { return exp; }
             set { exp = value; }
+        }
+
+        public int LevelIndicator
+        {
+            get { return levelIndicator; }
         }
 
         public Player()
@@ -50,6 +64,7 @@ namespace FirstSemesterExam
             defense = 0.5f;
             itemAttackCoolDown = 5f;
 
+            levelIndicator = 1;
             exp = 0;
 
             animationSpeed = 9;
@@ -57,6 +72,8 @@ namespace FirstSemesterExam
             layerDepth = 0.5f;
 
             healthBarLayerDepth = 0.95f;
+            healthBarBackgroundLayerDepth = 0.94f;
+            expBarLayerDepth = 0.95f;
 
         }
 
@@ -75,6 +92,8 @@ namespace FirstSemesterExam
             }
 
             healthBarTexture = content.Load<Texture2D>("Player\\Health");
+            expBarTexture = content.Load<Texture2D>("Player\\Exp");
+            healthBarBackgroundTexture = content.Load<Texture2D>("Player\\HealthBackground");
 
             position.X = GameWorld.GetScreenSize.X / 2;
             position.Y = GameWorld.GetScreenSize.Y / 2;
@@ -101,9 +120,25 @@ namespace FirstSemesterExam
                 CurrentIndex = 0;
             }
 
+            if(exp >= 100)
+            {
+                LevelUp();
+            }
+
             healthBarPosition.X = position.X - (GetSpriteSize.X /0.70f);
             healthBarPosition.Y = position.Y - 45;
             healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)health, 10);
+            healthBarBackgroundRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, 100, 10);
+
+            expBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
+            expBarPosition.Y = position.Y - 35;
+            expBarRectangle = new Rectangle((int)expBarPosition.X, (int)expBarPosition.Y, exp, 5);
+        }
+
+        private void LevelUp()
+        {
+            exp = 0;
+            levelIndicator += 1;
         }
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;
@@ -168,7 +203,7 @@ namespace FirstSemesterExam
                 {
 
                     velocity.Y = -10;
-
+                    
                     nextDashCooldown = currentTime + dashCooldown;
 
                 }
@@ -237,6 +272,8 @@ namespace FirstSemesterExam
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(healthBarTexture, healthBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, healthBarLayerDepth);
+            spriteBatch.Draw(healthBarBackgroundTexture, healthBarBackgroundRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, healthBarBackgroundLayerDepth);
+            spriteBatch.Draw(expBarTexture, expBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, expBarLayerDepth);
             base.Draw(spriteBatch);
         }
         //Overvejde at lave Dash til en funktion der kunne blive kaldt
