@@ -52,7 +52,7 @@ namespace FirstSemesterExam.Menu
             if (newGameButton.isClicked)
             {
                 newGameButton.isClicked = false;
-                game.ChangeState(new GameState(content, graphicsDevice, game));
+                game.ChangeState(GameWorld.GetGameState);
             }
             if (quitGameButton.isClicked)
             {
