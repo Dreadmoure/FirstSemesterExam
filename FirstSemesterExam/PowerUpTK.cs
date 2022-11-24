@@ -20,6 +20,7 @@ namespace FirstSemesterExam
         {
             this.player = player;
             attackSpeed = 2;
+            lastVelocity = new Vector2(1, 0);
         }
         public override void LoadContent(ContentManager content)
         {

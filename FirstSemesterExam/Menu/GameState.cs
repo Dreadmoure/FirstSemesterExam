@@ -4,16 +4,16 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Media;
-using SharpDX.Direct2D1;
 using System;
 using System.Collections.Generic;
+
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace FirstSemesterExam.Menu
@@ -29,8 +29,8 @@ namespace FirstSemesterExam.Menu
         private float timeSinceEnemySpawn;
         private float timeBetweenEnemySpawn = 1f;
         private Random random = new Random();
-        // 
         private float gameTimer; 
+        private Texture2D pixel;
         private SpriteFont font;
         private Player player;
         private static int score = 0;
@@ -42,7 +42,8 @@ namespace FirstSemesterExam.Menu
         private Button backToMenuButton;
         private Button quitGameButton;
         #endregion
-
+        private List<GameObject> currentCollisions = new List<GameObject>();
+        private List<GameObject> previousCollisions = new List<GameObject>();
         public static bool HandlePause
         {
             set { paused = value; }
@@ -72,7 +73,7 @@ namespace FirstSemesterExam.Menu
         public override void LoadContent()
         {
             font = content.Load<SpriteFont>("Fonts\\textFont");
-
+            pixel = content.Load<Texture2D>("pixel");
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.LoadContent(content);
@@ -103,15 +104,24 @@ namespace FirstSemesterExam.Menu
                     gameObject.Update(gameTime);
                 }
                 foreach (GameObject gameObject in gameObjects)
-                {
+                { 
                     foreach (GameObject other in gameObjects)
                     {
                         if (gameObject.IsColliding(other))
                         {
                             gameObject.OnCollision(other);
+                            currentCollisions.Add(other);
+
+                            if (!previousCollisions.Contains(other))
+                            {
+                                gameObject.OnCollisionEnter(other);
+                            }
                         }
                     }
                 }
+                previousCollisions = currentCollisions;
+                currentCollisions = new List<GameObject>();
+
 
                 RemoveGameObjects();
 
@@ -243,6 +253,19 @@ namespace FirstSemesterExam.Menu
             File.AppendAllText("./scores.txt", name + " " + score + "\n");
         }
 
+        private void DrawCollisionBox(GameObject go, SpriteBatch _spriteBatch)
+        {
+            Rectangle top = new Rectangle(go.GetCollisionBox.X, go.GetCollisionBox.Y, go.GetCollisionBox.Width, 1);
+            Rectangle bottom = new Rectangle(go.GetCollisionBox.X, go.GetCollisionBox.Y + go.GetCollisionBox.Height, go.GetCollisionBox.Width, 1);
+            Rectangle left = new Rectangle(go.GetCollisionBox.X, go.GetCollisionBox.Y, 1, go.GetCollisionBox.Height);
+            Rectangle right = new Rectangle(go.GetCollisionBox.X + go.GetCollisionBox.Width, go.GetCollisionBox.Y, 1, go.GetCollisionBox.Height);
+
+            _spriteBatch.Draw(pixel, top, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            _spriteBatch.Draw(pixel, bottom, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            _spriteBatch.Draw(pixel, left, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+            _spriteBatch.Draw(pixel, right, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
+        }
+
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
@@ -251,6 +274,7 @@ namespace FirstSemesterExam.Menu
 
             foreach (GameObject gameObject in gameObjects)
             {
+                DrawCollisionBox(gameObject, spriteBatch);
                 gameObject.Draw(spriteBatch);
             }
 

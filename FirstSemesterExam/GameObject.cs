@@ -155,7 +155,10 @@ namespace FirstSemesterExam
 
         }
 
+        public virtual void OnCollisionEnter(GameObject other)
+        {
 
+        }
 
     }
 }

@@ -9,7 +9,6 @@ namespace FirstSemesterExam
 {
     internal class ThrowingKnife : GameObject
     {
-        private float angle;
         public ThrowingKnife(Vector2 position, Vector2 velocity, Texture2D sprite)
         {
             this.position = position;
@@ -42,7 +41,7 @@ namespace FirstSemesterExam
             }
         }
 
-        public override void OnCollision(GameObject other)
+        public override void OnCollisionEnter(GameObject other)
         {
             if (other is Enemy)
             {

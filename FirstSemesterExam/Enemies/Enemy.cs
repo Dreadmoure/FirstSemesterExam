@@ -26,7 +26,7 @@ namespace FirstSemesterExam.Enemies
 
         public Enemy(Player player)
         {
-            this.player = player; 
+            this.player = player;
             animationSpeed = 1f;
             spriteEffects = SpriteEffects.None;
             //rotation = 0.01f;
@@ -112,35 +112,24 @@ namespace FirstSemesterExam.Enemies
 
         private void HandlePosition()
         {
-            // reset velocity 
-            velocity = Vector2.Zero;
-
-            // set velocity towards player position 
-            if (position.X > player.GetPosition.X)
+            velocity = (player.GetPosition - position);
+            velocity.Normalize();
+            if (velocity.X > 0)
             {
-                velocity.X += -player.GetPosition.X;
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
                 spriteEffects = SpriteEffects.None;
             }
-            else if (position.X < player.GetPosition.X)
-            {
-                velocity.X += player.GetPosition.X;
-                spriteEffects = SpriteEffects.FlipHorizontally;
-                
-            }
-            if (position.Y > player.GetPosition.Y)
-            {
-                velocity.Y += -player.GetPosition.Y;
-            }
-            else if (position.Y < player.GetPosition.Y)
-            {
-                velocity.Y += player.GetPosition.Y;
-            }
 
-            // set the length of the velocity vector to 1 no matter direction. 
-            if (velocity != Vector2.Zero)
-            {
-                velocity.Normalize();
-            }
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            hasJustBeenHit = true;
+            health -= damage;
+
         }
 
         public override void OnCollision(GameObject other)
