@@ -129,7 +129,6 @@ namespace FirstSemesterExam.Menu
                 if (backToMenuButton.isClicked)
                 {
                     backToMenuButton.isClicked = false;
-                    MediaPlayer.Stop();
                     game.ChangeState(GameWorld.GetMenuState);
                 }
                 if (quitGameButton.isClicked)
@@ -138,7 +137,6 @@ namespace FirstSemesterExam.Menu
                     game.Exit();
                 }
             }
-            
         }
 
         private void SpawnEnemy()
