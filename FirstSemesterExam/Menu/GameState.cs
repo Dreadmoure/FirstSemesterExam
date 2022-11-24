@@ -1,10 +1,18 @@
 ﻿using FirstSemesterExam.Enemies;
+using FirstSemesterExam.HighScore;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+
+using System.IO;
+using System.Linq;
+using System.Reflection.Metadata;
+using System.Text;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
@@ -21,10 +29,12 @@ namespace FirstSemesterExam.Menu
         private float timeSinceEnemySpawn;
         private float timeBetweenEnemySpawn = 1f;
         private Random random = new Random();
-
+        private float gameTimer; 
         private Texture2D pixel;
         private SpriteFont font;
         private Player player;
+        private static int score = 0;
+        private static int kills = 0; 
         // pause menu 
         private static bool paused = false;
         private List<Button> buttons;
@@ -37,6 +47,10 @@ namespace FirstSemesterExam.Menu
         public static bool HandlePause
         {
             set { paused = value; }
+        }
+        public float GetGameTimer
+        {
+            get { return gameTimer; }
         }
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
@@ -74,8 +88,12 @@ namespace FirstSemesterExam.Menu
 
         public override void Update(GameTime gameTime)
         {
+            CalculateScore(); 
+            
             if (!paused)
             {
+                gameTimer += (float)gameTime.ElapsedGameTime.TotalMinutes; 
+                
                 if (Keyboard.GetState().IsKeyDown(Keys.P))
                 {
                     paused = true;
@@ -121,6 +139,11 @@ namespace FirstSemesterExam.Menu
                 }
 
                 AddGameObjects();
+
+                if(player.Health == 0)
+                {
+                    SaveScore(); 
+                }
             }
             else if(paused)
             {
@@ -208,6 +231,26 @@ namespace FirstSemesterExam.Menu
             }
 
             gameObjectsToAdd.Clear();
+        }
+
+        public static void CountEnemyKill()
+        {
+            kills += 1;
+        }
+
+        public void CalculateScore()
+        {
+            score = kills; 
+        }
+
+        public void SaveScore()
+        {
+            paused = true;
+
+            string name = "kage"; 
+
+
+            File.AppendAllText("./scores.txt", name + " " + score + "\n");
         }
 
         private void DrawCollisionBox(GameObject go, SpriteBatch _spriteBatch)

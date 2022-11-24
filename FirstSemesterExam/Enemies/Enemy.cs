@@ -23,10 +23,6 @@ namespace FirstSemesterExam.Enemies
         protected float attackRange;
         private Player player;
         protected int expValue;
-        
-        
-
-        
 
         public Enemy(Player player)
         {
@@ -99,11 +95,12 @@ namespace FirstSemesterExam.Enemies
             {
                 Die();
             }
-
         }
 
         private void Die()
         {
+            GameState.CountEnemyKill(); 
+
             float rnd = random.Next(100);
             if (rnd < 10)
             {
