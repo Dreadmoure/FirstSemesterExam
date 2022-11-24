@@ -17,7 +17,7 @@ namespace FirstSemesterExam.Enemies
         public BlobMonster(Player player) : base(player)
         {
             health = 5f;
-            speed = 5f;
+            speed = 50f;
             attackSpeed = 2f;
             attackRange = 25f;
             animationSpeed = 2f;
