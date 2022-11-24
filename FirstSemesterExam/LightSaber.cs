@@ -4,9 +4,7 @@ using FirstSemesterExam.Projectiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
-using SharpDX.MediaFoundation;
 using System;
-using System.Reflection.Metadata;
 
 namespace FirstSemesterExam
 {
