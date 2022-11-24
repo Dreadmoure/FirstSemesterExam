@@ -23,9 +23,10 @@ namespace FirstSemesterExam
         {
             get { return menuState; }
         }
-        public static State GetGameState
+        public static State HandleGameState
         {
             get { return gameState; }
+            set { gameState = value; }
         }
 
         /// <summary>
