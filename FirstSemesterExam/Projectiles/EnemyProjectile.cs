@@ -36,7 +36,7 @@ namespace FirstSemesterExam.Projectiles
         {
             if (other is Player)
             {
-
+                
                 ShouldBeRemoved = true;
             }
         }
