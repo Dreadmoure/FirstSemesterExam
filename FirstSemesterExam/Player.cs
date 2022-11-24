@@ -34,14 +34,21 @@ namespace FirstSemesterExam
         private Rectangle healthBarRectangle;
         private Rectangle healthBarBackgroundRectangle;
         private Vector2 healthBarPosition;
-        private float healthBarLayerDepth;
-        private float healthBarBackgroundLayerDepth;
+
+        private float barLayerDepth;
+        private float barBackgroundLayerDepth;
 
         //exp bar
         private Texture2D expBarTexture;
         private Rectangle expBarRectangle;
         private Vector2 expBarPosition;
-        private float expBarLayerDepth;
+ 
+
+        //dash indicator bar
+        private Texture2D dashBarTexture;
+        private Rectangle dashBarRectangle;
+        private Vector2 dashBarPosition;
+
 
         public int Exp
         {
@@ -71,9 +78,11 @@ namespace FirstSemesterExam
             
             layerDepth = 0.5f;
 
-            healthBarLayerDepth = 0.95f;
-            healthBarBackgroundLayerDepth = 0.94f;
-            expBarLayerDepth = 0.95f;
+            barLayerDepth = 0.95f;
+            barBackgroundLayerDepth = 0.94f;
+
+            
+
 
         }
 
@@ -94,6 +103,7 @@ namespace FirstSemesterExam
             healthBarTexture = content.Load<Texture2D>("Player\\Health");
             expBarTexture = content.Load<Texture2D>("Player\\Exp");
             healthBarBackgroundTexture = content.Load<Texture2D>("Player\\HealthBackground");
+            dashBarTexture = content.Load<Texture2D>("Player\\DashBar");
 
             position.X = GameWorld.GetScreenSize.X / 2;
             position.Y = GameWorld.GetScreenSize.Y / 2;
@@ -120,10 +130,7 @@ namespace FirstSemesterExam
                 CurrentIndex = 0;
             }
 
-            if(exp >= 100)
-            {
-                LevelUp();
-            }
+            
 
             healthBarPosition.X = position.X - (GetSpriteSize.X /0.70f);
             healthBarPosition.Y = position.Y - 45;
@@ -133,6 +140,18 @@ namespace FirstSemesterExam
             expBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
             expBarPosition.Y = position.Y - 35;
             expBarRectangle = new Rectangle((int)expBarPosition.X, (int)expBarPosition.Y, exp, 5);
+
+            dashBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
+            dashBarPosition.Y = position.Y - 30;
+            int dashBarOffset = (int)((nextDashCooldown - currentTime) * 50f);
+            dashBarRectangle = new Rectangle((int)dashBarPosition.X, (int)dashBarPosition.Y, dashBarOffset, 5);
+
+            
+
+            if (exp >= 100)
+            {
+                LevelUp();
+            }
         }
 
         private void LevelUp()
@@ -144,7 +163,7 @@ namespace FirstSemesterExam
         //private KeyboardState oldState;
         private Keys movementKey;
         //private Vector2 lastMovedDirection;
-        float dashCooldown = 1; // Vores Dash Cooldown, hver
+        float dashCooldown = 2; // Vores Dash Cooldown, hver
         float nextDashCooldown = 0; //start cooldown ligger på 0, så man kan bruge dash til at starte med
         
         float currentTime = 0f;
@@ -271,9 +290,10 @@ namespace FirstSemesterExam
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(healthBarTexture, healthBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, healthBarLayerDepth);
-            spriteBatch.Draw(healthBarBackgroundTexture, healthBarBackgroundRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, healthBarBackgroundLayerDepth);
-            spriteBatch.Draw(expBarTexture, expBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, expBarLayerDepth);
+            spriteBatch.Draw(healthBarTexture, healthBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, barLayerDepth);
+            spriteBatch.Draw(healthBarBackgroundTexture, healthBarBackgroundRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, barBackgroundLayerDepth);
+            spriteBatch.Draw(expBarTexture, expBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, barLayerDepth);
+            spriteBatch.Draw(dashBarTexture, dashBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, barLayerDepth);
             base.Draw(spriteBatch);
         }
         //Overvejde at lave Dash til en funktion der kunne blive kaldt
