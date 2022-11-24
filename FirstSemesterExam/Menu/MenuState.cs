@@ -70,7 +70,7 @@ namespace FirstSemesterExam.Menu
             if (highscoreButton.isClicked)
             {
                 highscoreButton.isClicked = false;
-                game.ChangeState(GameWorld.GetHighscoreState); 
+                game.ChangeState(new HighscoreState(content, graphicsDevice, game)); 
             }
             if (quitGameButton.isClicked)
             {

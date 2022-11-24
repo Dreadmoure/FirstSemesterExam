@@ -33,6 +33,8 @@ namespace FirstSemesterExam.Menu
         private float gameTimer; 
         private SpriteFont font;
         private Player player;
+        private static int score = 0;
+        private static int kills = 0; 
         // pause menu 
         private static bool paused = false;
         private List<Button> buttons;
@@ -85,9 +87,11 @@ namespace FirstSemesterExam.Menu
 
         public override void Update(GameTime gameTime)
         {
+            CalculateScore(); 
+            
             if (!paused)
             {
-                gameTimer += (float)gameTime.ElapsedGameTime.TotalSeconds; 
+                gameTimer += (float)gameTime.ElapsedGameTime.TotalMinutes; 
                 
                 if (Keyboard.GetState().IsKeyDown(Keys.P))
                 {
@@ -126,7 +130,7 @@ namespace FirstSemesterExam.Menu
 
                 AddGameObjects();
 
-                if(player.Health <= 0)
+                if(player.Health == 0)
                 {
                     SaveScore(); 
                 }
@@ -219,17 +223,24 @@ namespace FirstSemesterExam.Menu
             gameObjectsToAdd.Clear();
         }
 
+        public static void CountEnemyKill()
+        {
+            kills += 1;
+        }
+
+        public void CalculateScore()
+        {
+            score = kills; 
+        }
+
         public void SaveScore()
         {
-            //string name = "kage";
-            //int score = 300; 
+            paused = true;
 
-            //File.AppendAllText("./scores.txt", name + " " + score + "\n");
+            string name = "kage"; 
 
 
-            File.AppendAllText("./scores.txt", "123456789 123456\n");
-            File.AppendAllText("./scores.txt", "123 1\n");
-            File.AppendAllText("./scores.txt", "12345 123 \n");
+            File.AppendAllText("./scores.txt", name + " " + score + "\n");
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

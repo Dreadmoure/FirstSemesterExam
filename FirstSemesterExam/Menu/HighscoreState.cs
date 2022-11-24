@@ -53,16 +53,6 @@ namespace FirstSemesterExam.Menu
 
             numberOfViewedScores = 10; 
             indexMin = 0;
-            indexMax = highscore.Scores.Count;
-            indexStart = 0; 
-            if(indexMax < 10)
-            {
-                indexEnd = indexMax; 
-            }
-            else
-            {
-                indexEnd = 10; 
-            }
 
             foreach (Button button in buttons)
             {
@@ -77,6 +67,8 @@ namespace FirstSemesterExam.Menu
                 button.Update(gameTime);
             }
 
+            UpdateIndex(); 
+
             if (backButton.isClicked)
             {
                 backButton.isClicked = false;
@@ -86,31 +78,61 @@ namespace FirstSemesterExam.Menu
             {
                 nextScoresButton.isClicked = false;
 
-                if(indexMax - indexEnd >= numberOfViewedScores)
+                if (indexMax - indexMin < numberOfViewedScores)
                 {
-                    indexStart += numberOfViewedScores;
-                    indexEnd = indexStart + numberOfViewedScores; 
+                    indexStart = indexMin;
+                    indexEnd = indexMax;
                 }
                 else
                 {
-                    indexStart += numberOfViewedScores;
-                    indexEnd = indexMax;
-                }
+                    if (indexMax - indexEnd >= numberOfViewedScores)
+                    {
+                        indexStart += numberOfViewedScores;
+                        indexEnd = indexStart + numberOfViewedScores;
+                    }
+                    else
+                    {
+                        indexStart += numberOfViewedScores;
+                        indexEnd = indexMax;
+                    }
+                } 
             }
             if (prevScoresButton.isClicked)
             {
                 prevScoresButton.isClicked = false;
-                
-                if(indexMin + indexStart > numberOfViewedScores)
+
+                if (indexMax - indexMin < numberOfViewedScores)
                 {
-                    indexStart -= numberOfViewedScores;
-                    indexEnd = indexStart + numberOfViewedScores;
+                    indexStart = indexMin;
+                    indexEnd = indexMax;
                 }
                 else
                 {
-                    indexStart = indexMin;
-                    indexEnd = indexStart + numberOfViewedScores;
+                    if (indexMin + indexStart > numberOfViewedScores)
+                    {
+                        indexStart -= numberOfViewedScores;
+                        indexEnd = indexStart + numberOfViewedScores;
+                    }
+                    else
+                    {
+                        indexStart = indexMin;
+                        indexEnd = indexStart + numberOfViewedScores;
+                    }
                 }
+            }
+        }
+
+        private void UpdateIndex()
+        {
+            indexMax = highscore.Scores.Count;
+            indexStart = 0;
+            if (indexMax < 10)
+            {
+                indexEnd = indexMax;
+            }
+            else
+            {
+                indexEnd = 10;
             }
         }
 
