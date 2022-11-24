@@ -30,6 +30,8 @@ namespace FirstSemesterExam.Menu
             quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
 
             buttons = new List<Button>() { continueGameButton, newGameButton, quitGameButton };
+
+            LoadContent(); 
         }
 
         #region methods 
@@ -55,7 +57,6 @@ namespace FirstSemesterExam.Menu
                 continueGameButton.isClicked = false;
                 GameState.HandlePause = false; 
                 game.ChangeState(GameWorld.HandleGameState); 
-                // TODO: loads the previous game, but mouse gets wierd??? There are 2 players??? 
             }
             if (newGameButton.isClicked)
             {

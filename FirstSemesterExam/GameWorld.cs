@@ -62,7 +62,6 @@ namespace FirstSemesterExam
             this.Window.Title = "Survive Us";
 
             menuState = new MenuState(Content, GraphicsDevice, this);
-            gameState = new GameState(Content, GraphicsDevice, this);
 
             base.Initialize();
         }
@@ -91,7 +90,6 @@ namespace FirstSemesterExam
             if (_nextState != null)
             {
                 _currentState = _nextState;
-                _currentState.LoadContent();
 
                 _nextState = null;
             }

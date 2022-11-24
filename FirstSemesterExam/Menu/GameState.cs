@@ -55,6 +55,8 @@ namespace FirstSemesterExam.Menu
             quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
 
             buttons = new List<Button>() { resumeGameButton, backToMenuButton, quitGameButton };
+
+            LoadContent(); 
         }
 
         public override void LoadContent()
