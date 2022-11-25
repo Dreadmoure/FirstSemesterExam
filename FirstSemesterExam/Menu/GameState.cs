@@ -30,25 +30,28 @@ namespace FirstSemesterExam.Menu
         private float timeSinceEnemySpawn;
         private float timeBetweenEnemySpawn = 1f;
         private Random random = new Random();
-        private float gameTimer; 
+        private static float gameTimer; 
         private Texture2D pixel;
         private SpriteFont font;
         private Player player;
         private static int score = 0;
-        private static int kills = 0; 
+        private static int kills; 
         // pause menu 
         private static bool paused = false;
-        private List<Button> buttons;
+        private List<Button> pausedButtons;
         private Button resumeGameButton;
         private Button backToMenuButton;
         private Button quitGameButton;
-
-        
+        // game over menu 
+        private static bool gameOver = true;
+        private List<Component> gameOverComponents;
+        private Button saveScoreButton;
+        private TextBox enterNameTextbox; 
+        // levelup 
         private LevelUpCard[] cardArray;
         private LevelUpCard card1;
         private LevelUpCard card2;
         private LevelUpCard card3;
-
 
         private List<GameObject> currentCollisions = new List<GameObject>();
         private List<GameObject> previousCollisions = new List<GameObject>();
@@ -58,9 +61,13 @@ namespace FirstSemesterExam.Menu
         {
             set { paused = value; }
         }
-        public float GetGameTimer
+        public static float GetGameTimer
         {
             get { return gameTimer; }
+        }
+        public static bool GetGameOver
+        {
+            get { return gameOver; }
         }
 
 
@@ -74,15 +81,22 @@ namespace FirstSemesterExam.Menu
         {
             player = new Player();
             gameObjects.Add(player);
+            kills = 0;
 
-            // buttons for pause screen 
             float buttonLayer = 0.2f;
             float buttonScale = 6f;
+
+            // buttons for pause screen 
             resumeGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Resume Game", buttonLayer, buttonScale);
             backToMenuButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "Main Menu", buttonLayer, buttonScale);
             quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
+            pausedButtons = new List<Button>() { resumeGameButton, backToMenuButton, quitGameButton };
 
-            buttons = new List<Button>() { resumeGameButton, backToMenuButton, quitGameButton };
+            // buttons for game over screen 
+            gameOver = false; 
+            saveScoreButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Save score", buttonLayer, buttonScale);
+            enterNameTextbox = new TextBox(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "", buttonLayer, buttonScale);
+            gameOverComponents = new List<Component> { saveScoreButton, enterNameTextbox }; 
 
 
 
@@ -104,10 +118,15 @@ namespace FirstSemesterExam.Menu
             }
 
             //loads the content for all the buttons
-            foreach (Button button in buttons)
+            foreach (Button button in pausedButtons)
             {
                 button.LoadContent(content);
             }
+
+            foreach (Component component in gameOverComponents)
+            {
+                component.LoadContent(content);
+             }
 
             foreach (LevelUpCard card in cardArray)
             {
@@ -117,9 +136,10 @@ namespace FirstSemesterExam.Menu
 
         public override void Update(GameTime gameTime)
         {
-            if (!paused && !Player.LeveledUp)
+            if (!paused && !Player.LeveledUp && !gameOver)
             {
                 CalculateScore(); 
+
                 gameTimer += (float)gameTime.ElapsedGameTime.TotalMinutes; 
                 
                 if (Keyboard.GetState().IsKeyDown(Keys.P))
@@ -150,7 +170,6 @@ namespace FirstSemesterExam.Menu
                 previousCollisions = currentCollisions;
                 currentCollisions = new List<GameObject>();
 
-
                 RemoveGameObjects();
 
                 totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -167,6 +186,11 @@ namespace FirstSemesterExam.Menu
                 }
 
                 AddGameObjects();
+
+                if(player.Health < 0)
+                {
+                    gameOver = true; 
+                }
 
                 if(player.Exp >= player.MaxExp)
                 {
@@ -185,19 +209,11 @@ namespace FirstSemesterExam.Menu
                     {
                         card3.RandomCard();
                     }
-
-                }
-
-
-                if(player.Health == 0)
-                {
-                    SaveScore(); 
-
                 }
             }
             else if(paused)
             {
-                foreach (Button button in buttons)
+                foreach (Button button in pausedButtons)
                 {
                     button.Update(gameTime);
                 }
@@ -218,34 +234,51 @@ namespace FirstSemesterExam.Menu
                     game.Exit();
                 }
             }
+            else if (gameOver)
+            {
+                foreach (Component component in gameOverComponents)
+                {
+                    component.Update(gameTime);
+                }
+
+                string name = ""; 
+
+                if (enterNameTextbox.isActive)
+                {
+                    name = enterNameTextbox.TextEntered; 
+                }
+                if (saveScoreButton.isClicked)
+                {
+                    //string name = "kage";
+                    File.AppendAllText("./scores.txt", name + " " + score + "\n");
+
+                    saveScoreButton.isClicked = false;
+                    GameWorld.HandleHighscoreState = new HighscoreState(content, graphicsDevice, game);
+                    game.ChangeState(GameWorld.HandleHighscoreState); 
+            }
             else if (Player.LeveledUp)
             {
-
                 foreach (LevelUpCard card in cardArray)
                 {
                     card.Update(gameTime);
                 }
-
                 if (card1.isClicked)
                 {
                     card1.isClicked = false;
 
                     Player.LeveledUp = false;
-
                 }
                 if (card2.isClicked)
                 {
                     card2.isClicked = false;
 
                     Player.LeveledUp = false;
-
                 }
                 if (card3.isClicked)
                 {
                     card3.isClicked = false;
 
                     Player.LeveledUp = false;
-
                 }
             }
         }
@@ -320,25 +353,13 @@ namespace FirstSemesterExam.Menu
 
             gameObjectsToAdd.Clear();
         }
-
         public static void CountEnemyKill()
         {
-            kills += 1;
+            kills += 1; 
         }
-
-        public void CalculateScore()
+        public static void CalculateScore()
         {
             score = kills; 
-        }
-
-        public void SaveScore()
-        {
-            paused = true;
-
-            string name = "kage"; 
-
-
-            File.AppendAllText("./scores.txt", name + " " + score + "\n");
         }
 
         private void DrawCollisionBox(GameObject go, SpriteBatch _spriteBatch)
@@ -358,7 +379,7 @@ namespace FirstSemesterExam.Menu
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}", Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nKills: {kills}", Vector2.Zero, Color.White);
 
             foreach (GameObject gameObject in gameObjects)
             {
@@ -368,9 +389,16 @@ namespace FirstSemesterExam.Menu
 
             if (paused)
             {
-                foreach (Button button in buttons)
+                foreach (Button button in pausedButtons)
                 {
                     button.Draw(gameTime, spriteBatch);
+                }
+            }
+            if (gameOver)
+            {
+                foreach (Component component in gameOverComponents)
+                {
+                    component.Draw(gameTime, spriteBatch);
                 }
             }
 

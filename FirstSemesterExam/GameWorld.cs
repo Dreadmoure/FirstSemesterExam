@@ -17,11 +17,17 @@ namespace FirstSemesterExam
         private State _currentState;
         private State _nextState;
         private static State menuState;
+        private static State highscoreState;
         private static State gameState; 
 
         public static State GetMenuState
         {
             get { return menuState; }
+        }
+        public static State HandleHighscoreState
+        {
+            get { return highscoreState; }
+            set { highscoreState = value; }
         }
         public static State HandleGameState
         {
@@ -45,6 +51,7 @@ namespace FirstSemesterExam
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            Mouse.SetCursor(MouseCursor.Crosshair);
 
             // set screensize 
             _graphics.PreferredBackBufferWidth = 1920;
@@ -63,6 +70,7 @@ namespace FirstSemesterExam
             this.Window.Title = "Survive Us";
 
             menuState = new MenuState(Content, GraphicsDevice, this);
+            highscoreState = new HighscoreState(Content, GraphicsDevice, this);
 
             base.Initialize();
         }

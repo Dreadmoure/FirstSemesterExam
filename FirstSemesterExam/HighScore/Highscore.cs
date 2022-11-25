@@ -11,8 +11,7 @@ namespace FirstSemesterExam.HighScore
     {
         // make list for scores 
         private List<Score> scores = new List<Score>();
-        private List<Score> sortedScores = new List<Score>(); 
-        private string fileName = "./scores.txt";
+        private string filePath = "./scores.txt";
         private string[] fileDataLines;
         private FileStream file; 
 
@@ -25,18 +24,19 @@ namespace FirstSemesterExam.HighScore
         {
             CreateFile();
 
-            ReadFile(); 
+            ReadFile();
 
+            Sort();
+
+            WriteToFile(); 
         }
-
-
 
         // check if file exist, if not then create it 
         private void CreateFile()
         {
-            if (!File.Exists(fileName))
+            if (!File.Exists(filePath))
             {
-                file = File.Create(fileName);
+                file = File.Create(filePath);
                 file.Close(); 
             }
         }
@@ -48,7 +48,7 @@ namespace FirstSemesterExam.HighScore
             // Score: name, score \n 
 
             // read file 
-            fileDataLines = File.ReadAllLines(fileName);
+            fileDataLines = File.ReadAllLines(filePath);
 
             // split the string of fileData, and put it into the list 
             foreach (string line in fileDataLines)
@@ -64,13 +64,27 @@ namespace FirstSemesterExam.HighScore
 
 
         // sort the list according to scores - highest to lowest 
+        private void Sort()
+        {
+            scores = scores.OrderBy(x => -x.score).ToList(); 
+        }
 
 
         // rewrite the file in the order of the scores 
-
-        public void AddScoreToFile(string name, int score)
+        private void WriteToFile()
         {
-            File.AppendAllText(fileName, name + " " + score + "\n"); 
+            File.Delete(filePath); 
+
+            if (!File.Exists(filePath))
+            {
+                file = File.Create(filePath);
+                file.Close();
+            }
+
+            for (int i = 0; i < scores.Count; i++)
+            {
+                File.AppendAllText(filePath, scores[i].name + " " + scores[i].score + "\n");
+            }
         }
     }
 }

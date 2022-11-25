@@ -53,6 +53,16 @@ namespace FirstSemesterExam.Menu
 
             numberOfViewedScores = 10; 
             indexMin = 0;
+            indexMax = highscore.Scores.Count;
+            indexStart = indexMin;
+            if (indexMax < numberOfViewedScores)
+            {
+                indexEnd = indexMax;
+            }
+            else
+            {
+                indexEnd = numberOfViewedScores;
+            }
 
             foreach (Button button in buttons)
             {
@@ -67,7 +77,7 @@ namespace FirstSemesterExam.Menu
                 button.Update(gameTime);
             }
 
-            UpdateIndex(); 
+            //Debug.WriteLine("start: " + indexStart + " end: " + indexEnd);
 
             if (backButton.isClicked)
             {
@@ -78,61 +88,57 @@ namespace FirstSemesterExam.Menu
             {
                 nextScoresButton.isClicked = false;
 
-                if (indexMax - indexMin < numberOfViewedScores)
+                if (indexMax < numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
                     indexEnd = indexMax;
                 }
                 else
                 {
-                    if (indexMax - indexEnd >= numberOfViewedScores)
+                    if (indexMax - indexEnd >= numberOfViewedScores-1)
                     {
                         indexStart += numberOfViewedScores;
                         indexEnd = indexStart + numberOfViewedScores;
                     }
-                    else
+                    else if (indexMax - indexEnd < numberOfViewedScores - 1 && indexMax - indexStart < numberOfViewedScores - 1)
+                    {
+                        indexEnd = indexMax;
+                    }
+                    else if(indexMax - indexEnd < numberOfViewedScores-1)
                     {
                         indexStart += numberOfViewedScores;
                         indexEnd = indexMax;
                     }
-                } 
+                    
+                }
             }
             if (prevScoresButton.isClicked)
             {
                 prevScoresButton.isClicked = false;
 
-                if (indexMax - indexMin < numberOfViewedScores)
+                if (indexMax < numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
                     indexEnd = indexMax;
                 }
                 else
                 {
-                    if (indexMin + indexStart > numberOfViewedScores)
+                    if (indexMin + indexStart >= numberOfViewedScores-1)
                     {
                         indexStart -= numberOfViewedScores;
                         indexEnd = indexStart + numberOfViewedScores;
                     }
-                    else
+                    else if (indexMin + indexStart < numberOfViewedScores - 1 && indexMax <= numberOfViewedScores - 1)
+                    {
+                        indexStart = indexMin;
+                        indexEnd = indexMax;
+                    }
+                    else if(indexMin + indexStart < numberOfViewedScores - 1)
                     {
                         indexStart = indexMin;
                         indexEnd = indexStart + numberOfViewedScores;
                     }
                 }
-            }
-        }
-
-        private void UpdateIndex()
-        {
-            indexMax = highscore.Scores.Count;
-            indexStart = 0;
-            if (indexMax < 10)
-            {
-                indexEnd = indexMax;
-            }
-            else
-            {
-                indexEnd = 10;
             }
         }
 
@@ -148,9 +154,9 @@ namespace FirstSemesterExam.Menu
             spriteBatch.DrawString(textFont, "Score", scoreTextPosition + new Vector2(215, -20), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
             for (int i = indexStart; i < indexEnd; i++)
             {
-                float offsetScorePositionX = -textFont.MeasureString(scores[i].score.ToString()).X;
+                float offsetScorePositionX = textFont.MeasureString(scores[i].score.ToString()).X;
                 spriteBatch.DrawString(textFont, scores[i].name, scoreTextPosition + new Vector2(0, i%10 * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
-                spriteBatch.DrawString(textFont, scores[i].score.ToString(), scoreTextPosition + new Vector2(250 + offsetScorePositionX, i%10 * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
+                spriteBatch.DrawString(textFont, scores[i].score.ToString(), scoreTextPosition + new Vector2(250, i%10 * 15), Color.White, 0f, new Vector2(offsetScorePositionX, 0), 1f, SpriteEffects.None, 0.9f);
             }
 
             foreach (Button button in buttons)
