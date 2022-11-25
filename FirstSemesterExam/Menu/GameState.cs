@@ -69,7 +69,7 @@ namespace FirstSemesterExam.Menu
             card1 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 3, GameWorld.GetScreenSize.Y / 2));
             card2 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2));
             card3 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 1.5f, GameWorld.GetScreenSize.Y / 2));
-            cardArray = new LevelUpCard[3] {card1, card2, card3};
+            cardArray = new LevelUpCard[3] { card1, card2, card3 };
 
             LoadContent(); 
         }
@@ -89,7 +89,6 @@ namespace FirstSemesterExam.Menu
                 button.LoadContent(content);
             }
 
-            ////needs to load content, but right now cardArray is empty
             foreach (LevelUpCard card in cardArray)
             {
                 card.LoadContent(content);
@@ -145,6 +144,26 @@ namespace FirstSemesterExam.Menu
                 }
 
                 AddGameObjects();
+                if(player.Exp >= player.MaxExp)
+                {
+                    
+                    foreach(LevelUpCard card in cardArray)
+                    {
+                        card.RandomCard();
+                    }
+
+                    while (card1.GetIndex == card2.GetIndex)
+                    {
+                        card2.RandomCard();
+                    }
+
+                    while (card1.GetIndex == card3.GetIndex || card2.GetIndex == card3.GetIndex)
+                    {
+                        card3.RandomCard();
+                    }
+
+
+                }
             }
             else if(paused)
             {
@@ -171,6 +190,7 @@ namespace FirstSemesterExam.Menu
             }
             else if (Player.LeveledUp)
             {
+
                 foreach (LevelUpCard card in cardArray)
                 {
                     card.Update(gameTime);
@@ -178,15 +198,24 @@ namespace FirstSemesterExam.Menu
 
                 if (card1.isClicked)
                 {
-                    //do something
+                    card1.isClicked = false;
+
+                    Player.LeveledUp = false;
+
                 }
                 if (card2.isClicked)
                 {
-                    //do something
+                    card2.isClicked = false;
+
+                    Player.LeveledUp = false;
+
                 }
                 if (card3.isClicked)
                 {
-                    //do something
+                    card3.isClicked = false;
+
+                    Player.LeveledUp = false;
+
                 }
             }
         }

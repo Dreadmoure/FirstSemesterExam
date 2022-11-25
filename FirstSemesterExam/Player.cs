@@ -21,6 +21,7 @@ namespace FirstSemesterExam
         private MouseState mouseState;
         private Weapon weapon;
         private int exp;
+        private int maxExp;
         private int levelIndicator;
 
         private float defense;
@@ -51,6 +52,11 @@ namespace FirstSemesterExam
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
 
+        public int MaxExp
+        {
+            get { return maxExp; }
+            set { MaxExp = value; }
+        }
 
         public int Exp
         {
@@ -81,6 +87,7 @@ namespace FirstSemesterExam
 
             levelIndicator = 1;
             exp = 0;
+            maxExp = 10;
 
             animationSpeed = 9;
             
@@ -171,7 +178,7 @@ namespace FirstSemesterExam
 
             
 
-            if (exp >= 100)
+            if (exp >= maxExp)
             {
                 LevelUp();
             }

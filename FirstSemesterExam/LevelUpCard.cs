@@ -13,14 +13,12 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 
 namespace FirstSemesterExam
 {
-    public class LevelUpCard
+    public class LevelUpCard : GameObject
     {
         #region Fields
-        private Vector2 position;
-        private float scale;
+
         private Texture2D sprite;
-        private Texture2D[] sprites;
-        private float layerDepth;
+
         private string text;
         private SpriteFont textFont;
         private int index;
@@ -30,7 +28,7 @@ namespace FirstSemesterExam
         private MouseState _currentMouse;
         private MouseState _previousMouse;
         public bool isClicked;
-        private Color color = new Color(255, 255, 255, 255);
+
         private bool colorShiftDown;
         #endregion
 
@@ -48,12 +46,9 @@ namespace FirstSemesterExam
             }
         }
 
-        private Vector2 GetSpriteSize
+        public int GetIndex
         {
-            get
-            {
-                return new Vector2(sprite.Width * scale, sprite.Height * scale);
-            }
+            get { return index; }
         }
 
         private Vector2 Origin
@@ -67,21 +62,16 @@ namespace FirstSemesterExam
         public LevelUpCard(Vector2 position)
         {
             this.position = position;
-            index = random.Next(0,7);
             layerDepth = 0.99f;
             scale = 3f;
-            
 
-            
-
-
-            
         }
         #endregion
 
         #region Methods
-        public void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
+
             _previousMouse = _currentMouse;
             _currentMouse = Mouse.GetState();
 
@@ -101,9 +91,11 @@ namespace FirstSemesterExam
             {
                 color.A += 3;
             }
+
+            
         }
 
-        public void LoadContent(ContentManager content)
+        public override void LoadContent(ContentManager content)
         {
             textFont = content.Load<SpriteFont>("Fonts\\textFont");
 
@@ -112,10 +104,50 @@ namespace FirstSemesterExam
             sprites[1] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[2] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[3] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
+            sprites[4] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[5] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[6] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
 
             //assigns the sprite of the card from the index number
+            RandomCard();
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, position, null, color, 0f, Origin, scale, SpriteEffects.None, layerDepth);
+
+            if (!string.IsNullOrEmpty(text))
+            {
+                float x = (GetRectangle.X + GetRectangle.Width / 2) - textFont.MeasureString(text).X / 2;
+                float y = (GetRectangle.Y + GetRectangle.Height / 3) - textFont.MeasureString(text).Y / 2;
+
+                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layerDepth + 0.01f);
+            }
+        }
+
+        private void ColorShift()
+        {
+            if (color.A == 255)
+            {
+                colorShiftDown = false;
+            }
+            if (color.A == 0)
+            {
+                colorShiftDown = true;
+            }
+            if (colorShiftDown)
+            {
+                color.A += 3;
+            }
+            else
+            {
+                color.A -= 3;
+            }
+        }
+
+        public void RandomCard()
+        {
+            index = random.Next(0, 6);
             switch (index)
             {
                 case 0:
@@ -150,39 +182,6 @@ namespace FirstSemesterExam
                     break;
             }
         }
-
-        public void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(sprite, position, null, color, 0f, Origin, scale, SpriteEffects.None, layerDepth);
-
-            if (!string.IsNullOrEmpty(text))
-            {
-                float x = (GetRectangle.X + GetRectangle.Width / 2) - textFont.MeasureString(text).X / 2;
-                float y = (GetRectangle.Y + GetRectangle.Height / 3) - textFont.MeasureString(text).Y / 2;
-
-                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layerDepth + 0.01f);
-            }
-        }
-
-        private void ColorShift()
-        {
-            if (color.A == 255)
-            {
-                colorShiftDown = false;
-            }
-            if (color.A == 0)
-            {
-                colorShiftDown = true;
-            }
-            if (colorShiftDown)
-            {
-                color.A += 3;
-            }
-            else
-            {
-                color.A -= 3;
-            }
-        }
         #endregion
-    }
+    }   
 }
