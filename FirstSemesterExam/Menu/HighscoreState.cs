@@ -88,7 +88,7 @@ namespace FirstSemesterExam.Menu
             {
                 nextScoresButton.isClicked = false;
 
-                if (indexMax - indexMin < numberOfViewedScores-1)
+                if (indexMax < numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
                     indexEnd = indexMax;
@@ -116,19 +116,24 @@ namespace FirstSemesterExam.Menu
             {
                 prevScoresButton.isClicked = false;
 
-                if (indexMax - indexMin < numberOfViewedScores-1)
+                if (indexMax < numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
                     indexEnd = indexMax;
                 }
                 else
                 {
-                    if (indexMin + indexStart > numberOfViewedScores-1)
+                    if (indexMin + indexStart >= numberOfViewedScores-1)
                     {
                         indexStart -= numberOfViewedScores;
                         indexEnd = indexStart + numberOfViewedScores;
                     }
-                    else
+                    else if (indexMin + indexStart < numberOfViewedScores - 1 && indexMax <= numberOfViewedScores - 1)
+                    {
+                        indexStart = indexMin;
+                        indexEnd = indexMax;
+                    }
+                    else if(indexMin + indexStart < numberOfViewedScores - 1)
                     {
                         indexStart = indexMin;
                         indexEnd = indexStart + numberOfViewedScores;
@@ -149,9 +154,9 @@ namespace FirstSemesterExam.Menu
             spriteBatch.DrawString(textFont, "Score", scoreTextPosition + new Vector2(215, -20), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
             for (int i = indexStart; i < indexEnd; i++)
             {
-                float offsetScorePositionX = -textFont.MeasureString(scores[i].score.ToString()).X;
+                float offsetScorePositionX = textFont.MeasureString(scores[i].score.ToString()).X;
                 spriteBatch.DrawString(textFont, scores[i].name, scoreTextPosition + new Vector2(0, i%10 * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
-                spriteBatch.DrawString(textFont, scores[i].score.ToString(), scoreTextPosition + new Vector2(250 + offsetScorePositionX, i%10 * 15), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
+                spriteBatch.DrawString(textFont, scores[i].score.ToString(), scoreTextPosition + new Vector2(250, i%10 * 15), Color.White, 0f, new Vector2(offsetScorePositionX, 0), 1f, SpriteEffects.None, 0.9f);
             }
 
             foreach (Button button in buttons)
