@@ -24,6 +24,7 @@ namespace FirstSemesterExam.Menu
         // lists for GameObjects 
         private List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> gameObjectsToAdd = new List<GameObject>();
+        public static List<GameObject> enemies = new List<GameObject>();
         // fields for enemy spawner
         private float totalGameTime;
         private float timeSinceEnemySpawn;
@@ -51,6 +52,11 @@ namespace FirstSemesterExam.Menu
         public float GetGameTimer
         {
             get { return gameTimer; }
+        }
+
+        public List<GameObject> GetEnemies
+        { 
+            get { return enemies; } 
         }
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
@@ -214,6 +220,10 @@ namespace FirstSemesterExam.Menu
             foreach (GameObject gameObject in gameObjectsToBeRemoved)
             {
                 gameObjects.Remove(gameObject);
+                if (gameObject is Enemy)
+                {
+                    enemies.Remove(gameObject);
+                }
             }
         }
 
@@ -228,6 +238,10 @@ namespace FirstSemesterExam.Menu
             {
                 gameObject.LoadContent(content);
                 gameObjects.Add(gameObject);
+                if (gameObject is Enemy)
+                {
+                    enemies.Add(gameObject);
+                }
             }
 
             gameObjectsToAdd.Clear();

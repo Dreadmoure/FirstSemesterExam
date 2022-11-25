@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.PowerUps
 {
     internal class PowerUpTK : GameObject
     {
@@ -12,7 +12,7 @@ namespace FirstSemesterExam
         private Texture2D knifeSprite;
         private Player player;
         private Vector2 lastVelocity;
-        
+
 
         protected float timeSinceLastAttack;
 
@@ -35,11 +35,12 @@ namespace FirstSemesterExam
                 lastVelocity = player.GetVelocity; ;
             }
 
-            
+
         }
 
         private void Shoot(GameTime gameTime)
         {
+            
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed)
             {
