@@ -13,6 +13,7 @@ using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch; //blev added for a fixe linje 183 spritebatch, why I dunno
 using System.Drawing.Text;
 using System.Dynamic;
+using FirstSemesterExam.PowerUps;
 
 namespace FirstSemesterExam
 {
@@ -109,6 +110,7 @@ namespace FirstSemesterExam
             GameState.InstantiateGameObject(weapon);
             GameState.InstantiateGameObject(new LightSaber(this));
             GameState.InstantiateGameObject(new PowerUpTK(this));
+            GameState.InstantiateGameObject(new PowerUpMisile(this));
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
