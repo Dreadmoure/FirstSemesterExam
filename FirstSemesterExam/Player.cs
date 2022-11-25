@@ -22,6 +22,7 @@ namespace FirstSemesterExam
         private MouseState mouseState;
         private Weapon weapon;
         private int exp;
+        private int maxExp;
         private int levelIndicator;
 
         private float defense;
@@ -43,18 +44,31 @@ namespace FirstSemesterExam
         private Texture2D expBarTexture;
         private Rectangle expBarRectangle;
         private Vector2 expBarPosition;
- 
+
+        private static bool leveledUp = false;
+
 
         //dash indicator bar
         private Texture2D dashBarTexture;
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
 
+        public int MaxExp
+        {
+            get { return maxExp; }
+            set { MaxExp = value; }
+        }
 
         public int Exp
         {
             get { return exp; }
             set { exp = value; }
+        }
+
+        public static bool LeveledUp
+        {
+            get { return leveledUp; }
+            set { leveledUp = value; }
         }
 
         public int LevelIndicator
@@ -74,6 +88,7 @@ namespace FirstSemesterExam
 
             levelIndicator = 1;
             exp = 0;
+            maxExp = 10;
 
             animationSpeed = 9;
             
@@ -165,7 +180,7 @@ namespace FirstSemesterExam
 
             
 
-            if (exp >= 100)
+            if (exp >= maxExp)
             {
                 LevelUp();
             }
@@ -175,6 +190,7 @@ namespace FirstSemesterExam
         {
             exp = 0;
             levelIndicator += 1;
+            leveledUp = true;
         }
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;
