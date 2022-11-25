@@ -57,8 +57,16 @@ namespace FirstSemesterExam.Menu
             if (continueGameButton.isClicked)
             {
                 continueGameButton.isClicked = false;
-                GameState.HandlePause = false; 
-                game.ChangeState(GameWorld.HandleGameState); 
+                if (GameState.GetGameOver)
+                {
+                    GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
+                    game.ChangeState(GameWorld.HandleGameState); 
+                }
+                else
+                {
+                    GameState.HandlePause = false;
+                    game.ChangeState(GameWorld.HandleGameState);
+                }
             }
             if (newGameButton.isClicked)
             {
@@ -70,7 +78,7 @@ namespace FirstSemesterExam.Menu
             if (highscoreButton.isClicked)
             {
                 highscoreButton.isClicked = false;
-                game.ChangeState(new HighscoreState(content, graphicsDevice, game)); 
+                game.ChangeState(GameWorld.HandleHighscoreState); 
             }
             if (quitGameButton.isClicked)
             {

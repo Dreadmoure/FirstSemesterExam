@@ -29,8 +29,6 @@ namespace FirstSemesterExam.HighScore
 
         }
 
-
-
         // check if file exist, if not then create it 
         private void CreateFile()
         {
@@ -68,9 +66,5 @@ namespace FirstSemesterExam.HighScore
 
         // rewrite the file in the order of the scores 
 
-        public void AddScoreToFile(string name, int score)
-        {
-            File.AppendAllText(fileName, name + " " + score + "\n"); 
-        }
     }
 }
