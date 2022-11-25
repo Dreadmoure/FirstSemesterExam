@@ -26,6 +26,9 @@ namespace FirstSemesterExam
 
         private float defense;
         private float itemAttackCoolDown;
+        private int lightSaberLvl;
+        private int daggerLvl;
+        private int magicMissileLvl;
 
         private Texture2D crosshair; 
 
@@ -84,6 +87,10 @@ namespace FirstSemesterExam
             attackSpeed = 10f;
             defense = 0.5f;
             itemAttackCoolDown = 5f;
+
+            lightSaberLvl = 0;
+            daggerLvl = 0;
+            magicMissileLvl = 0;
 
             levelIndicator = 1;
             exp = 0;
