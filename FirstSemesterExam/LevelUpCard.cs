@@ -24,7 +24,7 @@ namespace FirstSemesterExam
         private string text;
         private SpriteFont textFont;
         private int index;
-        private LevelUpCard[] cardArray = new LevelUpCard[3]; // needs to be moved to gamestate/gameworld
+        
         private Random random = new Random();
 
         private MouseState _currentMouse;
@@ -64,59 +64,18 @@ namespace FirstSemesterExam
         #endregion
 
         #region Constructors
-        public LevelUpCard()
+        public LevelUpCard(Vector2 position)
         {
-            index = random.Next(7);
+            this.position = position;
+            index = random.Next(0,7);
             layerDepth = 0.99f;
             scale = 3f;
             
 
-            //assigns the sprite of the card from the index number
-            switch (index)
-            {
-                case 1:
-                    sprite = sprites[0];
-                    break;
-                case 2:
-                    sprite = sprites[1];
-                    break;
-                case 3:
-                    sprite = sprites[2];
-                    break;
-                case 4:
-                    sprite = sprites[3];
-                    break;
-                case 5:
-                    sprite = sprites[4];
-                    break;
-                case 6:
-                    sprite = sprites[5];
-                    break;
-                default: //make it throw an expection
-                    break;
-            }
+            
 
 
-            // 3 cards are drawn and cheks their position in the array and gives it a vector2 position
-            //needs to be moved to the pause function in gameworld/gamestate
-            if (cardArray[0] == null)
-            {
-                cardArray[0] = new LevelUpCard();
-                position.X = GameWorld.GetScreenSize.X / 3;
-                position.Y = GameWorld.GetScreenSize.Y / 2;
-            }
-            else if (cardArray[0] != null && cardArray[1] == null)
-            {
-                cardArray[1] = new LevelUpCard();
-                position.X = GameWorld.GetScreenSize.X / 2;
-                position.Y = GameWorld.GetScreenSize.Y / 2;
-            }
-            else if (cardArray[1] != null && cardArray[2] == null)
-            {
-                cardArray[2] = new LevelUpCard();
-                position.X = GameWorld.GetScreenSize.X / 1.5f;
-                position.Y = GameWorld.GetScreenSize.Y / 2;
-            }
+            
         }
         #endregion
 
@@ -146,7 +105,7 @@ namespace FirstSemesterExam
 
         public void LoadContent(ContentManager content)
         {
-            textFont = content.Load<SpriteFont>("textFont");
+            textFont = content.Load<SpriteFont>("Fonts\\textFont");
 
             sprites = new Texture2D[7];
             sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
@@ -155,6 +114,41 @@ namespace FirstSemesterExam
             sprites[3] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[5] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
             sprites[6] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
+
+            //assigns the sprite of the card from the index number
+            switch (index)
+            {
+                case 0:
+                    sprite = sprites[0];
+                    text = "1";
+                    break;
+                case 1:
+                    sprite = sprites[1];
+                    text = "2";
+                    break;
+                case 2:
+                    sprite = sprites[2];
+                    text = "3";
+                    break;
+                case 3:
+                    sprite = sprites[3];
+                    text = "4";
+                    break;
+                case 4:
+                    sprite = sprites[4];
+                    text = "5";
+                    break;
+                case 5:
+                    sprite = sprites[5];
+                    text = "6";
+                    break;
+                case 6:
+                    sprite = sprites[6];
+                    text = "7";
+                    break;
+                default: //make it throw an expection
+                    break;
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -166,7 +160,7 @@ namespace FirstSemesterExam
                 float x = (GetRectangle.X + GetRectangle.Width / 2) - textFont.MeasureString(text).X / 2;
                 float y = (GetRectangle.Y + GetRectangle.Height / 3) - textFont.MeasureString(text).Y / 2;
 
-                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, layerDepth + 0.01f);
+                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layerDepth + 0.01f);
             }
         }
 

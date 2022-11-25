@@ -31,13 +31,24 @@ namespace FirstSemesterExam.Menu
         private Button resumeGameButton;
         private Button backToMenuButton;
         private Button quitGameButton;
-        #endregion
+
+        
+        private LevelUpCard[] cardArray;
+        private LevelUpCard card1;
+        private LevelUpCard card2;
+        private LevelUpCard card3;
+
+
         private List<GameObject> currentCollisions = new List<GameObject>();
         private List<GameObject> previousCollisions = new List<GameObject>();
+        #endregion
+
         public static bool HandlePause
         {
             set { paused = value; }
         }
+
+
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
@@ -52,6 +63,13 @@ namespace FirstSemesterExam.Menu
             quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
 
             buttons = new List<Button>() { resumeGameButton, backToMenuButton, quitGameButton };
+
+
+
+            card1 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 3, GameWorld.GetScreenSize.Y / 2));
+            card2 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2));
+            card3 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 1.5f, GameWorld.GetScreenSize.Y / 2));
+            cardArray = new LevelUpCard[3] {card1, card2, card3};
 
             LoadContent(); 
         }
@@ -70,11 +88,17 @@ namespace FirstSemesterExam.Menu
             {
                 button.LoadContent(content);
             }
+
+            ////needs to load content, but right now cardArray is empty
+            foreach (LevelUpCard card in cardArray)
+            {
+                card.LoadContent(content);
+            }
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!paused)
+            if (!paused && !Player.LeveledUp)
             {
                 if (Keyboard.GetState().IsKeyDown(Keys.P))
                 {
@@ -143,6 +167,26 @@ namespace FirstSemesterExam.Menu
                 {
                     quitGameButton.isClicked = false;
                     game.Exit();
+                }
+            }
+            else if (Player.LeveledUp)
+            {
+                foreach (LevelUpCard card in cardArray)
+                {
+                    card.Update(gameTime);
+                }
+
+                if (card1.isClicked)
+                {
+                    //do something
+                }
+                if (card2.isClicked)
+                {
+                    //do something
+                }
+                if (card3.isClicked)
+                {
+                    //do something
                 }
             }
         }
@@ -240,6 +284,14 @@ namespace FirstSemesterExam.Menu
                 foreach (Button button in buttons)
                 {
                     button.Draw(gameTime, spriteBatch);
+                }
+            }
+
+            if (Player.LeveledUp)
+            {
+                foreach (LevelUpCard card in cardArray)
+                {
+                    card.Draw(spriteBatch);
                 }
             }
 

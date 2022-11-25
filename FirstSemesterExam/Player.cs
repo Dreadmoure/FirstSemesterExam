@@ -42,7 +42,9 @@ namespace FirstSemesterExam
         private Texture2D expBarTexture;
         private Rectangle expBarRectangle;
         private Vector2 expBarPosition;
- 
+
+        private static bool leveledUp = false;
+
 
         //dash indicator bar
         private Texture2D dashBarTexture;
@@ -54,6 +56,12 @@ namespace FirstSemesterExam
         {
             get { return exp; }
             set { exp = value; }
+        }
+
+        public static bool LeveledUp
+        {
+            get { return leveledUp; }
+            set { leveledUp = value; }
         }
 
         public int LevelIndicator
@@ -173,6 +181,7 @@ namespace FirstSemesterExam
         {
             exp = 0;
             levelIndicator += 1;
+            leveledUp = true;
         }
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;
