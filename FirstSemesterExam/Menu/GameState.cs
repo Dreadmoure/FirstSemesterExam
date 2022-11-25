@@ -43,8 +43,9 @@ namespace FirstSemesterExam.Menu
         private Button quitGameButton;
         // game over menu 
         private static bool gameOver = true;
-        private List<Button> gameOverButtons;
-        private Button saveScoreButton; 
+        private List<Component> gameOverComponents;
+        private Button saveScoreButton;
+        private TextBox enterNameTextbox; 
 
         private List<GameObject> currentCollisions = new List<GameObject>();
         private List<GameObject> previousCollisions = new List<GameObject>();
@@ -80,7 +81,8 @@ namespace FirstSemesterExam.Menu
             // buttons for game over screen 
             gameOver = false; 
             saveScoreButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Save score", buttonLayer, buttonScale);
-            gameOverButtons = new List<Button> { saveScoreButton }; 
+            enterNameTextbox = new TextBox(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "", buttonLayer, buttonScale);
+            gameOverComponents = new List<Component> { saveScoreButton, enterNameTextbox }; 
 
             LoadContent(); 
         }
@@ -99,9 +101,9 @@ namespace FirstSemesterExam.Menu
             {
                 button.LoadContent(content);
             }
-            foreach (Button button in gameOverButtons)
+            foreach (Component component in gameOverComponents)
             {
-                button.LoadContent(content);
+                component.LoadContent(content);
             }
         }
 
@@ -188,14 +190,20 @@ namespace FirstSemesterExam.Menu
             }
             else if (gameOver)
             {
-                foreach (Button button in gameOverButtons)
+                foreach (Component component in gameOverComponents)
                 {
-                    button.Update(gameTime);
+                    component.Update(gameTime);
                 }
 
+                string name = ""; 
+
+                if (enterNameTextbox.isActive)
+                {
+                    name = enterNameTextbox.TextEntered; 
+                }
                 if (saveScoreButton.isClicked)
                 {
-                    string name = "kage";
+                    //string name = "kage";
                     File.AppendAllText("./scores.txt", name + " " + score + "\n");
 
                     saveScoreButton.isClicked = false;
@@ -310,9 +318,9 @@ namespace FirstSemesterExam.Menu
             }
             if (gameOver)
             {
-                foreach (Button button in gameOverButtons)
+                foreach (Component component in gameOverComponents)
                 {
-                    button.Draw(gameTime, spriteBatch);
+                    component.Draw(gameTime, spriteBatch);
                 }
             }
 

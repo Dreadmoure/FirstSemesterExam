@@ -54,8 +54,10 @@ namespace FirstSemesterExam
             Mouse.SetCursor(MouseCursor.Crosshair); 
 
             // set screensize 
-            _graphics.PreferredBackBufferWidth = 1920;
-            _graphics.PreferredBackBufferHeight = 1080;
+            //_graphics.PreferredBackBufferWidth = 1920;
+            //_graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 920;
+            _graphics.PreferredBackBufferHeight = 800;
 
             _graphics.IsFullScreen = false;
 

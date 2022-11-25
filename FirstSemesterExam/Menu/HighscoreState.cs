@@ -53,6 +53,16 @@ namespace FirstSemesterExam.Menu
 
             numberOfViewedScores = 10; 
             indexMin = 0;
+            indexMax = highscore.Scores.Count;
+            indexStart = indexMin;
+            if (indexMax < numberOfViewedScores)
+            {
+                indexEnd = indexMax;
+            }
+            else
+            {
+                indexEnd = numberOfViewedScores;
+            }
 
             foreach (Button button in buttons)
             {
@@ -66,8 +76,6 @@ namespace FirstSemesterExam.Menu
             {
                 button.Update(gameTime);
             }
-
-            UpdateIndex(); 
 
             if (backButton.isClicked)
             {
@@ -89,13 +97,18 @@ namespace FirstSemesterExam.Menu
                     {
                         indexStart += numberOfViewedScores;
                         indexEnd = indexStart + numberOfViewedScores;
+
                     }
-                    else
+                    else if(indexMax - indexEnd < numberOfViewedScores)
                     {
                         indexStart += numberOfViewedScores;
                         indexEnd = indexMax;
                     }
-                } 
+                    else if(indexMax - indexEnd < numberOfViewedScores && indexEnd - indexStart < numberOfViewedScores)
+                    {
+                        indexEnd = indexMax;
+                    }
+                }
             }
             if (prevScoresButton.isClicked)
             {
@@ -119,20 +132,6 @@ namespace FirstSemesterExam.Menu
                         indexEnd = indexStart + numberOfViewedScores;
                     }
                 }
-            }
-        }
-
-        private void UpdateIndex()
-        {
-            indexMax = highscore.Scores.Count;
-            indexStart = 0;
-            if (indexMax < 10)
-            {
-                indexEnd = indexMax;
-            }
-            else
-            {
-                indexEnd = 10;
             }
         }
 
