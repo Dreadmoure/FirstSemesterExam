@@ -8,6 +8,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace FirstSemesterExam.Menu
 {
@@ -80,17 +83,43 @@ namespace FirstSemesterExam.Menu
             Rectangle mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
             // input text 
-            previousKeyState = currentKeyState; 
+            UpdateTextInput(); 
+        }
+
+        private void UpdateTextInput()
+        {
+            previousKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
 
             if (currentKeyState != previousKeyState)
             {
-                foreach (var key in currentKeyState.GetPressedKeys())
+                if (text.Length > 0 && currentKeyState.IsKeyDown(Keys.Back))
                 {
-                    var keyValue = key.ToString();
-                    text += keyValue;
+                    text = text.Remove(text.Length - 1); 
                 }
+
+                if (text.Length < 12)
+                {
+                    foreach (var key in currentKeyState.GetPressedKeys())
+                    {
+                        
+                        string keyValue = key.ToString();
+
+                        if (AllowedInput(keyValue) && keyValue.Length <= 1) {
+                            Debug.WriteLine("1test: " + keyValue);
+                            text += keyValue;
+                        }
+                    }
+                } 
             }
+        }
+        private bool AllowedInput(string s)
+        {
+            Regex regex = new Regex("[A-Z]");
+
+            Match match = regex.Match(s);
+
+            return match.Success; 
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
