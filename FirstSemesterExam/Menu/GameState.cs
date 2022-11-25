@@ -254,7 +254,8 @@ namespace FirstSemesterExam.Menu
 
                     saveScoreButton.isClicked = false;
                     GameWorld.HandleHighscoreState = new HighscoreState(content, graphicsDevice, game);
-                    game.ChangeState(GameWorld.HandleHighscoreState); 
+                    game.ChangeState(GameWorld.HandleHighscoreState);
+                }
             }
             else if (Player.LeveledUp)
             {
