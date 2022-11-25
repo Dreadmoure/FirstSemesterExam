@@ -77,6 +77,8 @@ namespace FirstSemesterExam.Menu
                 button.Update(gameTime);
             }
 
+            //Debug.WriteLine("start: " + indexStart + " end: " + indexEnd);
+
             if (backButton.isClicked)
             {
                 backButton.isClicked = false;
@@ -86,42 +88,42 @@ namespace FirstSemesterExam.Menu
             {
                 nextScoresButton.isClicked = false;
 
-                if (indexMax - indexMin < numberOfViewedScores)
+                if (indexMax - indexMin < numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
                     indexEnd = indexMax;
                 }
                 else
                 {
-                    if (indexMax - indexEnd >= numberOfViewedScores)
+                    if (indexMax - indexEnd >= numberOfViewedScores-1)
                     {
                         indexStart += numberOfViewedScores;
                         indexEnd = indexStart + numberOfViewedScores;
-
                     }
-                    else if(indexMax - indexEnd < numberOfViewedScores)
+                    else if (indexMax - indexEnd < numberOfViewedScores - 1 && indexMax - indexStart < numberOfViewedScores - 1)
+                    {
+                        indexEnd = indexMax;
+                    }
+                    else if(indexMax - indexEnd < numberOfViewedScores-1)
                     {
                         indexStart += numberOfViewedScores;
                         indexEnd = indexMax;
                     }
-                    else if(indexMax - indexEnd < numberOfViewedScores && indexEnd - indexStart < numberOfViewedScores)
-                    {
-                        indexEnd = indexMax;
-                    }
+                    
                 }
             }
             if (prevScoresButton.isClicked)
             {
                 prevScoresButton.isClicked = false;
 
-                if (indexMax - indexMin < numberOfViewedScores)
+                if (indexMax - indexMin < numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
                     indexEnd = indexMax;
                 }
                 else
                 {
-                    if (indexMin + indexStart > numberOfViewedScores)
+                    if (indexMin + indexStart > numberOfViewedScores-1)
                     {
                         indexStart -= numberOfViewedScores;
                         indexEnd = indexStart + numberOfViewedScores;
