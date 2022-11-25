@@ -17,6 +17,7 @@ namespace FirstSemesterExam.Menu
         private List<Button> buttons;
         private Button continueGameButton; 
         private Button newGameButton;
+        private Button highscoreButton; 
         private Button quitGameButton;
         #endregion
 
@@ -26,10 +27,11 @@ namespace FirstSemesterExam.Menu
             float buttonScale = 6f;
 
             continueGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Resume Game", buttonLayer, buttonScale); 
-            newGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "New Game", buttonLayer, buttonScale);
+            newGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 -50), "New Game", buttonLayer, buttonScale);
+            highscoreButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 +50), "Highscore", buttonLayer, buttonScale); 
             quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
 
-            buttons = new List<Button>() { continueGameButton, newGameButton, quitGameButton };
+            buttons = new List<Button>() { continueGameButton, newGameButton, highscoreButton, quitGameButton };
 
             LoadContent(); 
         }
@@ -64,6 +66,11 @@ namespace FirstSemesterExam.Menu
                 GameState.HandlePause = false;
                 GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
                 game.ChangeState(GameWorld.HandleGameState);
+            }
+            if (highscoreButton.isClicked)
+            {
+                highscoreButton.isClicked = false;
+                game.ChangeState(new HighscoreState(content, graphicsDevice, game)); 
             }
             if (quitGameButton.isClicked)
             {
