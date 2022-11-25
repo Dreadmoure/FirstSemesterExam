@@ -51,13 +51,11 @@ namespace FirstSemesterExam
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Mouse.SetCursor(MouseCursor.Crosshair); 
+            Mouse.SetCursor(MouseCursor.Crosshair);
 
             // set screensize 
-            //_graphics.PreferredBackBufferWidth = 1920;
-            //_graphics.PreferredBackBufferHeight = 1080;
-            _graphics.PreferredBackBufferWidth = 920;
-            _graphics.PreferredBackBufferHeight = 800;
+            _graphics.PreferredBackBufferWidth = 1920;
+            _graphics.PreferredBackBufferHeight = 1080;
 
             _graphics.IsFullScreen = false;
 
