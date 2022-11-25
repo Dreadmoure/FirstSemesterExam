@@ -102,11 +102,9 @@ namespace FirstSemesterExam.Menu
                 {
                     foreach (var key in currentKeyState.GetPressedKeys())
                     {
-                        
                         string keyValue = key.ToString();
 
                         if (AllowedInput(keyValue) && keyValue.Length <= 1) {
-                            Debug.WriteLine("1test: " + keyValue);
                             text += keyValue;
                         }
                     }

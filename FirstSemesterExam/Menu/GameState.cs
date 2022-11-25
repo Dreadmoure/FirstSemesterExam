@@ -34,7 +34,7 @@ namespace FirstSemesterExam.Menu
         private SpriteFont font;
         private Player player;
         private static int score = 0;
-        private static int kills = 0; 
+        private static int kills; 
         // pause menu 
         private static bool paused = false;
         private List<Button> pausedButtons;
@@ -68,6 +68,7 @@ namespace FirstSemesterExam.Menu
         {
             player = new Player();
             gameObjects.Add(player);
+            kills = 0;
 
             float buttonLayer = 0.2f;
             float buttonScale = 6f;
@@ -301,7 +302,7 @@ namespace FirstSemesterExam.Menu
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}", Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nKills: {kills}", Vector2.Zero, Color.White);
 
             foreach (GameObject gameObject in gameObjects)
             {
