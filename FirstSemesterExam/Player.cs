@@ -13,6 +13,7 @@ using SharpDX.Direct2D1;
 using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch; //blev added for a fixe linje 183 spritebatch, why I dunno
 using System.Drawing.Text;
 using System.Dynamic;
+using FirstSemesterExam.PowerUps;
 
 namespace FirstSemesterExam
 {
@@ -21,10 +22,14 @@ namespace FirstSemesterExam
         private MouseState mouseState;
         private Weapon weapon;
         private int exp;
+        private int maxExp;
         private int levelIndicator;
 
         private float defense;
         private float itemAttackCoolDown;
+        private int lightSaberLvl;
+        private int daggerLvl;
+        private int magicMissileLvl;
 
         private Texture2D crosshair; 
 
@@ -42,18 +47,31 @@ namespace FirstSemesterExam
         private Texture2D expBarTexture;
         private Rectangle expBarRectangle;
         private Vector2 expBarPosition;
- 
+
+        private static bool leveledUp = false;
+
 
         //dash indicator bar
         private Texture2D dashBarTexture;
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
 
+        public int MaxExp
+        {
+            get { return maxExp; }
+            set { MaxExp = value; }
+        }
 
         public int Exp
         {
             get { return exp; }
             set { exp = value; }
+        }
+
+        public static bool LeveledUp
+        {
+            get { return leveledUp; }
+            set { leveledUp = value; }
         }
 
         public int LevelIndicator
@@ -71,8 +89,13 @@ namespace FirstSemesterExam
             defense = 0.5f;
             itemAttackCoolDown = 5f;
 
+            lightSaberLvl = 0;
+            daggerLvl = 0;
+            magicMissileLvl = 0;
+
             levelIndicator = 1;
             exp = 0;
+            maxExp = 10;
 
             animationSpeed = 9;
             
@@ -94,6 +117,7 @@ namespace FirstSemesterExam
             GameState.InstantiateGameObject(weapon);
             GameState.InstantiateGameObject(new LightSaber(this));
             GameState.InstantiateGameObject(new PowerUpTK(this));
+            GameState.InstantiateGameObject(new PowerUpMisile(this));
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
@@ -163,7 +187,7 @@ namespace FirstSemesterExam
 
             
 
-            if (exp >= 100)
+            if (exp >= maxExp)
             {
                 LevelUp();
             }
@@ -173,6 +197,7 @@ namespace FirstSemesterExam
         {
             exp = 0;
             levelIndicator += 1;
+            leveledUp = true;
         }
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;

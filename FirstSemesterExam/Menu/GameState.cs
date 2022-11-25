@@ -24,6 +24,7 @@ namespace FirstSemesterExam.Menu
         // lists for GameObjects 
         private List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> gameObjectsToAdd = new List<GameObject>();
+        public static List<GameObject> enemies = new List<GameObject>();
         // fields for enemy spawner
         private float totalGameTime;
         private float timeSinceEnemySpawn;
@@ -46,6 +47,11 @@ namespace FirstSemesterExam.Menu
         private List<Component> gameOverComponents;
         private Button saveScoreButton;
         private TextBox enterNameTextbox; 
+        // levelup 
+        private LevelUpCard[] cardArray;
+        private LevelUpCard card1;
+        private LevelUpCard card2;
+        private LevelUpCard card3;
 
         private List<GameObject> currentCollisions = new List<GameObject>();
         private List<GameObject> previousCollisions = new List<GameObject>();
@@ -63,6 +69,13 @@ namespace FirstSemesterExam.Menu
         {
             get { return gameOver; }
         }
+
+
+        public List<GameObject> GetEnemies
+        { 
+            get { return enemies; } 
+        }
+
 
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
@@ -85,6 +98,13 @@ namespace FirstSemesterExam.Menu
             enterNameTextbox = new TextBox(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "", buttonLayer, buttonScale);
             gameOverComponents = new List<Component> { saveScoreButton, enterNameTextbox }; 
 
+
+
+            card1 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 3, GameWorld.GetScreenSize.Y / 2));
+            card2 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2));
+            card3 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 1.5f, GameWorld.GetScreenSize.Y / 2));
+            cardArray = new LevelUpCard[3] { card1, card2, card3 };
+
             LoadContent(); 
         }
 
@@ -102,15 +122,21 @@ namespace FirstSemesterExam.Menu
             {
                 button.LoadContent(content);
             }
+
             foreach (Component component in gameOverComponents)
             {
                 component.LoadContent(content);
+             }
+
+            foreach (LevelUpCard card in cardArray)
+            {
+                card.LoadContent(content);
             }
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (!paused && !gameOver)
+            if (!paused && !Player.LeveledUp && !gameOver)
             {
                 CalculateScore(); 
 
@@ -165,6 +191,25 @@ namespace FirstSemesterExam.Menu
                 {
                     gameOver = true; 
                 }
+
+                if(player.Exp >= player.MaxExp)
+                {
+                    
+                    foreach(LevelUpCard card in cardArray)
+                    {
+                        card.RandomCard();
+                    }
+
+                    while (card1.GetIndex == card2.GetIndex)
+                    {
+                        card2.RandomCard();
+                    }
+
+                    while (card1.GetIndex == card3.GetIndex || card2.GetIndex == card3.GetIndex)
+                    {
+                        card3.RandomCard();
+                    }
+                }
             }
             else if(paused)
             {
@@ -210,6 +255,30 @@ namespace FirstSemesterExam.Menu
                     saveScoreButton.isClicked = false;
                     GameWorld.HandleHighscoreState = new HighscoreState(content, graphicsDevice, game);
                     game.ChangeState(GameWorld.HandleHighscoreState); 
+            }
+            else if (Player.LeveledUp)
+            {
+                foreach (LevelUpCard card in cardArray)
+                {
+                    card.Update(gameTime);
+                }
+                if (card1.isClicked)
+                {
+                    card1.isClicked = false;
+
+                    Player.LeveledUp = false;
+                }
+                if (card2.isClicked)
+                {
+                    card2.isClicked = false;
+
+                    Player.LeveledUp = false;
+                }
+                if (card3.isClicked)
+                {
+                    card3.isClicked = false;
+
+                    Player.LeveledUp = false;
                 }
             }
         }
@@ -258,6 +327,10 @@ namespace FirstSemesterExam.Menu
             foreach (GameObject gameObject in gameObjectsToBeRemoved)
             {
                 gameObjects.Remove(gameObject);
+                if (gameObject is Enemy)
+                {
+                    enemies.Remove(gameObject);
+                }
             }
         }
 
@@ -272,6 +345,10 @@ namespace FirstSemesterExam.Menu
             {
                 gameObject.LoadContent(content);
                 gameObjects.Add(gameObject);
+                if (gameObject is Enemy)
+                {
+                    enemies.Add(gameObject);
+                }
             }
 
             gameObjectsToAdd.Clear();
@@ -322,6 +399,14 @@ namespace FirstSemesterExam.Menu
                 foreach (Component component in gameOverComponents)
                 {
                     component.Draw(gameTime, spriteBatch);
+                }
+            }
+
+            if (Player.LeveledUp)
+            {
+                foreach (LevelUpCard card in cardArray)
+                {
+                    card.Draw(spriteBatch);
                 }
             }
 

@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Reflection.Metadata;
 
-namespace FirstSemesterExam
+
+namespace FirstSemesterExam.PowerUps
 {
     internal class ThrowingKnife : GameObject
     {
@@ -28,7 +28,7 @@ namespace FirstSemesterExam
         {
             Move(gameTime);
             CheckIfOutsideBounds();
-            
+
         }
 
         private void CheckIfOutsideBounds()
