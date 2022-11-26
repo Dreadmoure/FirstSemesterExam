@@ -129,7 +129,6 @@ namespace FirstSemesterExam.Enemies
         {
             hasJustBeenHit = true;
             health -= damage;
-
         }
 
         public override void OnCollision(GameObject other)

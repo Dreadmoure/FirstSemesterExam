@@ -24,6 +24,21 @@ namespace FirstSemesterExam.Enemies
             expValue = 5;
             this.player = player; 
         }
+        public BlobMonster(Player player, Vector2 child1Position, Vector2 child2Position) : base(player)
+        {
+            health = 20f;
+            speed = 50f;
+            attackSpeed = 2f;
+            attackRange = 25f;
+            animationSpeed = 2f;
+            expValue = 5;
+            this.player = player;
+
+            Vector2 midPointPosition;
+            midPointPosition.X = (child1Position.X + child2Position.X) / 2; 
+            midPointPosition.Y = (child1Position.Y + child2Position.Y) / 2; 
+            position = midPointPosition;
+        }
 
         public override void LoadContent(ContentManager content)
         {
@@ -36,8 +51,11 @@ namespace FirstSemesterExam.Enemies
         {
             if(health <= 0)
             {
-                GameState.InstantiateGameObject(new Slime(player, position));
-                GameState.InstantiateGameObject(new Slime(player, position));
+                int numberOfChildren = random.Next(1, 4);
+                for (int i = 0; i < numberOfChildren; i++)
+                {
+                    GameState.InstantiateGameObject(new Slime(player, position));
+                }
             }
 
             base.Update(gameTime); 
