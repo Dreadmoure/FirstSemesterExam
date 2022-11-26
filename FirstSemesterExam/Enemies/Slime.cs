@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FirstSemesterExam.Menu;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using SharpDX;
@@ -15,6 +16,8 @@ namespace FirstSemesterExam.Enemies
 {
     internal class Slime : Enemy
     {
+        private Player player;
+
         public Slime(Player player) : base(player)
         {
             health = 20;
@@ -23,7 +26,9 @@ namespace FirstSemesterExam.Enemies
             attackRange = 10f;
             animationSpeed = 3f;
             expValue = 2;
+            this.player = player;
         }
+
         public Slime(Player player, Vector2 parentPosition) : base(player)
         {
             health = 20f;
@@ -32,6 +37,7 @@ namespace FirstSemesterExam.Enemies
             attackRange = 10f;
             animationSpeed = 3f;
             expValue = 2;
+            this.player = player;
 
             Vector2 offsetPosition = new Vector2(random.Next(-100, 100), random.Next(-100, 100));
             position = parentPosition + offsetPosition; 
@@ -42,6 +48,25 @@ namespace FirstSemesterExam.Enemies
             sprites = new Texture2D[2];
             sprites[0] = content.Load<Texture2D>("Enemies\\Slime1");
             sprites[1] = content.Load<Texture2D>("Enemies\\Slime2");
+        }
+
+        public override void OnCollision(GameObject other)
+        {
+            // 5% chance of slimes merging to BlobMonster 
+            if (random.Next(100) < 5)
+            {
+                if (other is Slime)
+                {
+                    // merge together to 1 BlobMonster 
+                    GameState.InstantiateGameObject(new BlobMonster(player, position, other.GetPosition));
+
+                    // remove both slimes 
+                    ShouldBeRemoved = true;
+                    other.ShouldBeRemoved = true;
+                }
+            } 
+
+            base.OnCollision(other); 
         }
     }
 }
