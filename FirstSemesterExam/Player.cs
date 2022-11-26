@@ -95,7 +95,7 @@ namespace FirstSemesterExam
 
             levelIndicator = 1;
             exp = 0;
-            maxExp = 10;
+            maxExp = 100;
 
             animationSpeed = 9;
             

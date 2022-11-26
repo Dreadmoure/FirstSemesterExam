@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
-
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection.Metadata;
@@ -29,8 +29,10 @@ namespace FirstSemesterExam.Menu
         private float totalGameTime;
         private float timeSinceEnemySpawn;
         private float timeBetweenEnemySpawn = 1f;
+        private float timeSinceEnemyWave;
+        private float timeBetweenEnemyWave = 60f;
+        private int increaseWaveSize; 
         private Random random = new Random();
-        private static float gameTimer; 
         private Texture2D pixel;
         private SpriteFont font;
         private Player player;
@@ -60,10 +62,6 @@ namespace FirstSemesterExam.Menu
         public static bool HandlePause
         {
             set { paused = value; }
-        }
-        public static float GetGameTimer
-        {
-            get { return gameTimer; }
         }
         public static bool GetGameOver
         {
@@ -97,8 +95,6 @@ namespace FirstSemesterExam.Menu
             saveScoreButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Save score", buttonLayer, buttonScale);
             enterNameTextbox = new TextBox(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "", buttonLayer, buttonScale);
             gameOverComponents = new List<Component> { saveScoreButton, enterNameTextbox }; 
-
-
 
             card1 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 3, GameWorld.GetScreenSize.Y / 2));
             card2 = new LevelUpCard(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2));
@@ -139,8 +135,6 @@ namespace FirstSemesterExam.Menu
             if (!paused && !Player.LeveledUp && !gameOver)
             {
                 CalculateScore(); 
-
-                gameTimer += (float)gameTime.ElapsedGameTime.TotalMinutes; 
                 
                 if (Keyboard.GetState().IsKeyDown(Keys.P))
                 {
@@ -183,6 +177,20 @@ namespace FirstSemesterExam.Menu
                 {
                     SpawnEnemy();
                     timeSinceEnemySpawn = 0f;
+                }
+                // waves 
+                timeSinceEnemyWave += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if(timeSinceEnemyWave >= timeBetweenEnemyWave)
+                {
+                    SpawnWave(); 
+                    timeSinceEnemyWave = 0f;
+                    if (timeBetweenEnemyWave > 10f)
+                    {
+                        // set wave spawntime lower (by 5sec) 
+                        timeBetweenEnemyWave -= 5f;
+                    }
+                    // increase wave size 
+                    increaseWaveSize += 5; 
                 }
 
                 AddGameObjects();
@@ -309,6 +317,17 @@ namespace FirstSemesterExam.Menu
             }
         }
 
+        private void SpawnWave()
+        {
+            // random number of enemies in wave 
+            int numberOfEnemies = random.Next(5, 20) + increaseWaveSize;
+
+            for (int i = 0; i < numberOfEnemies; i++)
+            {
+                SpawnEnemy(); 
+            }
+        }
+
         private void RemoveGameObjects()
         {
             // temporary list for objects that should be removed from gameObjects list 
@@ -380,7 +399,7 @@ namespace FirstSemesterExam.Menu
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nKills: {kills}", Vector2.Zero, Color.White);
+            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White);
 
             foreach (GameObject gameObject in gameObjects)
             {
