@@ -67,12 +67,15 @@ namespace FirstSemesterExam.Enemies
             Move(gameTime);
             Animate(gameTime);
 
-            // attack when ready 
-            attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed;
-            if (attackTime > 10f) // TODO: check if it should be lower 
+            if (IsInRange())
             {
-                Attack();
-                attackTime = 0f;
+                // attack when ready 
+                attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed;
+                if (attackTime > 10f) // TODO: check if it should be lower 
+                {
+                    Attack();
+                    attackTime = 0f;
+                }
             }
 
             if (HasJustBeenHit)
@@ -95,6 +98,13 @@ namespace FirstSemesterExam.Enemies
             {
                 Die();
             }
+        }
+
+        private bool IsInRange()
+        {
+            float distance = (float)Math.Sqrt((player.GetPosition.X - position.X) * (player.GetPosition.X - position.X) + (player.GetPosition.Y - position.Y) * (player.GetPosition.Y - position.Y));
+
+            return distance <= attackRange; 
         }
 
         private void Die()
