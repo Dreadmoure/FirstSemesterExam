@@ -20,6 +20,7 @@ namespace FirstSemesterExam.Projectiles
             speed = 1000f;
             attackDamage = 5f;
             attackRange = enemyAttackRange;
+            layerDepth = 0.6f;
             
 
             // angle of projectile 

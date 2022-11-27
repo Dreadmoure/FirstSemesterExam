@@ -20,6 +20,7 @@ namespace FirstSemesterExam
             offset = 150;
             speed = 2;
             attackDamage = 5;
+            layerDepth = 0.6f;
             //originOffset = new Vector2(-15, 0);
         }
 

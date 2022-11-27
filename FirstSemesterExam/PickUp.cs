@@ -15,6 +15,7 @@ namespace FirstSemesterExam
         {
             scale = 2;
             pickUpType = PickUpEnum.Health;
+            layerDepth = 0.4f;
 
 
             this.position = position;

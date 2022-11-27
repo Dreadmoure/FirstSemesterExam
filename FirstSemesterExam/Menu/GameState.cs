@@ -25,6 +25,8 @@ namespace FirstSemesterExam.Menu
         private List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> gameObjectsToAdd = new List<GameObject>();
         public static List<GameObject> enemies = new List<GameObject>();
+        //Background
+        private Texture2D background;
         // fields for enemy spawner
         private float totalGameTime;
         private float timeSinceEnemySpawn;
@@ -106,6 +108,8 @@ namespace FirstSemesterExam.Menu
 
         public override void LoadContent()
         {
+
+            background = content.Load<Texture2D>("lvl");
             font = content.Load<SpriteFont>("Fonts\\textFont");
             pixel = content.Load<Texture2D>("pixel");
             foreach (GameObject gameObject in gameObjects)
@@ -399,7 +403,9 @@ namespace FirstSemesterExam.Menu
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White);
+            spriteBatch.Draw(background, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), null, Color.White, 0f, new Vector2(background.Width/2, background.Height/2), 3f, SpriteEffects.None, 0.01f);
+
+            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
 
             foreach (GameObject gameObject in gameObjects)
             {

@@ -18,6 +18,7 @@ namespace FirstSemesterExam.PowerUps
             speed = 700;
             attackDamage = 20;
             velocity = new Vector2(1, 0);
+            layerDepth = 0.6f;
         }
         public override void LoadContent(ContentManager content)
         {

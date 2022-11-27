@@ -17,6 +17,7 @@ namespace FirstSemesterExam.PowerUps
         {
             this.player = player;
             attackSpeed = 1;
+            layerDepth = 0.6f;
         }
 
         public override void LoadContent(ContentManager content)

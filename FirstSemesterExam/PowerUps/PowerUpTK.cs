@@ -21,6 +21,7 @@ namespace FirstSemesterExam.PowerUps
             this.player = player;
             attackSpeed = 2;
             lastVelocity = new Vector2(1, 0);
+            layerDepth = 0.6f;
         }
         public override void LoadContent(ContentManager content)
         {
