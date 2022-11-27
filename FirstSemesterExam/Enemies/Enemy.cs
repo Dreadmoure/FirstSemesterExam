@@ -29,6 +29,7 @@ namespace FirstSemesterExam.Enemies
             this.player = player;
             animationSpeed = 1f;
             spriteEffects = SpriteEffects.None;
+            layerDepth = 0.5f;
             //rotation = 0.01f;
 
             // set initial position randomly 

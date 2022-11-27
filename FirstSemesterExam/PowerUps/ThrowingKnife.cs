@@ -18,6 +18,7 @@ namespace FirstSemesterExam.PowerUps
             sprites = new Texture2D[1];
             sprites[0] = sprite;
             rotation = MathF.Atan2(velocity.Y, velocity.X);
+            layerDepth = 0.6f;
         }
 
         public override void LoadContent(ContentManager content)
