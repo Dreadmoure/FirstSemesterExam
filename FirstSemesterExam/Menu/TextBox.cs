@@ -56,22 +56,32 @@ namespace FirstSemesterExam.Menu
         }
         public string TextEntered
         {
-            get { return text; }
+            get 
+            {
+                if (string.Equals(text, "Enter name"))
+                {
+                    return "";
+                }
+                else
+                {
+                    return text;
+                }
+            }
         }
         #endregion
 
-        public TextBox(Vector2 position, string text, float layer, float scale)
+        public TextBox(Vector2 position, string text)
         {
             this.position = position;
             this.text = text;
-            this.layer = layer;
-            this.scale = scale;
+            layer = 0.2f;
+            scale = 1f;
             isActive = true; 
         }
 
         public override void LoadContent(ContentManager content)
         {
-            textboxTexture = content.Load<Texture2D>("Menus\\button1");
+            textboxTexture = content.Load<Texture2D>("Menus\\Button");
             textFont = content.Load<SpriteFont>("Fonts\\textFont");
         }
 
@@ -91,8 +101,18 @@ namespace FirstSemesterExam.Menu
             previousKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
 
+            if(string.Equals(text, ""))
+            {
+                text = "Enter name"; 
+            }
+
             if (currentKeyState != previousKeyState)
             {
+                if(string.Equals(text, "Enter name"))
+                {
+                    text = ""; 
+                }
+                
                 if (text.Length > 0 && currentKeyState.IsKeyDown(Keys.Back))
                 {
                     text = text.Remove(text.Length - 1); 
@@ -129,7 +149,7 @@ namespace FirstSemesterExam.Menu
                 float x = (GetRectangle.X + GetRectangle.Width / 2) - textFont.MeasureString(text).X / 2;
                 float y = (GetRectangle.Y + GetRectangle.Height / 2) - textFont.MeasureString(text).Y / 2;
 
-                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer + 0.01f);
+                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer + 0.01f);
             }
         }
 

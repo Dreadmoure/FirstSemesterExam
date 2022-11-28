@@ -17,12 +17,17 @@ namespace FirstSemesterExam
         private State _currentState;
         private State _nextState;
         private static State menuState;
+        private static State howToPlayState; 
         private static State highscoreState;
         private static State gameState; 
 
         public static State GetMenuState
         {
             get { return menuState; }
+        }
+        public static State GetHowToState
+        {
+            get { return howToPlayState; }
         }
         public static State HandleHighscoreState
         {
@@ -71,6 +76,7 @@ namespace FirstSemesterExam
             this.Window.Title = "Survive Us";
 
             menuState = new MenuState(Content, GraphicsDevice, this);
+            howToPlayState = new HowToPlayState(Content, GraphicsDevice, this); 
             highscoreState = new HighscoreState(Content, GraphicsDevice, this);
 
             base.Initialize();
@@ -83,7 +89,7 @@ namespace FirstSemesterExam
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _currentState = new MenuState(Content, GraphicsDevice, this);
+            _currentState = menuState;
             _currentState.LoadContent();
             _nextState = null;
         }
