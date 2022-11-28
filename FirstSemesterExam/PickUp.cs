@@ -41,8 +41,12 @@ namespace FirstSemesterExam
         {
             if (other is Player)
             {
-                other.Health += 25;
-                shouldBeRemoved = true;
+                if (other.Health < 100)
+                {
+                    other.Health += 25; //overhealing is possible
+                    shouldBeRemoved = true;
+                }
+                
             }
         }
 
