@@ -32,7 +32,7 @@ namespace FirstSemesterExam.Menu
         public HighscoreState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             float buttonLayer = 0.2f;
-            float buttonScale = 6f;
+            float buttonScale = 1f;
 
             backButton = new Button(new Vector2(100, 50), "Back", buttonLayer, buttonScale);
             prevScoresButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Prev", buttonLayer, buttonScale);

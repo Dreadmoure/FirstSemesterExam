@@ -60,7 +60,7 @@ namespace FirstSemesterExam.Menu
 
         public override void LoadContent(ContentManager content)
         {
-            buttonTexture = content.Load<Texture2D>("Menus\\button1");
+            buttonTexture = content.Load<Texture2D>("Menus\\Button");
             textFont = content.Load<SpriteFont>("Fonts\\textFont"); 
         }
 
@@ -89,7 +89,7 @@ namespace FirstSemesterExam.Menu
                 float x = (GetRectangle.X + GetRectangle.Width / 2) - textFont.MeasureString(text).X / 2;
                 float y = (GetRectangle.Y + GetRectangle.Height / 2) - textFont.MeasureString(text).Y / 2;
 
-                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.Black, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer + 0.01f);
+                spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer + 0.01f);
             }
         }
     }

@@ -47,6 +47,7 @@ namespace FirstSemesterExam.Menu
         private Button backToMenuButton;
         private Button quitGameButton;
         // game over menu 
+        private Texture2D gameOvertexture; 
         private static bool gameOver = true;
         private List<Component> gameOverComponents;
         private Button saveScoreButton;
@@ -84,7 +85,7 @@ namespace FirstSemesterExam.Menu
             kills = 0;
 
             float buttonLayer = 0.2f;
-            float buttonScale = 6f;
+            float buttonScale = 1f;
 
             // buttons for pause screen 
             resumeGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Resume Game", buttonLayer, buttonScale);
@@ -110,6 +111,8 @@ namespace FirstSemesterExam.Menu
         {
 
             background = content.Load<Texture2D>("lvl");
+            gameOvertexture = content.Load<Texture2D>("Menus\\GameOverScreen"); 
+
             font = content.Load<SpriteFont>("Fonts\\textFont");
             pixel = content.Load<Texture2D>("pixel");
             foreach (GameObject gameObject in gameObjects)
@@ -422,6 +425,13 @@ namespace FirstSemesterExam.Menu
             }
             if (gameOver)
             {
+                spriteBatch.Draw(gameOvertexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.01f);
+
+                string text = $"SCORE: {score}";
+                float x = GameWorld.GetScreenSize.X / 2 - font.MeasureString(text).X / 2;
+                float y = GameWorld.GetScreenSize.Y / 3 - font.MeasureString(text).Y / 2;
+                spriteBatch.DrawString(font, text, new Vector2(x,y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
+
                 foreach (Component component in gameOverComponents)
                 {
                     component.Draw(gameTime, spriteBatch);

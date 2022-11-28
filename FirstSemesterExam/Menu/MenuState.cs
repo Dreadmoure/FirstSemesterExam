@@ -24,7 +24,7 @@ namespace FirstSemesterExam.Menu
         public MenuState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             float buttonLayer = 0.2f;
-            float buttonScale = 6f;
+            float buttonScale = 1f;
 
             continueGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Resume Game", buttonLayer, buttonScale); 
             newGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 -50), "New Game", buttonLayer, buttonScale);
