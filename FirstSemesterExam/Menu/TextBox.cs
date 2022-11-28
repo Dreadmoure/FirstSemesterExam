@@ -56,7 +56,17 @@ namespace FirstSemesterExam.Menu
         }
         public string TextEntered
         {
-            get { return text; }
+            get 
+            {
+                if (string.Equals(text, "Enter name"))
+                {
+                    return "";
+                }
+                else
+                {
+                    return text;
+                }
+            }
         }
         #endregion
 

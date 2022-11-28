@@ -39,7 +39,7 @@ namespace FirstSemesterExam.Menu
         #region methods 
         public override void LoadContent()
         {
-            menuBackgroundTexture = content.Load<Texture2D>("Menus\\background");
+            menuBackgroundTexture = content.Load<Texture2D>("Menus\\MainScreen");
 
             foreach (Button button in buttons)
             {
@@ -91,7 +91,7 @@ namespace FirstSemesterExam.Menu
         {
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
-            spriteBatch.Draw(menuBackgroundTexture, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), null, Color.White, 0f, new Vector2(menuBackgroundTexture.Width / 2, menuBackgroundTexture.Height / 2), 6f, SpriteEffects.None, 0.1f);
+            spriteBatch.Draw(menuBackgroundTexture, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), null, Color.White, 0f, new Vector2(menuBackgroundTexture.Width / 2, menuBackgroundTexture.Height / 2), 1f, SpriteEffects.None, 0.1f);
 
             foreach (Button button in buttons)
             {
