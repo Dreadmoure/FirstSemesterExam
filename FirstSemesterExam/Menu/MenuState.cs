@@ -17,21 +17,24 @@ namespace FirstSemesterExam.Menu
         private List<Button> buttons;
         private Button continueGameButton; 
         private Button newGameButton;
-        private Button highscoreButton; 
+        private Button highscoreButton;
+        private Button howToPlayButton; 
         private Button quitGameButton;
         #endregion
 
         public MenuState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
-            float buttonLayer = 0.2f;
-            float buttonScale = 1f;
+            Vector2 buttonPosition = new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6);
 
-            continueGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Resume Game", buttonLayer, buttonScale); 
-            newGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 -50), "New Game", buttonLayer, buttonScale);
-            highscoreButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 +50), "Highscore", buttonLayer, buttonScale); 
-            quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
+            Color buttonColor = Color.Purple;
 
-            buttons = new List<Button>() { continueGameButton, newGameButton, highscoreButton, quitGameButton };
+            continueGameButton = new Button(buttonPosition, "Resume Game", buttonColor);
+            newGameButton = new Button(buttonPosition + new Vector2(0, 50), "New Game", buttonColor);
+            highscoreButton = new Button(buttonPosition + new Vector2(0, 100), "Highscore", buttonColor);
+            howToPlayButton = new Button(buttonPosition + new Vector2(0, 150), "How to play", buttonColor); 
+            quitGameButton = new Button(buttonPosition + new Vector2(0, 200), "Quit Game", buttonColor);
+
+            buttons = new List<Button>() { continueGameButton, newGameButton, highscoreButton, howToPlayButton, quitGameButton };
 
             LoadContent(); 
         }
@@ -79,6 +82,11 @@ namespace FirstSemesterExam.Menu
             {
                 highscoreButton.isClicked = false;
                 game.ChangeState(GameWorld.HandleHighscoreState); 
+            }
+            if (howToPlayButton.isClicked)
+            {
+                howToPlayButton.isClicked = false;
+                game.ChangeState(GameWorld.GetHowToState); 
             }
             if (quitGameButton.isClicked)
             {

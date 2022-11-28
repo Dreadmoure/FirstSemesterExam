@@ -70,12 +70,12 @@ namespace FirstSemesterExam.Menu
         }
         #endregion
 
-        public TextBox(Vector2 position, string text, float layer, float scale)
+        public TextBox(Vector2 position, string text)
         {
             this.position = position;
             this.text = text;
-            this.layer = layer;
-            this.scale = scale;
+            layer = 0.2f;
+            scale = 1f;
             isActive = true; 
         }
 

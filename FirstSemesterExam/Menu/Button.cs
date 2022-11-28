@@ -21,6 +21,8 @@ namespace FirstSemesterExam.Menu
         private Vector2 position;
         private float scale;
         private float layer;
+        private Color color;
+        private bool colorShiftDown; 
 
         private MouseState _currentMouse;
         private MouseState _previousMouse;
@@ -50,12 +52,13 @@ namespace FirstSemesterExam.Menu
         }
         #endregion
 
-        public Button(Vector2 position, string text, float layer, float scale)
+        public Button(Vector2 position, string text, Color color)
         {
             this.position = position;
             this.text = text;
-            this.layer = layer;
-            this.scale = scale; 
+            this.color = color; 
+            layer = 0.2f;
+            scale = 1f; 
         }
 
         public override void LoadContent(ContentManager content)
@@ -73,16 +76,43 @@ namespace FirstSemesterExam.Menu
 
             if (mouseRectangle.Intersects(GetRectangle))
             {
+                ColorShift(); 
+
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
                 {
                     isClicked = true;
+                    color.A = 255; 
                 }
+            }
+            else if(color.A < 255)
+            {
+                color.A += 3; 
+            }
+        }
+
+        private void ColorShift()
+        {
+            if (color.A == 255)
+            {
+                colorShiftDown = false;
+            }
+            if (color.A == 0)
+            {
+                colorShiftDown = true;
+            }
+            if (colorShiftDown)
+            {
+                color.A += 3;
+            }
+            else
+            {
+                color.A -= 3;
             }
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(buttonTexture, position, null, Color.White, 0f, GetOrigin, scale, SpriteEffects.None, layer);
+            spriteBatch.Draw(buttonTexture, position, null, color, 0f, GetOrigin, scale, SpriteEffects.None, layer);
 
             if (!string.IsNullOrEmpty(text))
             {
