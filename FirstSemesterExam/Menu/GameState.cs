@@ -212,12 +212,12 @@ namespace FirstSemesterExam.Menu
                         card.RandomCard();
                     }
 
-                    while (card1.GetIndex == card2.GetIndex)
+                    while (card1.GetCardIndex == card2.GetCardIndex)
                     {
                         card2.RandomCard();
                     }
 
-                    while (card1.GetIndex == card3.GetIndex || card2.GetIndex == card3.GetIndex)
+                    while (card1.GetCardIndex == card3.GetCardIndex || card2.GetCardIndex == card3.GetCardIndex)
                     {
                         card3.RandomCard();
                     }
@@ -280,21 +280,25 @@ namespace FirstSemesterExam.Menu
                     card1.isClicked = false;
 
                     Player.LeveledUp = false;
+                    player.InitializeUpgrade(card1.GetCardIndex);
                 }
                 if (card2.isClicked)
                 {
                     card2.isClicked = false;
 
                     Player.LeveledUp = false;
+                    player.InitializeUpgrade(card2.GetCardIndex);
                 }
                 if (card3.isClicked)
                 {
                     card3.isClicked = false;
 
                     Player.LeveledUp = false;
+                    player.InitializeUpgrade(card3.GetCardIndex);
                 }
             }
         }
+
 
         private void SpawnEnemy()
         {
@@ -405,7 +409,7 @@ namespace FirstSemesterExam.Menu
 
             spriteBatch.Draw(background, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), null, Color.White, 0f, new Vector2(background.Width/2, background.Height/2), 3f, SpriteEffects.None, 0.01f);
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
+            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer MaxHP: {player.MaxHealth}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nLightsaberLvl: {player.LightSaberLvl}\nTKLvl: {player.ThrowingKnifeLvl}\nMagicMissile: {player.MagicMissileLvl}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
 
             foreach (GameObject gameObject in gameObjects)
             {

@@ -21,7 +21,7 @@ namespace FirstSemesterExam
 
         private string text;
         private SpriteFont textFont;
-        private int index;
+        private int cardIndex;
         
         private Random random = new Random();
 
@@ -46,9 +46,9 @@ namespace FirstSemesterExam
             }
         }
 
-        public int GetIndex
+        public int GetCardIndex
         {
-            get { return index; }
+            get { return cardIndex; }
         }
 
         private Vector2 Origin
@@ -63,7 +63,7 @@ namespace FirstSemesterExam
         {
             this.position = position;
             layerDepth = 0.99f;
-            scale = 3f;
+            scale = 1f;
 
         }
         #endregion
@@ -99,14 +99,16 @@ namespace FirstSemesterExam
         {
             textFont = content.Load<SpriteFont>("Fonts\\textFont");
 
-            sprites = new Texture2D[7];
-            sprites[0] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
-            sprites[1] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
-            sprites[2] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
-            sprites[3] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
-            sprites[4] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
-            sprites[5] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
-            sprites[6] = content.Load<Texture2D>("Enemies\\testEnemy"); //needs to ba changed
+            sprites = new Texture2D[9];
+            sprites[0] = content.Load<Texture2D>("LevelUpCards\\card"); //needs to ba changed
+            sprites[1] = content.Load<Texture2D>("LevelUpCards\\card"); //needs to ba changed
+            sprites[2] = content.Load<Texture2D>("LevelUpCards\\card"); //needs to ba changed
+            sprites[3] = content.Load<Texture2D>("LevelUpCards\\card"); //needs to ba changed
+            sprites[4] = content.Load<Texture2D>("LevelUpCards\\card"); //needs to ba changed
+            sprites[5] = content.Load<Texture2D>("LevelUpCards\\card"); //needs to ba changed
+            sprites[6] = content.Load<Texture2D>("LevelUpCards\\card");
+            sprites[7] = content.Load<Texture2D>("LevelUpCards\\card");//needs to ba changed
+            sprites[8] = content.Load<Texture2D>("LevelUpCards\\card");
 
             //assigns the sprite of the card from the index number
             RandomCard();
@@ -147,36 +149,44 @@ namespace FirstSemesterExam
 
         public void RandomCard()
         {
-            index = random.Next(0, 6);
-            switch (index)
+            cardIndex = random.Next(1, 8);
+            switch (cardIndex)
             {
-                case 0:
+                case 1: //lightsaber
                     sprite = sprites[0];
-                    text = "1";
+                    text = "Lightsaber";
                     break;
-                case 1:
+                case 2: //knife
                     sprite = sprites[1];
-                    text = "2";
+                    text = "Knife";
                     break;
-                case 2:
+                case 3: //magic missile
                     sprite = sprites[2];
-                    text = "3";
+                    text = "Magic Missile";
                     break;
-                case 3:
+                case 4: //attackDamage
                     sprite = sprites[3];
-                    text = "4";
+                    text = "Damage";
                     break;
-                case 4:
+                case 5: //attackSpeed
                     sprite = sprites[4];
-                    text = "5";
+                    text = "Attack Speed";
                     break;
-                case 5:
+                case 6: //maxHealth
                     sprite = sprites[5];
-                    text = "6";
+                    text = "Max Health";
                     break;
-                case 6:
+                case 7: //defense
                     sprite = sprites[6];
-                    text = "7";
+                    text = "Defense";
+                    break;
+                case 8: //movementSpeed
+                    sprite = sprites[7];
+                    text = "Movement Speed";
+                    break;
+                case 9: //itemCoolDown
+                    sprite = sprites[8];
+                    text = "Item Cooldown";
                     break;
                 default: //make it throw an expection
                     break;

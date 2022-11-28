@@ -25,10 +25,17 @@ namespace FirstSemesterExam
         private int maxExp;
         private int levelIndicator;
 
+        private int attackDamageLvl;
+        private int attackSpeedLvl;
+        private int maxHealthLvl;
+        private float maxHealth;
+        private int defenseLvl;
         private float defense;
+        private int movementSpeedLvl;
+        private int itemAttackCoolDownLvl;
         private float itemAttackCoolDown;
         private int lightSaberLvl;
-        private int daggerLvl;
+        private int throwingKnifeLvl;
         private int magicMissileLvl;
 
         private Texture2D crosshair;
@@ -83,18 +90,45 @@ namespace FirstSemesterExam
             get { return levelIndicator; }
         }
 
+        public float MaxHealth
+        {
+            get { return maxHealth; }
+        }
+
+        public int LightSaberLvl
+        {
+            get { return lightSaberLvl; }
+        }
+
+        public int ThrowingKnifeLvl
+        {
+            get { return throwingKnifeLvl; }
+        }
+
+        public int MagicMissileLvl
+        {
+            get { return magicMissileLvl; }
+        }
+
         public Player()
         {
             //stats
+            maxHealth = 100f;
             health = 100f;
-            speed = 600;
+            speed = 600f;
+            attackDamageLvl = 0;
+            attackSpeedLvl = 0;
+            maxHealthLvl = 0;
+            defenseLvl = 0;
+            movementSpeedLvl = 0;
+            itemAttackCoolDownLvl = 0;
             //attackDamage = 10;
             attackSpeed = 10f;
-            defense = 0.5f;
+            defense = 0f;
             itemAttackCoolDown = 5f;
 
             lightSaberLvl = 0;
-            daggerLvl = 0;
+            throwingKnifeLvl = 0;
             magicMissileLvl = 0;
 
             levelIndicator = 1;
@@ -119,9 +153,7 @@ namespace FirstSemesterExam
         {
             weapon = new LaserGun(this);
             GameState.InstantiateGameObject(weapon);
-            GameState.InstantiateGameObject(new LightSaber(this));
-            GameState.InstantiateGameObject(new PowerUpTK(this));
-            GameState.InstantiateGameObject(new PowerUpMisile(this));
+            
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
@@ -129,7 +161,7 @@ namespace FirstSemesterExam
                 sprites[i] = content.Load<Texture2D>($"Player\\PlayerWalk_{i +1}");
             }
 
-            healthBarTexture = content.Load<Texture2D>("Player\\Health");
+            healthBarTexture = content.Load<Texture2D>("Player\\HealthV2");
             expBarTexture = content.Load<Texture2D>("Player\\Exp");
             healthBarBackgroundTexture = content.Load<Texture2D>("Player\\HealthBackground");
             dashBarTexture = content.Load<Texture2D>("Player\\DashBar");
@@ -185,7 +217,7 @@ namespace FirstSemesterExam
 
             healthBarPosition.X = position.X - (GetSpriteSize.X /0.70f);
             healthBarPosition.Y = position.Y - 45;
-            healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)health, 10);
+            healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)(healthBarTexture.Width * ((double)health / 100)), 10);
             healthBarBackgroundRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, 100, 10);
 
             expBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
@@ -210,6 +242,70 @@ namespace FirstSemesterExam
             exp = 0;
             levelIndicator += 1;
             leveledUp = true;
+        }
+
+        public void InitializeUpgrade(int cardIndex)
+        {
+            switch (cardIndex)
+            {
+                case 1: //lightsaber
+                    if(lightSaberLvl == 0)
+                    {
+                        GameState.InstantiateGameObject(new LightSaber(this));
+                        lightSaberLvl += 1;
+                    }
+                    else
+                    {
+                        lightSaberLvl += 1;
+                    }
+                    break;
+                case 2: //throwingKnife
+                    if(throwingKnifeLvl == 0)
+                    {
+                        GameState.InstantiateGameObject(new PowerUpTK(this));
+                        throwingKnifeLvl += 1;
+                    }
+                    else
+                    {
+                        throwingKnifeLvl += 1;
+                    }
+                    break;
+                case 3: //magicMissile
+                    if(magicMissileLvl == 0)
+                    {
+                        GameState.InstantiateGameObject(new PowerUpMisile(this));
+                        magicMissileLvl += 1;
+                    }
+                    else
+                    {
+                        magicMissileLvl += 1;
+                    }
+                    break;
+                case 4: //attackDamage
+                    attackDamageLvl += 1;
+                    attackDamage += 5; //might need to be changed
+                    break;
+                case 5: //attackSpeed
+                    attackSpeedLvl += 1;
+                    attackSpeed += 0.1f;
+                    break;
+                case 6: //maxHealth
+                    maxHealthLvl += 1;
+                    maxHealth += 10f;
+                    break;
+                case 7: //defense
+                    defenseLvl += 1;
+                    defense += 0.05f;
+                    break;
+                case 8: //movementSpeed
+                    movementSpeedLvl += 1;
+                    speed += 50f;
+                    break;
+                case 9: //itemCoolDown
+                    itemAttackCoolDownLvl += 1;
+                    itemAttackCoolDown += 0.1f;
+                    break;
+            }
         }
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;
@@ -331,7 +427,7 @@ namespace FirstSemesterExam
         public override void TakeDamage(float damage)
         {
             
-            health -= damage;
+            health -= damage * (defense +1);
             
         }
 

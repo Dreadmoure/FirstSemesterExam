@@ -22,7 +22,7 @@ namespace FirstSemesterExam.PowerUps
 
         public override void LoadContent(ContentManager content)
         {
-            sprite = content.Load<Texture2D>("PowerUps\\knife");
+            sprite = content.Load<Texture2D>("PowerUps\\magicMissile");
             
         }
 
