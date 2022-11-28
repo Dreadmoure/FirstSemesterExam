@@ -31,7 +31,11 @@ namespace FirstSemesterExam
         private int daggerLvl;
         private int magicMissileLvl;
 
-        private Texture2D crosshair; 
+        private Texture2D crosshair;
+
+        private bool invulnerable = false;
+        private float iFrames = 0.5f;
+
 
         //health bar
         private Texture2D healthBarTexture;
@@ -143,7 +147,6 @@ namespace FirstSemesterExam
             mouseState = Mouse.GetState();
             HandleInput(gameTime);
             HandleLimits();
-            //dashCooldown = (dashCooldown >= 5000 && keyState.IsKeyDown(Keys.Space)) ? 0 : dashCooldown + gameTime.ElapsedGameTime.TotalMilliseconds;
             Move(gameTime);
             Flip();
             if ( velocity != Vector2.Zero)
@@ -153,6 +156,15 @@ namespace FirstSemesterExam
             else
             {
                 CurrentIndex = 0;
+            }
+            if (invulnerable)
+            {
+                iFrames -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (iFrames <= 0)
+                {
+                    invulnerable = false;
+                    iFrames = 0.5f;
+                }
             }
 
             if (HasJustBeenHit)
@@ -203,19 +215,23 @@ namespace FirstSemesterExam
         //private KeyboardState oldState;
         private Keys movementKey;
         //private Vector2 lastMovedDirection;
-        float dashCooldown = 2; // Vores Dash Cooldown, hver
-        float nextDashCooldown = 0; //start cooldown ligger på 0, så man kan bruge dash til at starte med
         
+        float dashCooldown = 2;
+
+        float nextDashCooldown = 0; //start cooldown ligger på 0, så man kan bruge dash til at starte med
+        float dashTime;
+        int speedMultiplier = 10;
         float currentTime = 0f;
+        
         
         private void HandleInput(GameTime gameTime)
         {
             velocity = Vector2.Zero;
-            bool isIdle = velocity.X == 0 && velocity.Y == 0;
-            if (isIdle)
-            {
+            //bool isIdle = velocity.X == 0 && velocity.Y == 0;
+            //if (isIdle)
+            //{
 
-            }
+            //}
             KeyboardState keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.W))
@@ -255,16 +271,21 @@ namespace FirstSemesterExam
 
             //}
             currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;//Tjekker hvor lang tid der er gået i spillet
+            //Velocity skal være den samme. Den skal dashe i længere tid hvor den ganger speed med 10, når vi har fået vores dash input. Dash skal have en timer, hvor speed er forhøjet i det antal tid
             if (currentTime >= nextDashCooldown)
             {
                 
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.W))
                 {
 
-                    velocity.Y = -10;
+                    //velocity.Y = -10;
+                    speed *= speedMultiplier;
+
                     
                     nextDashCooldown = currentTime + dashCooldown;
 
+                    
+                    
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.S))
                 {
@@ -284,6 +305,10 @@ namespace FirstSemesterExam
                     velocity.X = 10;
                     nextDashCooldown = currentTime + dashCooldown;
 
+                }
+                else
+                {
+                    speed = 600;
                 }
             }
 
