@@ -17,20 +17,19 @@ namespace FirstSemesterExam.Enemies
 {
     public abstract class Enemy : GameObject
     {
-        private Random random = new Random();
+        protected Random random = new Random();
         enum Edge { Upper, Lower, Left, Right }
         private float attackTime;
         protected float attackRange;
         private Player player;
         protected int expValue;
-        private float hitTimer;
-        private bool hasJustBeenHit; 
 
         public Enemy(Player player)
         {
-            this.player = player; 
+            this.player = player;
             animationSpeed = 1f;
             spriteEffects = SpriteEffects.None;
+            layerDepth = 0.5f;
             //rotation = 0.01f;
 
             // set initial position randomly 
@@ -69,81 +68,82 @@ namespace FirstSemesterExam.Enemies
             Move(gameTime);
             Animate(gameTime);
 
-            // attack when ready 
-            attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed;
-            if (attackTime > 10f) // TODO: check if it should be lower 
+            if (IsInRange())
             {
-                Attack();
-                attackTime = 0f;
+                // attack when ready 
+                attackTime += (float)gameTime.ElapsedGameTime.TotalSeconds * attackSpeed;
+                if (attackTime > 10f) // TODO: check if it should be lower 
+                {
+                    Attack();
+                    attackTime = 0f;
+                }
             }
 
-            if (hasJustBeenHit)
+            if (HasJustBeenHit)
             {
                 hitTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if (hitTimer <= 0.5f)
+                if (hitTimer <= 0.1f)
                 {
                     color = Color.Red;
                 }
                 else
                 {
+                    hitTimer = 0;
                     color = Color.White;
-                    hasJustBeenHit = false; 
+                    HasJustBeenHit = false; 
                 }
             }
 
             if (health <= 0)
             {
-                player.Exp += expValue;
-                ShouldBeRemoved = true;
+                Die();
             }
+        }
 
+        private bool IsInRange()
+        {
+            float distance = (float)Math.Sqrt((player.GetPosition.X - position.X) * (player.GetPosition.X - position.X) + (player.GetPosition.Y - position.Y) * (player.GetPosition.Y - position.Y));
+
+            return distance <= attackRange; 
+        }
+
+        private void Die()
+        {
+            GameState.CountEnemyKill(); 
+
+            float rnd = random.Next(100);
+            if (rnd < 10)
+            {
+                GameState.InstantiateGameObject(new PickUp(position));
+            }
+            player.Exp += expValue;
+            ShouldBeRemoved = true;
         }
 
         private void HandlePosition()
         {
-            // reset velocity 
-            velocity = Vector2.Zero;
-
-            // set velocity towards player position 
-            if (position.X > player.GetPosition.X)
+            velocity = (player.GetPosition - position);
+            velocity.Normalize();
+            if (velocity.X > 0)
             {
-                velocity.X += -player.GetPosition.X;
+                spriteEffects = SpriteEffects.FlipHorizontally;
+            }
+            else
+            {
                 spriteEffects = SpriteEffects.None;
             }
-            else if (position.X < player.GetPosition.X)
-            {
-                velocity.X += player.GetPosition.X;
-                spriteEffects = SpriteEffects.FlipHorizontally;
-                
-            }
-            if (position.Y > player.GetPosition.Y)
-            {
-                velocity.Y += -player.GetPosition.Y;
-            }
-            else if (position.Y < player.GetPosition.Y)
-            {
-                velocity.Y += player.GetPosition.Y;
-            }
 
-            // set the length of the velocity vector to 1 no matter direction. 
-            if (velocity != Vector2.Zero)
-            {
-                velocity.Normalize();
-            }
+        }
+
+        public override void TakeDamage(float damage)
+        {
+            hasJustBeenHit = true;
+            health -= damage;
         }
 
         public override void OnCollision(GameObject other)
         {
-            if (other is PlayerProjectile)
-            {
-                health -= (int)other.GetAttackDamage;
-
-                hasJustBeenHit = true; 
-
-                
-            }
-
             if ( other is Player)
             {
                 other.TakeDamage(attackDamage);

@@ -21,7 +21,7 @@ namespace FirstSemesterExam
             this.rotation = rotation;
             this.attackDamage = attackDamage;
             speed = 1000;
-            layerDepth = 0.1f;
+            layerDepth = 0.6f;
         }
 
         public override void LoadContent(ContentManager content)
@@ -34,6 +34,8 @@ namespace FirstSemesterExam
         {
             if (other is Enemy)
             {
+                
+                other.TakeDamage(attackDamage);
                 ShouldBeRemoved = true;
             }
         }

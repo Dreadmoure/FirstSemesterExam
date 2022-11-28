@@ -16,6 +16,24 @@ namespace FirstSemesterExam
 
         private State _currentState;
         private State _nextState;
+        private static State menuState;
+        private static State highscoreState;
+        private static State gameState; 
+
+        public static State GetMenuState
+        {
+            get { return menuState; }
+        }
+        public static State HandleHighscoreState
+        {
+            get { return highscoreState; }
+            set { highscoreState = value; }
+        }
+        public static State HandleGameState
+        {
+            get { return gameState; }
+            set { gameState = value; }
+        }
 
         /// <summary>
         /// Property for getting the value of the screen size, used in positioning objects and handle the boundaries of the screen
@@ -33,12 +51,16 @@ namespace FirstSemesterExam
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Mouse.SetCursor(MouseCursor.Crosshair); 
+            Mouse.SetCursor(MouseCursor.Crosshair);
 
             // set screensize 
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
-            _graphics.IsFullScreen = true;
+            //_graphics.PreferredBackBufferWidth = 900;
+            //_graphics.PreferredBackBufferHeight = 800;
+
+            _graphics.IsFullScreen = false;
+
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
 
@@ -48,6 +70,9 @@ namespace FirstSemesterExam
         protected override void Initialize()
         {
             this.Window.Title = "Survive Us";
+
+            menuState = new MenuState(Content, GraphicsDevice, this);
+            highscoreState = new HighscoreState(Content, GraphicsDevice, this);
 
             base.Initialize();
         }
@@ -76,7 +101,6 @@ namespace FirstSemesterExam
             if (_nextState != null)
             {
                 _currentState = _nextState;
-                _currentState.LoadContent();
 
                 _nextState = null;
             }

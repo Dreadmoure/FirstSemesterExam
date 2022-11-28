@@ -15,25 +15,30 @@ namespace FirstSemesterExam.Menu
         #region fields 
         private Texture2D menuBackgroundTexture;
         private List<Button> buttons;
+        private Button continueGameButton; 
         private Button newGameButton;
+        private Button highscoreButton; 
         private Button quitGameButton;
         #endregion
 
         public MenuState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             float buttonLayer = 0.2f;
-            float buttonScale = 6f; 
-            
-            newGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 3), "New Game", buttonLayer, buttonScale);
-            quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), "Quit Game", buttonLayer, buttonScale);
+            float buttonScale = 6f;
 
-            buttons = new List<Button>() { newGameButton, quitGameButton };
+            continueGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6), "Resume Game", buttonLayer, buttonScale); 
+            newGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 -50), "New Game", buttonLayer, buttonScale);
+            highscoreButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 +50), "Highscore", buttonLayer, buttonScale); 
+            quitGameButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 + GameWorld.GetScreenSize.Y / 6), "Quit Game", buttonLayer, buttonScale);
+
+            buttons = new List<Button>() { continueGameButton, newGameButton, highscoreButton, quitGameButton };
+
+            LoadContent(); 
         }
 
         #region methods 
         public override void LoadContent()
         {
-
             menuBackgroundTexture = content.Load<Texture2D>("Menus\\background");
 
             foreach (Button button in buttons)
@@ -49,10 +54,31 @@ namespace FirstSemesterExam.Menu
                 button.Update(gameTime);
             }
 
+            if (continueGameButton.isClicked)
+            {
+                continueGameButton.isClicked = false;
+                if (GameState.GetGameOver)
+                {
+                    GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
+                    game.ChangeState(GameWorld.HandleGameState); 
+                }
+                else
+                {
+                    GameState.HandlePause = false;
+                    game.ChangeState(GameWorld.HandleGameState);
+                }
+            }
             if (newGameButton.isClicked)
             {
                 newGameButton.isClicked = false;
-                game.ChangeState(new GameState(content, graphicsDevice, game));
+                GameState.HandlePause = false;
+                GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
+                game.ChangeState(GameWorld.HandleGameState);
+            }
+            if (highscoreButton.isClicked)
+            {
+                highscoreButton.isClicked = false;
+                game.ChangeState(GameWorld.HandleHighscoreState); 
             }
             if (quitGameButton.isClicked)
             {

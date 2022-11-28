@@ -26,12 +26,17 @@ namespace FirstSemesterExam
         protected SpriteEffects spriteEffects = SpriteEffects.None;
         protected Color color = Color.White;
 
+        protected bool hasJustBeenHit;
+        protected float hitTimer;
+
         //Animation
         protected float animationSpeed = 10;
         private float animationTime;
         private int currentIndex = 0;
 
         protected bool shouldBeRemoved;
+
+        public bool HasJustBeenHit { get => hasJustBeenHit; set => hasJustBeenHit = value; }
 
         public float GetAttackDamage
         {
@@ -60,18 +65,27 @@ namespace FirstSemesterExam
         }
         protected Vector2 GetSpriteSize
         {
+            
             get
             {
-                return new Vector2(GetCurrentSprite.Width * scale, GetCurrentSprite.Height * scale);
+                if (sprites != null)
+                {
+                    return new Vector2(GetCurrentSprite.Width * scale, GetCurrentSprite.Height * scale);
+                }
+                else
+                {
+                    return new Vector2(0,0);
+                }
             }
         }
         public Vector2 GetPosition 
         {
             get { return position; }
         }
-        public float GetHealth 
+        public float Health 
         {
             get { return health; }
+            set { health = value; }
         }
         public float GetRotation
         {
@@ -141,7 +155,10 @@ namespace FirstSemesterExam
 
         }
 
+        public virtual void OnCollisionEnter(GameObject other)
+        {
 
+        }
 
     }
 }
