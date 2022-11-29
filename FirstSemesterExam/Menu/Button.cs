@@ -57,8 +57,8 @@ namespace FirstSemesterExam.Menu
             this.position = position;
             this.text = text;
             this.color = color; 
-            layer = 0.2f;
-            scale = 1f; 
+            layer = 0.96f;
+            scale = 1.5f; 
         }
 
         public override void LoadContent(ContentManager content)

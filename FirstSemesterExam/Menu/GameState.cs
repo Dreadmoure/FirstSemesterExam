@@ -423,7 +423,7 @@ namespace FirstSemesterExam.Menu
 
             if (paused)
             {
-                spriteBatch.Draw(pausedTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.01f); 
+                spriteBatch.Draw(pausedTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.95f); 
                 
                 foreach (Button button in pausedButtons)
                 {
@@ -432,12 +432,12 @@ namespace FirstSemesterExam.Menu
             }
             if (gameOver)
             {
-                spriteBatch.Draw(gameOverTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.01f);
+                spriteBatch.Draw(gameOverTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
 
                 string text = $"SCORE: {score}";
                 float x = GameWorld.GetScreenSize.X / 2 - font.MeasureString(text).X / 2;
                 float y = GameWorld.GetScreenSize.Y / 3 - font.MeasureString(text).Y / 2;
-                spriteBatch.DrawString(font, text, new Vector2(x,y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
+                spriteBatch.DrawString(font, text, new Vector2(x,y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.95f); 
 
                 foreach (Component component in gameOverComponents)
                 {

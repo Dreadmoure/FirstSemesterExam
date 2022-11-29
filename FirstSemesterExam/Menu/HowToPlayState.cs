@@ -21,7 +21,7 @@ namespace FirstSemesterExam.Menu
 
         public HowToPlayState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
-            backButton = new Button(new Vector2(100, 50), "Back", Color.Yellow);
+            backButton = new Button(new Vector2(150, 60), "Back", Color.Yellow);
             buttons = new List<Button>() { backButton };
 
             LoadContent();

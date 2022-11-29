@@ -63,7 +63,7 @@ namespace FirstSemesterExam
             //_graphics.PreferredBackBufferWidth = 900;
             //_graphics.PreferredBackBufferHeight = 800;
 
-            _graphics.IsFullScreen = false;
+            _graphics.IsFullScreen = true;
 
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
