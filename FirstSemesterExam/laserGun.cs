@@ -18,7 +18,7 @@ namespace FirstSemesterExam
 
         public override void Shoot(GameTime gameTime)
         {
-            if (timeSinceFire > fireRate)
+            if (timeSinceFire > 1/player.AttackSpeed)
             {
                 timeSinceFire = 0;
                 PlayerProjectile projectile = new PlayerProjectile(shootingPos, dirVector, angle, attackDamage);

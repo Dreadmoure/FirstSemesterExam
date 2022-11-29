@@ -75,7 +75,7 @@ namespace FirstSemesterExam.Menu
             this.position = position;
             this.text = text;
             layer = 0.2f;
-            scale = 1f;
+            scale = 1.5f;
             isActive = true; 
         }
 

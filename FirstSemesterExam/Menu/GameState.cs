@@ -27,6 +27,11 @@ namespace FirstSemesterExam.Menu
         public static List<GameObject> enemies = new List<GameObject>();
         //Background
         private Texture2D background;
+        // Global timer
+        private static float globalGameTimer1;
+        private static int globalGameTimer2;
+        private Color globalGameTimerColor;
+        private string globalGameTimerText;
         // fields for enemy spawner
         private float totalGameTime;
         private float timeSinceEnemySpawn;
@@ -84,6 +89,15 @@ namespace FirstSemesterExam.Menu
             player = new Player();
             gameObjects.Add(player);
             kills = 0;
+
+            //sets the timer and color of the timer
+            globalGameTimer1 = 0f;
+            globalGameTimer2 = 0;
+            globalGameTimerText = "Time:";
+            globalGameTimerColor.R = 40;
+            globalGameTimerColor.G = 53;
+            globalGameTimerColor.B = 66;
+            globalGameTimerColor.A = 255;
 
             Color buttonColor = Color.Blue; 
 
@@ -144,7 +158,7 @@ namespace FirstSemesterExam.Menu
             {
                 CalculateScore(); 
                 
-                if (Keyboard.GetState().IsKeyDown(Keys.P))
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     paused = true;
                 }
@@ -173,6 +187,12 @@ namespace FirstSemesterExam.Menu
                 currentCollisions = new List<GameObject>();
 
                 RemoveGameObjects();
+
+                // the global timer used to tell the user how long they have survived
+                globalGameTimer1 += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // purely used to convert the timer into an int so it can be printed out to the screen later
+                globalGameTimer2 = (int)globalGameTimer1;
+
 
                 totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 // set spawntime lower each 5 min. (5 * 60 = 300sec) 
@@ -391,7 +411,7 @@ namespace FirstSemesterExam.Menu
         }
         public static void CalculateScore()
         {
-            score = kills; 
+            score = kills * globalGameTimer2; 
         }
 
         private void DrawCollisionBox(GameObject go, SpriteBatch _spriteBatch)
@@ -413,6 +433,10 @@ namespace FirstSemesterExam.Menu
 
             spriteBatch.Draw(background, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), null, Color.White, 0f, new Vector2(background.Width/2, background.Height/2), 3f, SpriteEffects.None, 0.01f);
 
+            //draw globel timer
+            spriteBatch.DrawString(font, globalGameTimerText, new Vector2(GameWorld.GetScreenSize.X / 3.70f, GameWorld.GetScreenSize.Y / 4.2f), globalGameTimerColor, 0f, Vector2.Zero, 3.5f, SpriteEffects.None, 0.3f);
+            spriteBatch.DrawString(font, globalGameTimer2.ToString(), new Vector2(GameWorld.GetScreenSize.X / 3.45f, GameWorld.GetScreenSize.Y / 3.5f), globalGameTimerColor, 0f, Vector2.Zero, 3.5f, SpriteEffects.None, 0.3f);
+
             spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer MaxHP: {player.MaxHealth}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nLightsaberLvl: {player.LightSaberLvl}\nTKLvl: {player.ThrowingKnifeLvl}\nMagicMissile: {player.MagicMissileLvl}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
 
             foreach (GameObject gameObject in gameObjects)
@@ -423,7 +447,7 @@ namespace FirstSemesterExam.Menu
 
             if (paused)
             {
-                spriteBatch.Draw(pausedTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.01f); 
+                spriteBatch.Draw(pausedTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.95f); 
                 
                 foreach (Button button in pausedButtons)
                 {
@@ -432,12 +456,12 @@ namespace FirstSemesterExam.Menu
             }
             if (gameOver)
             {
-                spriteBatch.Draw(gameOverTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.01f);
+                spriteBatch.Draw(gameOverTexture, Vector2.Zero, null, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
 
                 string text = $"SCORE: {score}";
                 float x = GameWorld.GetScreenSize.X / 2 - font.MeasureString(text).X / 2;
                 float y = GameWorld.GetScreenSize.Y / 3 - font.MeasureString(text).Y / 2;
-                spriteBatch.DrawString(font, text, new Vector2(x,y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
+                spriteBatch.DrawString(font, text, new Vector2(x,y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.95f); 
 
                 foreach (Component component in gameOverComponents)
                 {

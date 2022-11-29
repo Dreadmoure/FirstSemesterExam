@@ -43,6 +43,7 @@ namespace FirstSemesterExam
         private PowerUpTK powerUpTK;
 
         private Texture2D crosshair;
+        
 
         private bool invulnerable = false;
         private float iFrames = 0.5f;
@@ -99,6 +100,11 @@ namespace FirstSemesterExam
             get { return maxHealth; }
         }
 
+        public float AttackSpeed
+        {
+            get { return attackSpeed; }
+        }
+
         public int LightSaberLvl
         {
             get { return lightSaberLvl; }
@@ -127,7 +133,7 @@ namespace FirstSemesterExam
             movementSpeedLvl = 0;
             itemAttackCoolDownLvl = 0;
             //attackDamage = 10;
-            attackSpeed = 10f;
+            attackSpeed = 1f;
             defense = 0f;
             itemAttackCoolDown = 5f;
 
@@ -157,7 +163,7 @@ namespace FirstSemesterExam
         {
             weapon = new LaserGun(this);
             GameState.InstantiateGameObject(weapon);
-            
+
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
@@ -185,6 +191,9 @@ namespace FirstSemesterExam
             HandleLimits();
             Move(gameTime);
             Flip();
+
+            health = Math.Clamp(health, 0, maxHealth);
+
             if ( velocity != Vector2.Zero)
             {
                 Animate(gameTime);
@@ -297,23 +306,32 @@ namespace FirstSemesterExam
                     break;
                 case 5: //attackSpeed
                     attackSpeedLvl += 1;
-                    attackSpeed += 0.1f;
+                    attackSpeed = (1 + 0.2f * attackSpeedLvl);
                     break;
                 case 6: //maxHealth
                     maxHealthLvl += 1;
                     maxHealth += 10f;
                     break;
                 case 7: //defense
-                    defenseLvl += 1;
-                    defense += 0.05f;
+                    if(defenseLvl == 0)
+                    {
+                        defenseLvl += 1;
+                        defense += 0.1f;
+                    }
+                    else
+                    {
+                        defenseLvl += 1;
+                        defense = (1 - 1 / (1 + 0.1f * defenseLvl));
+                    }
+                    
                     break;
                 case 8: //movementSpeed
                     movementSpeedLvl += 1;
-                    speed += 50f;
+                    speed = (1 - 1 / (1 + 0.1f * movementSpeedLvl));
                     break;
                 case 9: //itemCoolDown
                     itemAttackCoolDownLvl += 1;
-                    itemAttackCoolDown += 0.1f;
+                    itemAttackCoolDown = (1 - 1 / (1 + 0.1f * itemAttackCoolDownLvl));
                     break;
             }
         }
@@ -384,8 +402,8 @@ namespace FirstSemesterExam
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.W))
                 {
 
-                    //velocity.Y = -10;
-                    speed *= speedMultiplier;
+                    velocity.Y = -10;
+                    //speed *= speedMultiplier;
 
                     
                     nextDashCooldown = currentTime + dashCooldown;

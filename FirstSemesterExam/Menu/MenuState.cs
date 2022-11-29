@@ -27,12 +27,13 @@ namespace FirstSemesterExam.Menu
             Vector2 buttonPosition = new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6);
 
             Color buttonColor = Color.Purple;
+            float spacer = 75; 
 
             continueGameButton = new Button(buttonPosition, "Resume Game", buttonColor);
-            newGameButton = new Button(buttonPosition + new Vector2(0, 50), "New Game", buttonColor);
-            highscoreButton = new Button(buttonPosition + new Vector2(0, 100), "Highscore", buttonColor);
-            howToPlayButton = new Button(buttonPosition + new Vector2(0, 150), "How to play", buttonColor); 
-            quitGameButton = new Button(buttonPosition + new Vector2(0, 200), "Quit Game", buttonColor);
+            newGameButton = new Button(buttonPosition + new Vector2(0, spacer), "New Game", buttonColor);
+            highscoreButton = new Button(buttonPosition + new Vector2(0, 2*spacer), "Highscore", buttonColor);
+            howToPlayButton = new Button(buttonPosition + new Vector2(0, 3*spacer), "How to play", buttonColor); 
+            quitGameButton = new Button(buttonPosition + new Vector2(0, 4*spacer), "Quit Game", buttonColor);
 
             buttons = new List<Button>() { continueGameButton, newGameButton, highscoreButton, howToPlayButton, quitGameButton };
 

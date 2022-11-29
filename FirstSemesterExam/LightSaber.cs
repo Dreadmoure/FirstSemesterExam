@@ -22,7 +22,9 @@ namespace FirstSemesterExam
             this.timeAlive = timeAlive;
             offset = 150;
             speed = 2;
+
             this.attackDamage = attackDamage;
+
             layerDepth = 0.6f;
             this.angleOffset = angleOffset;
         }
@@ -47,7 +49,7 @@ namespace FirstSemesterExam
             }
         }
 
-        public override void OnCollisionEnter(GameObject other)
+        public override void OnCollision(GameObject other)
         {
             if (other is Enemy)
             {

@@ -34,7 +34,7 @@ namespace FirstSemesterExam.Menu
         {
             Color buttonColor = Color.Green;
 
-            backButton = new Button(new Vector2(100, 50), "Back", buttonColor);
+            backButton = new Button(new Vector2(150, 60), "Back", buttonColor);
             prevScoresButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2 - GameWorld.GetScreenSize.X / 5, GameWorld.GetScreenSize.Y / 2), "Prev", buttonColor);
             nextScoresButton = new Button(new Vector2(GameWorld.GetScreenSize.X / 2 + GameWorld.GetScreenSize.X / 5, GameWorld.GetScreenSize.Y / 2), "Next", buttonColor); 
             
@@ -159,7 +159,7 @@ namespace FirstSemesterExam.Menu
             for (int i = indexStart; i < indexEnd; i++)
             {
                 float offsetScorePositionX = textFont.MeasureString(scores[i].score.ToString()).X;
-                float textHeight = i % 10 * textFont.MeasureString("Text").Y; 
+                float textHeight = i % 10 * textFont.MeasureString("Text").Y * 2; 
                 spriteBatch.DrawString(textFont, scores[i].name, nameTextPosition + new Vector2(0, textHeight), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f); 
                 spriteBatch.DrawString(textFont, scores[i].score.ToString(), scoreTextPosition + new Vector2(0, textHeight), Color.White, 0f, new Vector2(offsetScorePositionX, 0), 1f, SpriteEffects.None, 0.9f);
             }
