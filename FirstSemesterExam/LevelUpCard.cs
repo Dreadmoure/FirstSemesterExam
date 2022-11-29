@@ -154,7 +154,7 @@ namespace FirstSemesterExam
 
         public void RandomCard()
         {
-            cardIndex = random.Next(1, 8);
+            cardIndex = random.Next(1, 10);
             switch (cardIndex)
             {
                 case 1: //lightsaber
