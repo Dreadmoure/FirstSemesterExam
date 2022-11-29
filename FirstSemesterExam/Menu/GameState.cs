@@ -99,6 +99,7 @@ namespace FirstSemesterExam.Menu
             globalGameTimerColor.B = 66;
             globalGameTimerColor.A = 255;
 
+
             Color buttonColor = Color.Blue; 
 
             // buttons for pause screen 
@@ -299,6 +300,8 @@ namespace FirstSemesterExam.Menu
                 {
                     card.Update(gameTime);
                 }
+
+
                 if (card1.isClicked)
                 {
                     card1.isClicked = false;

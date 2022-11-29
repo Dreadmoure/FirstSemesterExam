@@ -11,9 +11,9 @@ namespace FirstSemesterExam
     internal class LaserGun : Weapon
     {
 
-        public LaserGun(Player player) : base(player)
+        public LaserGun(Player player, float attackDamage) : base(player)
         {
-            attackDamage = 10f;
+            this.attackDamage = attackDamage;
         }
 
         public override void Shoot(GameTime gameTime)
