@@ -158,7 +158,7 @@ namespace FirstSemesterExam.Menu
             {
                 CalculateScore(); 
                 
-                if (Keyboard.GetState().IsKeyDown(Keys.P))
+                if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     paused = true;
                 }
