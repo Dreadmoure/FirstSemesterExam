@@ -27,6 +27,11 @@ namespace FirstSemesterExam.Menu
         public static List<GameObject> enemies = new List<GameObject>();
         //Background
         private Texture2D background;
+        // Global timer
+        private float globalGameTimer1;
+        private float globalGameTimer2;
+        private Color globalGameTimerColor;
+        private string globalGameTimerText;
         // fields for enemy spawner
         private float totalGameTime;
         private float timeSinceEnemySpawn;
@@ -84,6 +89,15 @@ namespace FirstSemesterExam.Menu
             player = new Player();
             gameObjects.Add(player);
             kills = 0;
+
+            //sets the timer and color of the timer
+            globalGameTimer1 = 0f;
+            globalGameTimer2 = 0;
+            globalGameTimerText = "Time:";
+            globalGameTimerColor.R = 40;
+            globalGameTimerColor.G = 53;
+            globalGameTimerColor.B = 66;
+            globalGameTimerColor.A = 255;
 
             Color buttonColor = Color.Blue; 
 
@@ -173,6 +187,12 @@ namespace FirstSemesterExam.Menu
                 currentCollisions = new List<GameObject>();
 
                 RemoveGameObjects();
+
+                // the global timer used to tell the user how long they have survived
+                globalGameTimer1 += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                // purely used to convert the timer into an int so it can be printed out to the screen later
+                globalGameTimer2 = (int)globalGameTimer1;
+
 
                 totalGameTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
                 // set spawntime lower each 5 min. (5 * 60 = 300sec) 
@@ -412,6 +432,10 @@ namespace FirstSemesterExam.Menu
             spriteBatch.Begin(SpriteSortMode.FrontToBack, samplerState: SamplerState.PointClamp);
 
             spriteBatch.Draw(background, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), null, Color.White, 0f, new Vector2(background.Width/2, background.Height/2), 3f, SpriteEffects.None, 0.01f);
+
+            //draw globel timer
+            spriteBatch.DrawString(font, globalGameTimerText, new Vector2(GameWorld.GetScreenSize.X / 3.70f, GameWorld.GetScreenSize.Y / 4.2f), globalGameTimerColor, 0f, Vector2.Zero, 3.5f, SpriteEffects.None, 0.3f);
+            spriteBatch.DrawString(font, globalGameTimer2.ToString(), new Vector2(GameWorld.GetScreenSize.X / 3.45f, GameWorld.GetScreenSize.Y / 3.5f), globalGameTimerColor, 0f, Vector2.Zero, 3.5f, SpriteEffects.None, 0.3f);
 
             spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer MaxHP: {player.MaxHealth}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nLightsaberLvl: {player.LightSaberLvl}\nTKLvl: {player.ThrowingKnifeLvl}\nMagicMissile: {player.MagicMissileLvl}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
 
