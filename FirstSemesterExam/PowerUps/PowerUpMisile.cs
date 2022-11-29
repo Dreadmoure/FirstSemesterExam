@@ -39,8 +39,8 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed)
             {
-                go = GameState.enemies;
                 timeSinceLastAttack = 0;
+                go = GameState.enemies;
                 Misile misile = new Misile(player.GetPosition ,go[0], sprite);
                 GameState.InstantiateGameObject(misile);
             }

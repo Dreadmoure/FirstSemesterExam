@@ -9,11 +9,11 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class ThrowingKnife : GameObject
     {
-        public ThrowingKnife(Vector2 position, Vector2 velocity, Texture2D sprite)
+        public ThrowingKnife(Vector2 position, Vector2 velocity, float attackDamage , Texture2D sprite)
         {
             this.position = position;
             this.velocity = velocity;
-            attackDamage = 10;
+            this.attackDamage = attackDamage;
             speed = 1000;
             sprites = new Texture2D[1];
             sprites[0] = sprite;

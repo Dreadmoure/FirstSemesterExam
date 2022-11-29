@@ -38,6 +38,10 @@ namespace FirstSemesterExam
         private int throwingKnifeLvl;
         private int magicMissileLvl;
 
+        private PowerUpLS powerUpLS;
+        private PowerUpMisile powerUpMisile;
+        private PowerUpTK powerUpTK;
+
         private Texture2D crosshair;
 
         private bool invulnerable = false;
@@ -251,23 +255,29 @@ namespace FirstSemesterExam
                 case 1: //lightsaber
                     if(lightSaberLvl == 0)
                     {
-                        GameState.InstantiateGameObject(new LightSaber(this));
+                        powerUpLS = new PowerUpLS(this);
+                        GameState.InstantiateGameObject(powerUpLS);
                         lightSaberLvl += 1;
+                        powerUpLS.UpdateLightSaber();
                     }
                     else
                     {
                         lightSaberLvl += 1;
+                        powerUpLS.UpdateLightSaber();
                     }
                     break;
                 case 2: //throwingKnife
                     if(throwingKnifeLvl == 0)
                     {
-                        GameState.InstantiateGameObject(new PowerUpTK(this));
+                        powerUpTK = new PowerUpTK(this);
+                        GameState.InstantiateGameObject(powerUpTK);
                         throwingKnifeLvl += 1;
+                        powerUpTK.UpdateTK();
                     }
                     else
                     {
                         throwingKnifeLvl += 1;
+                        powerUpTK.UpdateTK();
                     }
                     break;
                 case 3: //magicMissile
