@@ -14,7 +14,7 @@ namespace FirstSemesterExam.Enemies
         {
             health = 15f;
             speed = 50f;
-            attackSpeed = 50f;
+            attackSpeed = 30f;
             attackRange = 1000f;
             animationSpeed = 4f;
             expValue = 4;

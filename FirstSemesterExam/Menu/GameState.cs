@@ -28,8 +28,8 @@ namespace FirstSemesterExam.Menu
         //Background
         private Texture2D background;
         // Global timer
-        private float globalGameTimer1;
-        private float globalGameTimer2;
+        private static float globalGameTimer1;
+        private static int globalGameTimer2;
         private Color globalGameTimerColor;
         private string globalGameTimerText;
         // fields for enemy spawner
@@ -411,7 +411,7 @@ namespace FirstSemesterExam.Menu
         }
         public static void CalculateScore()
         {
-            score = kills; 
+            score = kills * globalGameTimer2; 
         }
 
         private void DrawCollisionBox(GameObject go, SpriteBatch _spriteBatch)
