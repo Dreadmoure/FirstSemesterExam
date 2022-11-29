@@ -12,6 +12,7 @@ namespace FirstSemesterExam.PowerUps
         private Texture2D knifeSprite;
         private Player player;
         private Vector2 lastVelocity;
+        private int tKAmount;
 
 
         protected float timeSinceLastAttack;
@@ -20,8 +21,10 @@ namespace FirstSemesterExam.PowerUps
         {
             this.player = player;
             attackSpeed = 2;
+            attackDamage = 10;
             lastVelocity = new Vector2(1, 0);
             layerDepth = 0.6f;
+            tKAmount = 1;
         }
         public override void LoadContent(ContentManager content)
         {
@@ -41,16 +44,46 @@ namespace FirstSemesterExam.PowerUps
 
         private void Shoot(GameTime gameTime)
         {
-            
+
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed)
             {
-
+                float angleOffset = (2 * MathF.PI) / tKAmount;
+                float playerAngle = MathF.Atan2(lastVelocity.Y, lastVelocity.X);
                 timeSinceLastAttack = 0;
-                ThrowingKnife throwingKnife = new ThrowingKnife(player.GetPosition, lastVelocity, knifeSprite);
-                GameState.InstantiateGameObject(throwingKnife);
+                for (int i = 0; i < tKAmount; i++)
+                {
+                    float angle = playerAngle + (angleOffset * i);
+                    ThrowingKnife throwingKnife = new ThrowingKnife(player.GetPosition, new Vector2(MathF.Cos(angle), MathF.Sin(angle)), attackDamage, knifeSprite);
+                    GameState.InstantiateGameObject(throwingKnife);
+                }
             }
         }
 
+        public void UpdateTK()
+        {
+
+            switch (player.ThrowingKnifeLvl)
+            {
+                case 2:
+                    attackSpeed -= 0.5f;
+                    break;
+                case 3:
+                    attackDamage += 5;
+                    break;
+                case 4:
+                    tKAmount++;
+                    break;
+                case 5:
+                    attackSpeed -= 0.5f ;
+                    break;
+                case 6:
+                    tKAmount++;
+                    break;
+
+            }
+
+
+        }
     }
 }

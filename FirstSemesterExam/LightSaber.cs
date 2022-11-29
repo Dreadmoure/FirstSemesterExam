@@ -14,14 +14,19 @@ namespace FirstSemesterExam
         private float offset;
         private Player player;
         private float angle;
-        public LightSaber(Player player)
+        private float timeAlive;
+        private float angleOffset;
+        public LightSaber(Player player, float attackDamage, float timeAlive, float angleOffset)
         {
             this.player = player;
+            this.timeAlive = timeAlive;
             offset = 150;
             speed = 2;
-            attackDamage = 1;
+
+            this.attackDamage = attackDamage;
+
             layerDepth = 0.6f;
-            //originOffset = new Vector2(-15, 0);
+            this.angleOffset = angleOffset;
         }
 
         public override void LoadContent(ContentManager content)
@@ -33,9 +38,15 @@ namespace FirstSemesterExam
 
         public override void Update(GameTime gameTime)
         {
-            angle += (float)gameTime.ElapsedGameTime.TotalSeconds * speed;
+            angle += ((float)gameTime.ElapsedGameTime.TotalSeconds * speed);
+            timeAlive -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             rotation = angle* 3;
-            position = new Vector2(offset * MathF.Cos(angle) + player.GetPosition.X, offset * MathF.Sin(angle) + player.GetPosition.Y);
+            position = new Vector2(offset * MathF.Cos(angle + angleOffset) + player.GetPosition.X, offset * MathF.Sin(angle + angleOffset) + player.GetPosition.Y);
+
+            if (timeAlive <= 0)
+            {
+                shouldBeRemoved = true;
+            }
         }
 
         public override void OnCollision(GameObject other)
