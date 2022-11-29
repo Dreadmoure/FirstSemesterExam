@@ -39,6 +39,7 @@ namespace FirstSemesterExam
         private int magicMissileLvl;
 
         private Texture2D crosshair;
+        
 
         private bool invulnerable = false;
         private float iFrames = 0.5f;
@@ -95,6 +96,11 @@ namespace FirstSemesterExam
             get { return maxHealth; }
         }
 
+        public float AttackSpeed
+        {
+            get { return attackSpeed; }
+        }
+
         public int LightSaberLvl
         {
             get { return lightSaberLvl; }
@@ -123,7 +129,7 @@ namespace FirstSemesterExam
             movementSpeedLvl = 0;
             itemAttackCoolDownLvl = 0;
             //attackDamage = 10;
-            attackSpeed = 10f;
+            attackSpeed = 0.6f;
             defense = 0f;
             itemAttackCoolDown = 5f;
 
@@ -153,7 +159,7 @@ namespace FirstSemesterExam
         {
             weapon = new LaserGun(this);
             GameState.InstantiateGameObject(weapon);
-            
+
 
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
@@ -181,6 +187,9 @@ namespace FirstSemesterExam
             HandleLimits();
             Move(gameTime);
             Flip();
+
+            health = Math.Clamp(health, 0, maxHealth);
+
             if ( velocity != Vector2.Zero)
             {
                 Animate(gameTime);
@@ -287,7 +296,7 @@ namespace FirstSemesterExam
                     break;
                 case 5: //attackSpeed
                     attackSpeedLvl += 1;
-                    attackSpeed += 0.1f;
+                    attackSpeed -= 0.1f;
                     break;
                 case 6: //maxHealth
                     maxHealthLvl += 1;

@@ -77,22 +77,27 @@ namespace FirstSemesterExam
 
             Rectangle mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
 
-            if (mouseRectangle.Intersects(GetRectangle))
-            {
-                ColorShift();
-
-                if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                if (mouseRectangle.Intersects(GetRectangle))
                 {
-                    isClicked = true;
-                    color.A = 255;
-                }
-            }
-            else if (color.A < 255)
-            {
-                color.A += 3;
-            }
+                    ColorShift();
 
-            
+                    
+
+
+                    if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
+                    {
+                        isClicked = true;
+                        color.A = 255;
+                    }
+
+
+
+                }
+                else if (color.A < 255)
+                {
+                    color.A += 3;
+                }
+
         }
 
         public override void LoadContent(ContentManager content)
