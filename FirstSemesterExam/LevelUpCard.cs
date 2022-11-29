@@ -113,7 +113,7 @@ namespace FirstSemesterExam
             sprites[5] = content.Load<Texture2D>("LevelUpCards\\MaxHealthCard"); // max health 
             sprites[6] = content.Load<Texture2D>("LevelUpCards\\DefenceCard"); // defence 
             sprites[7] = content.Load<Texture2D>("LevelUpCards\\MovementSpeedCard"); // movement speed 
-            sprites[8] = content.Load<Texture2D>("LevelUpCards\\card"); // item cooldown 
+            sprites[8] = content.Load<Texture2D>("LevelUpCards\\ItemCooldownCard"); // item cooldown 
 
             //assigns the sprite of the card from the index number
             RandomCard();
