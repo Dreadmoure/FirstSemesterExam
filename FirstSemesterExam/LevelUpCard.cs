@@ -108,7 +108,7 @@ namespace FirstSemesterExam
             sprites[0] = content.Load<Texture2D>("LevelUpCards\\LightsaberCard"); // lightsaber 
             sprites[1] = content.Load<Texture2D>("LevelUpCards\\KnifeCard"); // knife 
             sprites[2] = content.Load<Texture2D>("LevelUpCards\\MagicMissileCard"); // magic missile 
-            sprites[3] = content.Load<Texture2D>("LevelUpCards\\card"); // attack damage
+            sprites[3] = content.Load<Texture2D>("LevelUpCards\\AttackDamageCard"); // attack damage
             sprites[4] = content.Load<Texture2D>("LevelUpCards\\card"); // attack speed
             sprites[5] = content.Load<Texture2D>("LevelUpCards\\MaxHealthCard"); // max health 
             sprites[6] = content.Load<Texture2D>("LevelUpCards\\DefenceCard"); // defence 
