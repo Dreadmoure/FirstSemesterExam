@@ -122,6 +122,7 @@ namespace FirstSemesterExam
             maxHealth = 100f;
             health = 100f;
             speed = 600f;
+            attackDamage = 10;
             attackDamageLvl = 0;
             attackSpeedLvl = 0;
             maxHealthLvl = 0;
@@ -157,7 +158,7 @@ namespace FirstSemesterExam
 
         public override void LoadContent(ContentManager content)
         {
-            weapon = new LaserGun(this);
+            weapon = new LaserGun(this, attackDamage);
             GameState.InstantiateGameObject(weapon);
 
 
