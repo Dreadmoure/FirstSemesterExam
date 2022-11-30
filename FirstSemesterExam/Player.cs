@@ -256,6 +256,9 @@ namespace FirstSemesterExam
             exp = 0;
             levelIndicator += 1;
             leveledUp = true;
+            
+            //sets the mouse position to avoid misclick, which was a thing before
+            Mouse.SetPosition((int)(GameWorld.GetScreenSize.X / 2), (int)(GameWorld.GetScreenSize.Y / 1.2f));
         }
 
         public void InitializeUpgrade(int cardIndex)

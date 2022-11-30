@@ -126,7 +126,7 @@ namespace FirstSemesterExam
             if (!string.IsNullOrEmpty(text))
             {
                 float x = (GetRectangle.X + GetRectangle.Width / 2) - textFont.MeasureString(text).X / 2;
-                float y = (GetRectangle.Y + GetRectangle.Height / 3) - textFont.MeasureString(text).Y / 2;
+                float y = (GetRectangle.Y + GetRectangle.Height / 2 + 15) - textFont.MeasureString(text).Y / 2;
 
                 spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layerDepth + 0.01f);
             }
