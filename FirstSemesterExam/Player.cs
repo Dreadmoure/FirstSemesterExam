@@ -105,6 +105,36 @@ namespace FirstSemesterExam
             get { return attackSpeed; }
         }
 
+        public int DefenseLvl
+        {
+            get { return defenseLvl; }
+        }
+
+        public int MovementSpeedLvl
+        {
+            get { return movementSpeedLvl; }
+        }
+
+        public int ItemAttackCoolDownLvl
+        {
+            get { return itemAttackCoolDownLvl; }
+        }
+
+        public int AttackSpeedLvl
+        {
+            get { return attackSpeedLvl; }
+        }
+
+        public int AttackDamageLvl
+        {
+            get { return attackDamageLvl; }
+        }
+
+        public int MaxHealthLvl
+        {
+            get { return maxHealthLvl; }
+        }
+
         public int LightSaberLvl
         {
             get { return lightSaberLvl; }

@@ -42,7 +42,7 @@ namespace FirstSemesterExam.Menu
         private Random random = new Random();
         private Texture2D pixel;
         private SpriteFont font;
-        private Player player;
+        public static Player player;
         private static int score = 0;
         private static int kills; 
         // pause menu 
@@ -234,17 +234,17 @@ namespace FirstSemesterExam.Menu
                     
                     foreach(LevelUpCard card in cardArray)
                     {
-                        card.RandomCard();
+                        card.RandomCard(content);
                     }
 
                     while (card1.GetCardIndex == card2.GetCardIndex)
                     {
-                        card2.RandomCard();
+                        card2.RandomCard(content);
                     }
 
                     while (card1.GetCardIndex == card3.GetCardIndex || card2.GetCardIndex == card3.GetCardIndex)
                     {
-                        card3.RandomCard();
+                        card3.RandomCard(content);
                     }
                 }
             }
