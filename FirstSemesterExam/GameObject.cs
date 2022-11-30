@@ -21,7 +21,7 @@ namespace FirstSemesterExam
 
         //Sprite
         protected Texture2D[] sprites;
-        protected float scale = 2f;
+        protected float scale = 3f;
         protected float layerDepth;
         protected Vector2 originOffset = Vector2.Zero;
         protected SpriteEffects spriteEffects = SpriteEffects.None;

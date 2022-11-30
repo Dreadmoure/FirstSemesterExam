@@ -70,22 +70,22 @@ namespace FirstSemesterExam.PowerUps
             switch (player.ThrowingKnifeLvl)
             {
                 case 2:
-                    tKAmount++;
+                    
                     break;
                 case 3:
-                    tKAmount++;
+                    
                     break;
                 case 4:
-                    tKAmount++;
+                    
                     break;
                 case 5:
                     attackSpeed -= 0.5f;
                     break;
                 case 6:
-                    tKAmount++;
+                    
                     break;
                 case > 6:
-                    tKAmount++;
+                    
                     break;
 
             }
