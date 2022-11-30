@@ -9,6 +9,7 @@ namespace FirstSemesterExam
     {
         //stats
         protected float health;
+        protected float baseSpeed;
         protected float speed;
         protected float attackSpeed;
         protected float attackDamage;
@@ -20,7 +21,7 @@ namespace FirstSemesterExam
 
         //Sprite
         protected Texture2D[] sprites;
-        protected float scale = 3f;
+        protected float scale = 2f;
         protected float layerDepth;
         protected Vector2 originOffset = Vector2.Zero;
         protected SpriteEffects spriteEffects = SpriteEffects.None;

@@ -1,4 +1,5 @@
-﻿using FirstSemesterExam.Menu;
+﻿using FirstSemesterExam.Enemies;
+using FirstSemesterExam.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -23,7 +24,6 @@ namespace FirstSemesterExam.PowerUps
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("PowerUps\\magicMissile");
-            
         }
 
         public override void Update(GameTime gameTime)
@@ -40,9 +40,54 @@ namespace FirstSemesterExam.PowerUps
             if (timeSinceLastAttack > attackSpeed)
             {
                 timeSinceLastAttack = 0;
-                go = GameState.enemies;
-                Misile misile = new Misile(player.GetPosition ,go[0], sprite);
+                GameObject gameObject = FindClosestEnemy();
+                Misile misile = new Misile(player.GetPosition, gameObject, sprite);
                 GameState.InstantiateGameObject(misile);
+            }
+        }
+
+        private GameObject FindClosestEnemy()
+        {
+            go = GameState.enemies;
+            GameObject enemy = null;
+            float minDist = 999999996999;
+            foreach (GameObject gameObject in go)
+            {
+                float distance = Vector2.Distance(gameObject.GetPosition, player.GetPosition);
+                if(distance < minDist)
+                {
+                    enemy = gameObject;
+                    minDist = distance;
+                }
+            }
+            go.Clear();
+            return enemy;
+        }
+
+        public void UpdateMisile()
+        {
+
+            switch (player.ThrowingKnifeLvl)
+            {
+                case 2:
+                    tKAmount++;
+                    break;
+                case 3:
+                    tKAmount++;
+                    break;
+                case 4:
+                    tKAmount++;
+                    break;
+                case 5:
+                    attackSpeed -= 0.5f;
+                    break;
+                case 6:
+                    tKAmount++;
+                    break;
+                case > 6:
+                    tKAmount++;
+                    break;
+
             }
         }
 
