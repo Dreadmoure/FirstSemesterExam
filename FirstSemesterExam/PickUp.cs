@@ -11,11 +11,14 @@ namespace FirstSemesterExam
 
         protected static Random random = new Random();
         public PickUpEnum pickUpType;
+        private int pickUpTimer;
+        private float elapsedTime;
         public PickUp(Vector2 position)
         {
             scale = 2;
             pickUpType = PickUpEnum.Health;
             layerDepth = 0.4f;
+            pickUpTimer = 5;
 
 
             this.position = position;
@@ -33,7 +36,12 @@ namespace FirstSemesterExam
 
         public override void Update(GameTime gameTime)
         {
+            elapsedTime += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
+            if(pickUpTimer < elapsedTime)
+            {
+                shouldBeRemoved = true;
+            }
         }
 
 

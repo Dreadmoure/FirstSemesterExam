@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using FirstSemesterExam.Menu;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -22,6 +23,7 @@ namespace FirstSemesterExam
         private string text;
         private SpriteFont textFont;
         private int cardIndex;
+        private string cardLvlIndicator;
         
         private Random random = new Random();
 
@@ -62,7 +64,7 @@ namespace FirstSemesterExam
         public LevelUpCard(Vector2 position)
         {
             this.position = position;
-            layerDepth = 0.99f;
+            layerDepth = 0.98f;
             scale = 1f;
 
         }
@@ -104,19 +106,15 @@ namespace FirstSemesterExam
         {
             textFont = content.Load<SpriteFont>("Fonts\\textFont");
 
-            sprites = new Texture2D[9];
-            sprites[0] = content.Load<Texture2D>("LevelUpCards\\LightsaberCard"); // lightsaber 
-            sprites[1] = content.Load<Texture2D>("LevelUpCards\\KnifeCard"); // knife 
-            sprites[2] = content.Load<Texture2D>("LevelUpCards\\MagicMissileCard"); // magic missile 
-            sprites[3] = content.Load<Texture2D>("LevelUpCards\\AttackDamageCard"); // attack damage
-            sprites[4] = content.Load<Texture2D>("LevelUpCards\\AttackSpeedCard"); // attack speed
-            sprites[5] = content.Load<Texture2D>("LevelUpCards\\MaxHealthCard"); // max health 
-            sprites[6] = content.Load<Texture2D>("LevelUpCards\\DefenceCard"); // defence 
-            sprites[7] = content.Load<Texture2D>("LevelUpCards\\MovementSpeedCard"); // movement speed 
-            sprites[8] = content.Load<Texture2D>("LevelUpCards\\ItemCooldownCard"); // item cooldown 
+            sprites = new Texture2D[1];
+
+            sprites[0] = content.Load<Texture2D>("LevelUpCards\\card");
+
+
+
 
             //assigns the sprite of the card from the index number
-            RandomCard();
+            RandomCard(content);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -130,6 +128,16 @@ namespace FirstSemesterExam
 
                 spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layerDepth + 0.01f);
             }
+
+            if (!string.IsNullOrEmpty(cardLvlIndicator))
+            {
+                float x = (GetRectangle.X + 35) - textFont.MeasureString(cardLvlIndicator).X / 2;
+                float y = (GetRectangle.Y + 25) - textFont.MeasureString(cardLvlIndicator).Y / 2;
+
+                spriteBatch.DrawString(textFont, cardLvlIndicator, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, layerDepth + 0.01f);
+            }
+
+            
         }
 
         private void ColorShift()
@@ -152,50 +160,60 @@ namespace FirstSemesterExam
             }
         }
 
-        public void RandomCard()
+        public void RandomCard(ContentManager content)
         {
             cardIndex = random.Next(1, 10);
             switch (cardIndex)
             {
                 case 1: //lightsaber
-                    sprite = sprites[0];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\LightsaberCard");
                     text = "Lightsaber";
+                    cardLvlIndicator = (GameState.player.LightSaberLvl + 1).ToString();
                     break;
                 case 2: //knife
-                    sprite = sprites[1];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\KnifeCard");
                     text = "Knife";
+                    cardLvlIndicator = (GameState.player.ThrowingKnifeLvl + 1).ToString();
                     break;
                 case 3: //magic missile
-                    sprite = sprites[2];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\MagicMissileCard");
                     text = "Magic Missile";
+                    cardLvlIndicator = (GameState.player.MagicMissileLvl + 1).ToString();
                     break;
                 case 4: //attackDamage
-                    sprite = sprites[3];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\AttackDamageCard");
                     text = "Damage";
+                    cardLvlIndicator = (GameState.player.AttackDamageLvl + 1).ToString();
                     break;
                 case 5: //attackSpeed
-                    sprite = sprites[4];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\AttackSpeedCard"); // attack speed
                     text = "Attack Speed";
+                    cardLvlIndicator = (GameState.player.AttackSpeedLvl + 1).ToString();
                     break;
                 case 6: //maxHealth
-                    sprite = sprites[5];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\MaxHealthCard"); // max health 
                     text = "Max Health";
+                    cardLvlIndicator = (GameState.player.MaxHealthLvl + 1).ToString();
                     break;
                 case 7: //defense
-                    sprite = sprites[6];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\DefenceCard"); // defence 
                     text = "Defense";
+                    cardLvlIndicator = (GameState.player.DefenseLvl + 1).ToString();
                     break;
                 case 8: //movementSpeed
-                    sprite = sprites[7];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\MovementSpeedCard"); // movement speed 
                     text = "Movement Speed";
+                    cardLvlIndicator = (GameState.player.MovementSpeedLvl + 1).ToString();
                     break;
                 case 9: //itemCoolDown
-                    sprite = sprites[8];
+                    sprites[0] = content.Load<Texture2D>("LevelUpCards\\ItemCooldownCard"); // item cooldown 
                     text = "Item Cooldown";
+                    cardLvlIndicator = (GameState.player.ItemAttackCoolDownLvl + 1).ToString();
                     break;
                 default: //make it throw an expection
                     break;
             }
+            sprite = sprites[0];
         }
         #endregion
     }   
