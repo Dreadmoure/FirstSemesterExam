@@ -9,6 +9,7 @@ namespace FirstSemesterExam
     {
         //stats
         protected float health;
+        protected float baseSpeed;
         protected float speed;
         protected float attackSpeed;
         protected float attackDamage;

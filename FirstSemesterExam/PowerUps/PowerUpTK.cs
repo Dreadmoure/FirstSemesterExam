@@ -21,7 +21,7 @@ namespace FirstSemesterExam.PowerUps
         {
             this.player = player;
             attackSpeed = 2;
-            attackDamage = 10;
+            attackDamage = 1;
             lastVelocity = new Vector2(1, 0);
             layerDepth = 0.6f;
             tKAmount = 1;
@@ -80,10 +80,12 @@ namespace FirstSemesterExam.PowerUps
                 case 6:
                     tKAmount++;
                     break;
+                case > 6:
+                    tKAmount++;
+                    break;
 
             }
-
-
         }
+
     }
 }

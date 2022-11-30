@@ -20,7 +20,6 @@ namespace FirstSemesterExam
         public Weapon(Player player)
         {
             this.player = player;
-            scale = 3;
 
             offset = 30;
             shootingPosOffset = 10;

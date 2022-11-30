@@ -155,7 +155,8 @@ namespace FirstSemesterExam
             //stats
             maxHealth = 100f;
             health = 100f;
-            speed = 600f;
+            baseSpeed = 300f;
+            speed = baseSpeed;
             attackDamage = 10;
             attackDamageLvl = 0;
             attackSpeedLvl = 0;
@@ -340,7 +341,7 @@ namespace FirstSemesterExam
                     break;
                 case 5: //attackSpeed
                     attackSpeedLvl += 1;
-                    attackSpeed = (1 + 0.2f * attackSpeedLvl);
+                    attackSpeed *= (1 + 0.1f * attackSpeedLvl);
                     break;
                 case 6: //maxHealth
                     maxHealthLvl += 1;
@@ -355,13 +356,13 @@ namespace FirstSemesterExam
                     else
                     {
                         defenseLvl += 1;
-                        defense = (1 - 1 / (1 + 0.1f * defenseLvl));
+                        defense *= (1 - 1 / (1 + 0.1f * defenseLvl)) +1;
                     }
                     
                     break;
                 case 8: //movementSpeed
                     movementSpeedLvl += 1;
-                    speed = (1 - 1 / (1 + 0.1f * movementSpeedLvl));
+                    speed = baseSpeed * ((1 - 1 / (1 + 0.1f * movementSpeedLvl)) + 1);
                     break;
                 case 9: //itemCoolDown
                     itemAttackCoolDownLvl += 1;
@@ -466,7 +467,7 @@ namespace FirstSemesterExam
                 }
                 else
                 {
-                    speed = 600;
+                    //speed = 600;
                 }
             }
 
@@ -489,7 +490,7 @@ namespace FirstSemesterExam
         public override void TakeDamage(float damage)
         {
             
-            health -= damage * (defense +1);
+            health -= damage * (1-defense);
             
         }
 

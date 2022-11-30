@@ -42,7 +42,7 @@ namespace FirstSemesterExam.PowerUps
             }
         }
 
-        public override void OnCollisionEnter(GameObject other)
+        public override void OnCollision(GameObject other)
         {
             if (other is Enemy)
             {
