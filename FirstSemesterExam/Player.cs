@@ -27,13 +27,16 @@ namespace FirstSemesterExam
 
         private int attackDamageLvl;
         private int attackSpeedLvl;
+        private float baseAttackSpeed;
         private int maxHealthLvl;
         private float maxHealth;
         private int defenseLvl;
+        private float baseDefense;
         private float defense;
         private int movementSpeedLvl;
         private int itemAttackCoolDownLvl;
         private float itemAttackCoolDown;
+        private float baseItemAttackCoolDown;
         private int lightSaberLvl;
         private int throwingKnifeLvl;
         private int magicMissileLvl;
@@ -160,14 +163,18 @@ namespace FirstSemesterExam
             attackDamage = 10;
             attackDamageLvl = 0;
             attackSpeedLvl = 0;
+            baseAttackSpeed = 1f;
+            attackSpeed = 1f;
             maxHealthLvl = 0;
             defenseLvl = 0;
             movementSpeedLvl = 0;
             itemAttackCoolDownLvl = 0;
-            //attackDamage = 10;
-            attackSpeed = 1f;
-            defense = 0f;
             itemAttackCoolDown = 5f;
+            baseItemAttackCoolDown = 5f;
+            
+            defense = 0f;
+            baseDefense = 0f;
+            
 
             lightSaberLvl = 0;
             throwingKnifeLvl = 0;
@@ -225,6 +232,7 @@ namespace FirstSemesterExam
             Flip();
 
             health = Math.Clamp(health, 0, maxHealth);
+            exp = Math.Clamp(exp, 0, maxExp);
 
             if ( velocity != Vector2.Zero)
             {
@@ -262,7 +270,7 @@ namespace FirstSemesterExam
 
             healthBarPosition.X = position.X - (GetSpriteSize.X /0.70f);
             healthBarPosition.Y = position.Y - 45;
-            healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)(healthBarTexture.Width * ((double)health / 100)), 10);
+            healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)(healthBarTexture.Width * ((double)(health / maxHealth * 100)/100)), 10);
             healthBarBackgroundRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, 100, 10);
 
             expBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
@@ -341,7 +349,7 @@ namespace FirstSemesterExam
                     break;
                 case 5: //attackSpeed
                     attackSpeedLvl += 1;
-                    attackSpeed *= (1 + 0.1f * attackSpeedLvl);
+                    attackSpeed = baseAttackSpeed * (1 - 1 /(1 + 0.3f * attackSpeedLvl) +1);
                     break;
                 case 6: //maxHealth
                     maxHealthLvl += 1;
@@ -352,21 +360,22 @@ namespace FirstSemesterExam
                     {
                         defenseLvl += 1;
                         defense += 0.1f;
+                        baseDefense = defense;
                     }
                     else
                     {
                         defenseLvl += 1;
-                        defense *= (1 - 1 / (1 + 0.1f * defenseLvl)) +1;
+                        defense = baseDefense * ((1 - 1 / (1 + 0.3f * defenseLvl)) +1);
                     }
                     
                     break;
                 case 8: //movementSpeed
                     movementSpeedLvl += 1;
-                    speed = baseSpeed * ((1 - 1 / (1 + 0.1f * movementSpeedLvl)) + 1);
+                    speed = baseSpeed * ((1 - 1 / (1 + 0.3f * movementSpeedLvl)) + 1);
                     break;
                 case 9: //itemCoolDown
                     itemAttackCoolDownLvl += 1;
-                    itemAttackCoolDown = (1 - 1 / (1 + 0.1f * itemAttackCoolDownLvl));
+                    itemAttackCoolDown = baseItemAttackCoolDown * ((1 - 1 / (1 + 0.3f * itemAttackCoolDownLvl)) +1);
                     break;
             }
         }
