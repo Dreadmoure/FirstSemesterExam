@@ -201,10 +201,6 @@ namespace FirstSemesterExam
 
         public override void LoadContent(ContentManager content)
         {
-
-            powerUpLS = new PowerUpLS(this);
-            GameState.InstantiateGameObject(powerUpLS);
-
             weapon = new LaserGun(this, attackDamage);
             GameState.InstantiateGameObject(weapon);
 
