@@ -16,6 +16,7 @@ namespace FirstSemesterExam.PowerUps
         private float timeSinceLastAttack;
         private float timeAlive;
         private int lSAmount;
+        private bool canReflect;
         public PowerUpLS (Player player)
         {
             this.player = player;
@@ -23,7 +24,8 @@ namespace FirstSemesterExam.PowerUps
             attackSpeed = 3;
             timeAlive = 3;
             lSAmount = 1;
-            
+            timeSinceLastAttack = timeAlive;
+            canReflect = false;
         }
 
         public override void LoadContent(ContentManager content)
@@ -40,14 +42,14 @@ namespace FirstSemesterExam.PowerUps
         {
 
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeSinceLastAttack > attackSpeed + timeAlive)
+            if (timeSinceLastAttack > (attackSpeed - (attackSpeed * player.GetItemAttackCoolDown)) + timeAlive)
             {
 
                 float angleOffset = (2 * MathF.PI) / lSAmount;
                 timeSinceLastAttack = 0;
                 for (int i = 0; i < lSAmount; i++)
                 {
-                    LightSaber lightSaber = new LightSaber(player, attackDamage, timeAlive, angleOffset * i );
+                    LightSaber lightSaber = new LightSaber(player, attackDamage, timeAlive, angleOffset * i, canReflect );
                     GameState.InstantiateGameObject(lightSaber);
                 }
             }
@@ -58,13 +60,13 @@ namespace FirstSemesterExam.PowerUps
             switch (player.LightSaberLvl)
             {
                 case 2:
-                    timeAlive = 4f;
+                    attackDamage += 5; 
                     break;
                 case 3:
-                    attackDamage++; 
+                    canReflect = true;
                     break;
                 case 4:
-                    timeAlive = 6;
+                    timeAlive =+2;
                     break;
                 case 5:
                     lSAmount = 2;

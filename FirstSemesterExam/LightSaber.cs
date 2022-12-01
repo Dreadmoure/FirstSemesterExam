@@ -16,17 +16,19 @@ namespace FirstSemesterExam
         private float angle;
         private float timeAlive;
         private float angleOffset;
-        public LightSaber(Player player, float attackDamage, float timeAlive, float angleOffset)
+        private bool canReflect;
+        public LightSaber(Player player, float attackDamage, float timeAlive, float angleOffset, bool canReflect)
         {
             this.player = player;
             this.timeAlive = timeAlive;
             offset = 150;
             speed = 2;
-
+            canReflect = false;
             this.attackDamage = attackDamage;
 
             layerDepth = 0.6f;
             this.angleOffset = angleOffset;
+            this.canReflect = canReflect;
         }
 
         public override void LoadContent(ContentManager content)
@@ -51,20 +53,23 @@ namespace FirstSemesterExam
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Enemy)
+            if (other is Enemy )
             {
-                other.TakeDamage(attackDamage);
+                Enemy enemy = (Enemy)other;
+                if (enemy.canBeDamagedByLs)
+                {
+                    other.TakeDamage(attackDamage);
+                    enemy.canBeDamagedByLs = false;
+                }
             }
 
-            if (other is EnemyProjectile)
+            if (other is EnemyProjectile && canReflect)
             {
                 Vector2 _velocity = other.GetVelocity * -1;
                 Vector2 _position = other.GetPosition;
                 float _rotation = other.GetRotation;
                 GameState.InstantiateGameObject(new PlayerProjectile(_position, _velocity, _rotation, 10));
                 other.ShouldBeRemoved = true;
-
-
             }
         }
 

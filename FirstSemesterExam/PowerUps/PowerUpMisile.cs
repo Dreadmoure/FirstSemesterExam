@@ -12,7 +12,6 @@ namespace FirstSemesterExam.PowerUps
     {
         private Texture2D sprite;
         private float timeSinceLastAttack;
-        private List<GameObject> go = new List<GameObject>();
         private Player player;
         public PowerUpMisile(Player player)
         {
@@ -28,7 +27,7 @@ namespace FirstSemesterExam.PowerUps
 
         public override void Update(GameTime gameTime)
         {
-            if (go != null)
+            if (GameState.enemies.Count > 0)
             {
                 Shoot(gameTime);
             }
@@ -37,7 +36,7 @@ namespace FirstSemesterExam.PowerUps
         private void Shoot(GameTime gameTime)
         {
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeSinceLastAttack > attackSpeed)
+            if (timeSinceLastAttack > attackSpeed - (attackSpeed * player.GetItemAttackCoolDown))
             {
                 timeSinceLastAttack = 0;
                 GameObject gameObject = FindClosestEnemy();
@@ -48,10 +47,10 @@ namespace FirstSemesterExam.PowerUps
 
         private GameObject FindClosestEnemy()
         {
-            go = GameState.enemies;
+
             GameObject enemy = null;
             float minDist = 999999996999;
-            foreach (GameObject gameObject in go)
+            foreach (GameObject gameObject in GameState.enemies)
             {
                 float distance = Vector2.Distance(gameObject.GetPosition, player.GetPosition);
                 if(distance < minDist)
@@ -60,7 +59,7 @@ namespace FirstSemesterExam.PowerUps
                     minDist = distance;
                 }
             }
-            go.Clear();
+
             return enemy;
         }
 
@@ -70,22 +69,22 @@ namespace FirstSemesterExam.PowerUps
             switch (player.ThrowingKnifeLvl)
             {
                 case 2:
-                    
+                    attackSpeed -= 0.1f;
                     break;
                 case 3:
-                    
+                    attackSpeed -= 0.1f;
                     break;
                 case 4:
-                    
+                    attackSpeed -= 0.1f;
                     break;
                 case 5:
-                    attackSpeed -= 0.5f;
+                    attackSpeed -= 0.1f;
                     break;
                 case 6:
-                    
+                    attackSpeed -= 0.1f;
                     break;
                 case > 6:
-                    
+                    attackSpeed -= 0.1f;
                     break;
 
             }

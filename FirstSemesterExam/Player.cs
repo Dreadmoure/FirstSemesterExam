@@ -152,7 +152,7 @@ namespace FirstSemesterExam
         {
             get { return magicMissileLvl; }
         }
-
+        public float GetItemAttackCoolDown { get => itemAttackCoolDown;}
         public Player()
         {
             //stats
@@ -169,8 +169,8 @@ namespace FirstSemesterExam
             defenseLvl = 0;
             movementSpeedLvl = 0;
             itemAttackCoolDownLvl = 0;
-            itemAttackCoolDown = 5f;
-            baseItemAttackCoolDown = 5f;
+            itemAttackCoolDown = 0f;
+            baseItemAttackCoolDown = 1f;
             
             defense = 0f;
             baseDefense = 0f;
@@ -197,9 +197,14 @@ namespace FirstSemesterExam
         }
 
         public MouseState MouseState { get => mouseState; }
+       
 
         public override void LoadContent(ContentManager content)
         {
+
+            powerUpLS = new PowerUpLS(this);
+            GameState.InstantiateGameObject(powerUpLS);
+
             weapon = new LaserGun(this, attackDamage);
             GameState.InstantiateGameObject(weapon);
 
@@ -375,7 +380,7 @@ namespace FirstSemesterExam
                     break;
                 case 9: //itemCoolDown
                     itemAttackCoolDownLvl += 1;
-                    itemAttackCoolDown = baseItemAttackCoolDown * ((1 - 1 / (1 + 0.3f * itemAttackCoolDownLvl)) +1);
+                    itemAttackCoolDown = ((1 - 1 / (1 + 0.3f * itemAttackCoolDownLvl)));
                     break;
             }
         }

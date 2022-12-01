@@ -100,6 +100,7 @@ namespace FirstSemesterExam
         }
 
         public int CurrentIndex { get => currentIndex; set => currentIndex = value; }
+        public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
 
         public abstract void LoadContent(ContentManager content);
 

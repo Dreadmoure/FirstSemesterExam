@@ -23,6 +23,8 @@ namespace FirstSemesterExam.Enemies
         protected float attackRange;
         private Player player;
         protected int expValue;
+        protected float iFrames;
+        public bool canBeDamagedByLs;
 
         public Enemy(Player player)
         {
@@ -31,7 +33,6 @@ namespace FirstSemesterExam.Enemies
             spriteEffects = SpriteEffects.None;
             layerDepth = 0.5f;
             //rotation = 0.01f;
-
             // set initial position randomly 
             switch (random.Next(0, 4)) // 0 to 3 
             {
@@ -99,6 +100,17 @@ namespace FirstSemesterExam.Enemies
             {
                 Die();
             }
+
+            if (!canBeDamagedByLs)
+            {
+                iFrames -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (iFrames <= 0)
+                {
+                    canBeDamagedByLs = true;
+                    iFrames = 0.3f;
+                }
+            }
+
         }
 
         private bool IsInRange()
