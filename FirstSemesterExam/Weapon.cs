@@ -9,7 +9,6 @@ namespace FirstSemesterExam
     {
         protected Player player;
         protected Texture2D sprite;
-        protected Texture2D spriteFlipped;
         protected float angle;
         protected float offset;
         protected Vector2 dirVector;

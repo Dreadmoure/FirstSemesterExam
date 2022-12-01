@@ -21,7 +21,7 @@ namespace FirstSemesterExam.PowerUps
         {
             this.player = player;
             attackSpeed = 2;
-            attackDamage = 1;
+            attackDamage = 2;
             lastVelocity = new Vector2(1, 0);
             layerDepth = 0.6f;
             tKAmount = 1;
@@ -46,7 +46,7 @@ namespace FirstSemesterExam.PowerUps
         {
 
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
-            if (timeSinceLastAttack > attackSpeed)
+            if (timeSinceLastAttack > attackSpeed - (attackSpeed * player.GetItemAttackCoolDown))
             {
                 float angleOffset = (2 * MathF.PI) / tKAmount;
                 float playerAngle = MathF.Atan2(lastVelocity.Y, lastVelocity.X);
