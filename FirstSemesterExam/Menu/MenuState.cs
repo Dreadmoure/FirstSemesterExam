@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace FirstSemesterExam.Menu
         private Button highscoreButton;
         private Button howToPlayButton; 
         private Button quitGameButton;
+        private static Song menuMusic;
         #endregion
 
         public MenuState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
@@ -45,6 +47,11 @@ namespace FirstSemesterExam.Menu
         {
             menuBackgroundTexture = content.Load<Texture2D>("Menus\\MainScreen");
 
+            // load background music 
+            menuMusic = content.Load<Song>("Music\\Fatality Racer_demo");
+            MediaPlayer.Play(menuMusic);
+            MediaPlayer.IsRepeating = true;
+
             foreach (Button button in buttons)
             {
                 button.LoadContent(content);
@@ -64,12 +71,18 @@ namespace FirstSemesterExam.Menu
                 if (GameState.GetGameOver)
                 {
                     GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
-                    game.ChangeState(GameWorld.HandleGameState); 
+                    game.ChangeState(GameWorld.HandleGameState);
+                    MediaPlayer.Stop();
+                    GameState.RestartGameMusic(); 
                 }
                 else
                 {
                     GameState.HandlePause = false;
                     game.ChangeState(GameWorld.HandleGameState);
+                    MediaPlayer.Stop();
+                    GameState.UnpauseGameMusic();
+
+                    Debug.WriteLine("new: " + GameWorld.HandleGameState.GetHashCode());
                 }
             }
             if (newGameButton.isClicked)
@@ -78,6 +91,10 @@ namespace FirstSemesterExam.Menu
                 GameState.HandlePause = false;
                 GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
                 game.ChangeState(GameWorld.HandleGameState);
+                MediaPlayer.Stop();
+                GameState.RestartGameMusic();
+
+                Debug.WriteLine("old: " + GameWorld.HandleGameState.GetHashCode());
             }
             if (highscoreButton.isClicked)
             {
@@ -92,8 +109,14 @@ namespace FirstSemesterExam.Menu
             if (quitGameButton.isClicked)
             {
                 quitGameButton.isClicked = false;
+                MediaPlayer.Stop();
                 game.Exit();
             }
+        }
+
+        public static void RestartMenuMusic()
+        {
+            MediaPlayer.Play(menuMusic);
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)

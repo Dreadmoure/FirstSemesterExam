@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Media;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -27,6 +28,8 @@ namespace FirstSemesterExam.Menu
         public static List<GameObject> enemies = new List<GameObject>();
         //Background
         private Texture2D background;
+        private static Song backgroundMusic;
+        private static TimeSpan playPosition; 
         // Global timer
         private static float globalGameTimer1;
         private static int globalGameTimer2;
@@ -127,10 +130,14 @@ namespace FirstSemesterExam.Menu
 
         public override void LoadContent()
         {
-
             background = content.Load<Texture2D>("lvl");
             gameOverTexture = content.Load<Texture2D>("Menus\\GameOverScreen");
-            pausedTexture = content.Load<Texture2D>("Menus\\paused"); 
+            pausedTexture = content.Load<Texture2D>("Menus\\paused");
+
+            // load background music 
+            backgroundMusic = content.Load<Song>("Music\\Time For Action_demo");
+            MediaPlayer.Play(backgroundMusic);
+            MediaPlayer.IsRepeating = true;
 
             font = content.Load<SpriteFont>("Fonts\\textFont");
             pixel = content.Load<Texture2D>("pixel");
@@ -148,7 +155,7 @@ namespace FirstSemesterExam.Menu
             foreach (Component component in gameOverComponents)
             {
                 component.LoadContent(content);
-             }
+            }
 
             foreach (LevelUpCard card in cardArray)
             {
@@ -165,6 +172,7 @@ namespace FirstSemesterExam.Menu
                 if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 {
                     paused = true;
+                    MediaPlayer.Pause(); 
                 }
 
                 foreach (GameObject gameObject in gameObjects)
@@ -261,15 +269,20 @@ namespace FirstSemesterExam.Menu
                 if (resumeGameButton.isClicked)
                 {
                     resumeGameButton.isClicked = false;
+                    MediaPlayer.Resume();
                     paused = false;
                 }
                 if (backToMenuButton.isClicked)
                 {
                     backToMenuButton.isClicked = false;
                     game.ChangeState(GameWorld.GetMenuState);
+                    MediaPlayer.Pause();
+                    playPosition = MediaPlayer.PlayPosition; 
+                    MenuState.RestartMenuMusic(); 
                 }
                 if (quitGameButton.isClicked)
                 {
+                    MediaPlayer.Stop(); 
                     quitGameButton.isClicked = false;
                     game.Exit();
                 }
@@ -295,6 +308,9 @@ namespace FirstSemesterExam.Menu
                     saveScoreButton.isClicked = false;
                     GameWorld.HandleHighscoreState = new HighscoreState(content, graphicsDevice, game);
                     game.ChangeState(GameWorld.HandleHighscoreState);
+
+                    MediaPlayer.Stop(); 
+                    MenuState.RestartMenuMusic();
                 }
             }
             else if (Player.LeveledUp)
@@ -329,6 +345,14 @@ namespace FirstSemesterExam.Menu
             }
         }
 
+        public static void RestartGameMusic()
+        {
+            MediaPlayer.Play(backgroundMusic); 
+        }
+        public static void UnpauseGameMusic()
+        {
+            MediaPlayer.Play(backgroundMusic, playPosition); 
+        }
 
         private void SpawnEnemy()
         {

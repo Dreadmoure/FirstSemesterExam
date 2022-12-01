@@ -404,6 +404,18 @@
 /processorParam:TextureFormat=Color
 /build:Menus/paused.png
 
+#begin Music/Fatality Racer_demo.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Fatality Racer_demo.wav
+
+#begin Music/Time For Action_demo.wav
+/importer:WavImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Time For Action_demo.wav
+
 #begin PickUps/Heart.png
 /importer:TextureImporter
 /processor:TextureProcessor
