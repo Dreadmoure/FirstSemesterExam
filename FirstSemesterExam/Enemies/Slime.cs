@@ -22,8 +22,8 @@ namespace FirstSemesterExam.Enemies
         {
             health = 20;
             speed = 100f;
-            attackSpeed = 10f;
-            attackRange = 10f;
+            attackSpeed = 15f;
+            attackRange = 25f;
             animationSpeed = 3f;
             expValue = 2;
             this.player = player;
@@ -52,8 +52,8 @@ namespace FirstSemesterExam.Enemies
 
         public override void OnCollision(GameObject other)
         {
-            // 5% chance of slimes merging to BlobMonster 
-            if (random.Next(100) < 5)
+            // 0.1% chance of slimes merging to BlobMonster 
+            if (random.Next(1000) < 1)
             {
                 if (other is Slime)
                 {

@@ -131,10 +131,13 @@ namespace FirstSemesterExam
 
             if (!string.IsNullOrEmpty(cardLvlIndicator))
             {
-                float x = (GetRectangle.X + 35) - textFont.MeasureString(cardLvlIndicator).X / 2;
-                float y = (GetRectangle.Y + 25) - textFont.MeasureString(cardLvlIndicator).Y / 2;
+                float x = (GetRectangle.X + 37);
+                float y = (GetRectangle.Y + 35);
 
-                spriteBatch.DrawString(textFont, cardLvlIndicator, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 2f, SpriteEffects.None, layerDepth + 0.01f);
+                float originX = textFont.MeasureString(cardLvlIndicator).X / 2;
+                float originY = textFont.MeasureString(cardLvlIndicator).Y / 2;
+
+                spriteBatch.DrawString(textFont, cardLvlIndicator, new Vector2(x, y), Color.White, 0f, new Vector2(originX, originY), 1.5f, SpriteEffects.None, layerDepth + 0.01f);
             }
 
             

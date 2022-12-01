@@ -28,7 +28,7 @@ namespace FirstSemesterExam.PowerUps
         public override void Update(GameTime gameTime)
         {
             Move(gameTime);
-            if (target.ShouldBeRemoved == false)
+            if (target.ShouldBeRemoved == false && !target.Equals(null))
             {
                 velocity = target.GetPosition - position;
                 velocity.Normalize();
