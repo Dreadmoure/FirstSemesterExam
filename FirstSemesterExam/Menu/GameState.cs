@@ -30,8 +30,9 @@ namespace FirstSemesterExam.Menu
         // Global timer
         private static float globalGameTimer1;
         private static int globalGameTimer2;
-        private Color globalGameTimerColor;
         private string globalGameTimerText;
+        private Color timeTextColor;
+        private string waveTimerText;
         // fields for enemy spawner
         private float totalGameTime;
         private float timeSinceEnemySpawn;
@@ -93,11 +94,13 @@ namespace FirstSemesterExam.Menu
             //sets the timer and color of the timer
             globalGameTimer1 = 0f;
             globalGameTimer2 = 0;
-            globalGameTimerText = "Time:";
-            globalGameTimerColor.R = 40;
-            globalGameTimerColor.G = 53;
-            globalGameTimerColor.B = 66;
-            globalGameTimerColor.A = 255;
+            globalGameTimerText = "Time";
+
+            //waveTimeColor
+            waveTimerText = "Next Wave In";
+            timeTextColor.R = 58;
+            timeTextColor.G = 77;
+            timeTextColor.B = 82;
 
 
             Color buttonColor = Color.Blue; 
@@ -417,18 +420,6 @@ namespace FirstSemesterExam.Menu
             score = kills * globalGameTimer2; 
         }
 
-        private void DrawCollisionBox(GameObject go, SpriteBatch _spriteBatch)
-        {
-            Rectangle top = new Rectangle(go.GetCollisionBox.X, go.GetCollisionBox.Y, go.GetCollisionBox.Width, 1);
-            Rectangle bottom = new Rectangle(go.GetCollisionBox.X, go.GetCollisionBox.Y + go.GetCollisionBox.Height, go.GetCollisionBox.Width, 1);
-            Rectangle left = new Rectangle(go.GetCollisionBox.X, go.GetCollisionBox.Y, 1, go.GetCollisionBox.Height);
-            Rectangle right = new Rectangle(go.GetCollisionBox.X + go.GetCollisionBox.Width, go.GetCollisionBox.Y, 1, go.GetCollisionBox.Height);
-
-            _spriteBatch.Draw(pixel, top, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            _spriteBatch.Draw(pixel, bottom, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            _spriteBatch.Draw(pixel, left, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-            _spriteBatch.Draw(pixel, right, null, Color.Red, 0, Vector2.Zero, SpriteEffects.None, 1);
-        }
 
         public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
         {
@@ -436,15 +427,31 @@ namespace FirstSemesterExam.Menu
 
             spriteBatch.Draw(background, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2), null, Color.White, 0f, new Vector2(background.Width/2, background.Height/2), 3f, SpriteEffects.None, 0.01f);
 
-            //draw globel timer
-            spriteBatch.DrawString(font, globalGameTimerText, new Vector2(GameWorld.GetScreenSize.X / 3.70f, GameWorld.GetScreenSize.Y / 4.2f), globalGameTimerColor, 0f, Vector2.Zero, 3.5f, SpriteEffects.None, 0.3f);
-            spriteBatch.DrawString(font, globalGameTimer2.ToString(), new Vector2(GameWorld.GetScreenSize.X / 3.45f, GameWorld.GetScreenSize.Y / 3.5f), globalGameTimerColor, 0f, Vector2.Zero, 3.5f, SpriteEffects.None, 0.3f);
+            float gGTToriginX = font.MeasureString(globalGameTimerText).X / 2;
+            float gGTToriginY = font.MeasureString(globalGameTimerText).Y / 2;
 
-            spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer MaxHP: {player.MaxHealth}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nLightsaberLvl: {player.LightSaberLvl}\nTKLvl: {player.ThrowingKnifeLvl}\nMagicMissile: {player.MagicMissileLvl}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
+            string globalGameTimer3 = globalGameTimer2.ToString();
+
+            float gGToriginX = font.MeasureString(globalGameTimer3).X / 2;
+            float gGToriginY = font.MeasureString(globalGameTimer3).Y / 2;
+
+            //draw globel timer
+            spriteBatch.DrawString(font, globalGameTimerText, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 15f), timeTextColor, 0f, new Vector2(gGTToriginX, gGTToriginY), 3.5f, SpriteEffects.None, 0.3f);
+            spriteBatch.DrawString(font, globalGameTimer3, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 15f + 60), timeTextColor, 0f, new Vector2(gGToriginX, gGToriginY), 3.5f, SpriteEffects.None, 0.3f);
+
+            float wTToriginX = font.MeasureString(waveTimerText).X / 2;
+            float wTToriginY = font.MeasureString(waveTimerText).Y / 2;
+            string waveTimer = ((int)(timeBetweenEnemyWave - timeSinceEnemyWave)).ToString();
+            float wToriginX = font.MeasureString(waveTimer).X / 2;
+            float wToriginY = font.MeasureString(waveTimer).Y / 2;
+            
+            spriteBatch.DrawString(font, waveTimerText, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 1.12f), timeTextColor, 0f, new Vector2(wTToriginX, wTToriginY), 3.5f, SpriteEffects.None, 0.3f);
+            spriteBatch.DrawString(font, waveTimer, new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 1.12f + 60), timeTextColor, 0f, new Vector2(wToriginX, wToriginY), 3.5f, SpriteEffects.None, 0.3f);
+
+            //spriteBatch.DrawString(font, $"Objects: {gameObjects.Count}\nMouseAngle: {player.MouseAngle()}\nPlayer HP: {player.Health}\nPlayer MaxHP: {player.MaxHealth}\nPlayer EXP: {player.Exp}\nPlayer LVL: { player.LevelIndicator}\nLightsaberLvl: {player.LightSaberLvl}\nTKLvl: {player.ThrowingKnifeLvl}\nMagicMissile: {player.MagicMissileLvl}\nKills: {kills}\nNext wave in: {(int)(timeBetweenEnemyWave - timeSinceEnemyWave)}", Vector2.Zero, Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 0.9f);
 
             foreach (GameObject gameObject in gameObjects)
             {
-                DrawCollisionBox(gameObject, spriteBatch);
                 gameObject.Draw(spriteBatch);
             }
 
