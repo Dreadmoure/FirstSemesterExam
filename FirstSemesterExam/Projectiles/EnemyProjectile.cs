@@ -14,6 +14,7 @@ namespace FirstSemesterExam.Projectiles
 {
     public class EnemyProjectile : Projectile
     {
+        #region Constructors
         public EnemyProjectile(Vector2 enemyPosition, Vector2 playerPosition, float enemyAttackRange) : base(enemyPosition)
         {
             position = enemyPosition;
@@ -28,6 +29,9 @@ namespace FirstSemesterExam.Projectiles
             velocity = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
             rotation = angle; 
         }
+        #endregion
+
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
@@ -43,5 +47,6 @@ namespace FirstSemesterExam.Projectiles
                 ShouldBeRemoved = true;
             }
         }
+        #endregion
     }
 }

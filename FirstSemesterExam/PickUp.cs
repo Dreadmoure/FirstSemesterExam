@@ -5,14 +5,19 @@ using System;
 
 namespace FirstSemesterExam
 {
-    public enum PickUpEnum {Health, KillAll }
+    #region Enums
+    public enum PickUpEnum {Health}
+    #endregion
     internal class PickUp : GameObject
     {
-
+        #region Fields
         protected static Random random = new Random();
         public PickUpEnum pickUpType;
         private int pickUpTimer;
         private float elapsedTime;
+        #endregion
+
+        #region Constructors
         public PickUp(Vector2 position)
         {
             scale = 2;
@@ -23,7 +28,9 @@ namespace FirstSemesterExam
 
             this.position = position;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             if (pickUpType == PickUpEnum.Health)
@@ -58,6 +65,7 @@ namespace FirstSemesterExam
                     
             }
         }
+        #endregion
 
     }
 }

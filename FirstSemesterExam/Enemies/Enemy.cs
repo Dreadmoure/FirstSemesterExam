@@ -17,15 +17,18 @@ namespace FirstSemesterExam.Enemies
 {
     public abstract class Enemy : GameObject
     {
+        #region Fields
         protected Random random = new Random();
-        enum Edge { Upper, Lower, Left, Right }
         private float attackTime;
         protected float attackRange;
         private Player player;
         protected int expValue;
         protected float iFrames;
         public bool canBeDamagedByLs;
+        enum Edge { Upper, Lower, Left, Right }
+        #endregion
 
+        #region Constructors
         public Enemy(Player player)
         {
             this.player = player;
@@ -57,7 +60,9 @@ namespace FirstSemesterExam.Enemies
                     break;
             }
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             // sprites are handled in the classes that inherits from Enemy 
@@ -156,7 +161,7 @@ namespace FirstSemesterExam.Enemies
 
         public override void OnCollision(GameObject other)
         {
-            if ( other is Player)
+            if (other is Player)
             {
                 other.TakeDamage(attackDamage);
             }
@@ -166,5 +171,6 @@ namespace FirstSemesterExam.Enemies
         {
             GameState.InstantiateGameObject(new EnemyProjectile(position, player.GetPosition, attackRange));
         }
+        #endregion
     }
 }

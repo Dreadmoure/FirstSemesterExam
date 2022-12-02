@@ -13,7 +13,7 @@ namespace FirstSemesterExam.Menu
 {
     public class MenuState : State
     {
-        #region fields 
+        #region Fields 
         private Texture2D menuBackgroundTexture;
         private List<Button> buttons;
         private Button continueGameButton; 
@@ -24,6 +24,7 @@ namespace FirstSemesterExam.Menu
         private static Song menuMusic;
         #endregion
 
+        #region Constructors
         public MenuState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             Vector2 buttonPosition = new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6);
@@ -41,8 +42,9 @@ namespace FirstSemesterExam.Menu
 
             LoadContent(); 
         }
+        #endregion
 
-        #region methods 
+        #region Methods 
         public override void LoadContent()
         {
             menuBackgroundTexture = content.Load<Texture2D>("Menus\\MainScreen");

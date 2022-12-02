@@ -12,8 +12,11 @@ namespace FirstSemesterExam.Enemies
 {
     public class BlobMonster : Enemy
     {
-        private Player player; 
+        #region Fields
+        private Player player;
+        #endregion
 
+        #region Constructors
         public BlobMonster(Player player) : base(player)
         {
             health = 20f;
@@ -39,7 +42,9 @@ namespace FirstSemesterExam.Enemies
             midPointPosition.Y = (child1Position.Y + child2Position.Y) / 2; 
             position = midPointPosition;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
@@ -60,5 +65,6 @@ namespace FirstSemesterExam.Enemies
 
             base.Update(gameTime); 
         }
+        #endregion
     }
 }

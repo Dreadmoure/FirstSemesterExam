@@ -10,6 +10,7 @@ namespace FirstSemesterExam.Enemies
 {
     public class HornedGuy : Enemy
     {
+        #region Constructors
         public HornedGuy(Player player) : base(player)
         {
             health = 20f;
@@ -19,12 +20,15 @@ namespace FirstSemesterExam.Enemies
             animationSpeed = 3f;
             expValue = 5;
         }
+        #endregion
 
+        #region Method
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
             sprites[0] = content.Load<Texture2D>("Enemies\\HornGuy1");
             sprites[1] = content.Load<Texture2D>("Enemies\\HornGuy2");
         }
+        #endregion
     }
 }

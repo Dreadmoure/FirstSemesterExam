@@ -12,13 +12,14 @@ namespace FirstSemesterExam.Menu
 {
     public class HowToPlayState : State 
     {
-        #region fields 
+        #region Fields
         private Texture2D menuBackgroundTexture;
         private Texture2D howToImage; 
         private List<Button> buttons;
         private Button backButton;
         #endregion
 
+        #region Constructors
         public HowToPlayState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             backButton = new Button(new Vector2(150, 60), "Back", Color.Yellow);
@@ -26,8 +27,9 @@ namespace FirstSemesterExam.Menu
 
             LoadContent();
         }
+        #endregion
 
-        #region methods 
+        #region Methods
         public override void LoadContent()
         {
             menuBackgroundTexture = content.Load<Texture2D>("Menus\\HowToPlayScreen");

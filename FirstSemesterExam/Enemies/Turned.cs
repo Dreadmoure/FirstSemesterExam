@@ -10,6 +10,7 @@ namespace FirstSemesterExam.Enemies
 {
     public class Turned : Enemy
     {
+        #region Constructors
         public Turned(Player player) : base(player)
         {
             health = 10f;
@@ -19,12 +20,15 @@ namespace FirstSemesterExam.Enemies
             animationSpeed = 6f;
             expValue = 5;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
             sprites[0] = content.Load<Texture2D>("Enemies\\Turned1");
             sprites[1] = content.Load<Texture2D>("Enemies\\Turned2");
         }
+        #endregion
     }
 }

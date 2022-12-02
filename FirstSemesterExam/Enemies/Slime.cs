@@ -16,8 +16,11 @@ namespace FirstSemesterExam.Enemies
 {
     internal class Slime : Enemy
     {
+        #region Fields
         private Player player;
+        #endregion
 
+        #region Constructors
         public Slime(Player player) : base(player)
         {
             health = 20;
@@ -42,7 +45,9 @@ namespace FirstSemesterExam.Enemies
             Vector2 offsetPosition = new Vector2(random.Next(-100, 100), random.Next(-100, 100));
             position = parentPosition + offsetPosition; 
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
@@ -68,5 +73,6 @@ namespace FirstSemesterExam.Enemies
 
             base.OnCollision(other); 
         }
+        #endregion
     }
 }

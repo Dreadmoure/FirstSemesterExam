@@ -21,7 +21,7 @@ namespace FirstSemesterExam.Menu
 {
     public class GameState : State
     {
-        #region fields 
+        #region Fields 
         // lists for GameObjects 
         private List<GameObject> gameObjects = new List<GameObject>();
         private static List<GameObject> gameObjectsToAdd = new List<GameObject>();
@@ -44,7 +44,6 @@ namespace FirstSemesterExam.Menu
         private float timeBetweenEnemyWave = 60f;
         private int increaseWaveSize; 
         private Random random = new Random();
-        private Texture2D pixel;
         private SpriteFont font;
         public static Player player;
         private static int score = 0;
@@ -72,6 +71,7 @@ namespace FirstSemesterExam.Menu
         private List<GameObject> previousCollisions = new List<GameObject>();
         #endregion
 
+        #region Properties
         public static bool HandlePause
         {
             set { paused = value; }
@@ -86,8 +86,9 @@ namespace FirstSemesterExam.Menu
         { 
             get { return enemies; } 
         }
+        #endregion
 
-
+        #region Constructors
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             player = new Player();
@@ -127,7 +128,9 @@ namespace FirstSemesterExam.Menu
 
             LoadContent(); 
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent()
         {
             background = content.Load<Texture2D>("lvl");
@@ -140,7 +143,6 @@ namespace FirstSemesterExam.Menu
             MediaPlayer.IsRepeating = true;
 
             font = content.Load<SpriteFont>("Fonts\\textFont");
-            pixel = content.Load<Texture2D>("pixel");
             foreach (GameObject gameObject in gameObjects)
             {
                 gameObject.LoadContent(content);
@@ -513,5 +515,6 @@ namespace FirstSemesterExam.Menu
 
             spriteBatch.End();
         }
+        #endregion
     }
 }

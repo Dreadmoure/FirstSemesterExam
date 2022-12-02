@@ -10,14 +10,19 @@ namespace FirstSemesterExam.Projectiles
 {
     public abstract class Projectile : GameObject
     {
+        #region Fields
         protected float attackRange;
         private Vector2 initialAttackPosition;
+        #endregion
 
+        #region Constructors
         public Projectile(Vector2 attackPosition)
         {
             initialAttackPosition = attackPosition;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             // projectile sprites are handled in the classes that inherits from Projectile 
@@ -54,5 +59,6 @@ namespace FirstSemesterExam.Projectiles
                 ShouldBeRemoved = true;
             }
         }
+        #endregion
     }
 }
