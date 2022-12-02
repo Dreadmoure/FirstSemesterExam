@@ -278,7 +278,7 @@ namespace FirstSemesterExam
 
             expBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
             expBarPosition.Y = position.Y - 35;
-            expBarRectangle = new Rectangle((int)expBarPosition.X, (int)expBarPosition.Y, exp, 5);
+            expBarRectangle = new Rectangle((int)expBarPosition.X, (int)expBarPosition.Y, (int)(expBarTexture.Width * ((double)(exp / maxExp * 100) / 100)), 5);
 
             dashBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
             dashBarPosition.Y = position.Y - 30;
