@@ -20,6 +20,7 @@ namespace FirstSemesterExam.Enemies
             speed = 50f;
             attackSpeed = 10f;
             attackRange = 25f;
+            attackDamage = 5;
             animationSpeed = 2f;
             expValue = 5;
             this.player = player; 
