@@ -81,13 +81,6 @@ namespace FirstSemesterExam.Menu
             get { return gameOver; }
         }
 
-
-        public List<GameObject> GetEnemies
-        { 
-            get { return enemies; } 
-        }
-
-
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             player = new Player();
