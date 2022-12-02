@@ -298,7 +298,7 @@ namespace FirstSemesterExam.Menu
 
                 if (enterNameTextbox.isActive)
                 {
-                    name = enterNameTextbox.TextEntered; 
+                    name = enterNameTextbox.GetTextEntered; 
                 }
                 if (saveScoreButton.isClicked)
                 {
