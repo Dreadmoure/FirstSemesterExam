@@ -13,7 +13,7 @@ namespace FirstSemesterExam.Menu
 {
     public class Button : Component
     {
-        #region fields 
+        #region Fields 
         private Texture2D buttonTexture;
         private SpriteFont textFont;
         private string text;
@@ -29,7 +29,7 @@ namespace FirstSemesterExam.Menu
         public bool isClicked;
         #endregion
 
-        #region properties 
+        #region Properties 
         private Vector2 GetSpriteSize
         {
             get { return new Vector2(buttonTexture.Width * scale, buttonTexture.Height * scale); }
@@ -52,6 +52,7 @@ namespace FirstSemesterExam.Menu
         }
         #endregion
 
+        #region Constructors
         public Button(Vector2 position, string text, Color color)
         {
             this.position = position;
@@ -60,7 +61,9 @@ namespace FirstSemesterExam.Menu
             layer = 0.96f;
             scale = 1.5f; 
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             buttonTexture = content.Load<Texture2D>("Menus\\Button");
@@ -122,5 +125,6 @@ namespace FirstSemesterExam.Menu
                 spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer + 0.01f);
             }
         }
+        #endregion
     }
 }

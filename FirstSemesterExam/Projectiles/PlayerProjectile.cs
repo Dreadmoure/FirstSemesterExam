@@ -14,6 +14,7 @@ namespace FirstSemesterExam
 {
     public class PlayerProjectile : Projectile
     {
+        #region Constructors
         public PlayerProjectile(Vector2 position, Vector2 velocity, float rotation, float attackDamage) : base(position)
         {
             this.velocity = velocity;
@@ -23,7 +24,9 @@ namespace FirstSemesterExam
             speed = 1000;
             layerDepth = 0.6f;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
@@ -39,5 +42,6 @@ namespace FirstSemesterExam
                 ShouldBeRemoved = true;
             }
         }
+        #endregion
     }
 }

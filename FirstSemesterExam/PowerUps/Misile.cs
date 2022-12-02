@@ -8,7 +8,11 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class Misile : GameObject
     {
+        #region Fields
         GameObject target;
+        #endregion
+
+        #region Constructors
         public Misile(Vector2 position, GameObject go, Texture2D sprite)
         {
             this.position = position;
@@ -20,6 +24,9 @@ namespace FirstSemesterExam.PowerUps
             velocity = new Vector2(1, 0);
             layerDepth = 0.6f;
         }
+        #endregion
+
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
 
@@ -45,6 +52,7 @@ namespace FirstSemesterExam.PowerUps
                 shouldBeRemoved = true;
             }
         }
+        #endregion
 
     }
 }

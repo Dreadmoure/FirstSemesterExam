@@ -17,20 +17,15 @@ namespace FirstSemesterExam
     public class LevelUpCard : GameObject
     {
         #region Fields
-
         private Texture2D sprite;
-
         private string text;
         private SpriteFont textFont;
         private int cardIndex;
         private string cardLvlIndicator;
-        
         private Random random = new Random();
-
         private MouseState _currentMouse;
         private MouseState _previousMouse;
         public bool isClicked;
-
         private bool colorShiftDown;
         #endregion
 
@@ -57,7 +52,6 @@ namespace FirstSemesterExam
         {
             get { return new Vector2(sprite.Width / 2, sprite.Height / 2); }
         }
-
         #endregion
 
         #region Constructors

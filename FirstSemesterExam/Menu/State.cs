@@ -11,19 +11,25 @@ namespace FirstSemesterExam.Menu
 {
     public abstract class State
     {
+        #region Fields
         protected ContentManager content;
         protected GraphicsDevice graphicsDevice;
-        protected GameWorld game; 
+        protected GameWorld game;
+        #endregion
 
+        #region Constructors
         public State(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game)
         {
             this.content = content;
             this.graphicsDevice = graphicsDevice;
             this.game = game; 
         }
+        #endregion
 
+        #region Methods
         public abstract void LoadContent();
         public abstract void Update(GameTime gameTime);
-        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch); 
+        public abstract void Draw(GameTime gameTime, SpriteBatch spriteBatch);
+        #endregion
     }
 }

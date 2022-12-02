@@ -10,6 +10,7 @@ namespace FirstSemesterExam
 {
     public class GameWorld : Game
     {
+        #region Fields
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private static Vector2 screenSize;
@@ -19,8 +20,10 @@ namespace FirstSemesterExam
         private static State menuState;
         private static State howToPlayState; 
         private static State highscoreState;
-        private static State gameState; 
+        private static State gameState;
+        #endregion
 
+        #region Properties
         public static State GetMenuState
         {
             get { return menuState; }
@@ -47,7 +50,9 @@ namespace FirstSemesterExam
         {
             get { return screenSize; }
         }
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Constructor for the GameWorld
         /// </summary>
@@ -67,7 +72,9 @@ namespace FirstSemesterExam
 
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Method for initializing objects into the gameworld
         /// </summary>
@@ -131,5 +138,6 @@ namespace FirstSemesterExam
 
             base.Draw(gameTime);
         }
+        #endregion
     }
 }

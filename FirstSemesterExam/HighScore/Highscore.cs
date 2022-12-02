@@ -9,17 +9,22 @@ namespace FirstSemesterExam.HighScore
 {
     public class Highscore
     {
+        #region Fields
         // make list for scores 
         private List<Score> scores = new List<Score>();
         private string filePath = "./scores.txt";
         private string[] fileDataLines;
-        private FileStream file; 
+        private FileStream file;
+        #endregion
 
-        public List<Score> Scores
+        #region Properties
+        public List<Score> GetScores
         {
             get { return scores; }
         }
+        #endregion
 
+        #region Constructors
         public Highscore()
         {
             CreateFile();
@@ -30,7 +35,9 @@ namespace FirstSemesterExam.HighScore
 
             WriteToFile(); 
         }
+        #endregion
 
+        #region Methods
         // check if file exist, if not then create it 
         private void CreateFile()
         {
@@ -66,7 +73,7 @@ namespace FirstSemesterExam.HighScore
         // sort the list according to scores - highest to lowest 
         private void Sort()
         {
-            scores = scores.OrderBy(x => -x.score).ToList(); 
+            scores = scores.OrderBy(x => -x._Score).ToList(); 
         }
 
 
@@ -83,8 +90,9 @@ namespace FirstSemesterExam.HighScore
 
             for (int i = 0; i < scores.Count; i++)
             {
-                File.AppendAllText(filePath, scores[i].name + " " + scores[i].score + "\n");
+                File.AppendAllText(filePath, scores[i].Name + " " + scores[i]._Score + "\n");
             }
         }
+        #endregion
     }
 }

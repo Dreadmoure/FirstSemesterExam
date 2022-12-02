@@ -10,6 +10,7 @@ namespace FirstSemesterExam.Enemies
 {
     public class Robot : Enemy
     {
+        #region Constructors
         public Robot(Player player) : base(player)
         {
             health = 15f;
@@ -19,12 +20,15 @@ namespace FirstSemesterExam.Enemies
             animationSpeed = 4f;
             expValue = 4;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
             sprites[0] = content.Load<Texture2D>("Enemies\\Robot1");
             sprites[1] = content.Load<Texture2D>("Enemies\\Robot2");
         }
+        #endregion
     }
 }

@@ -9,13 +9,30 @@ namespace FirstSemesterExam.HighScore
 {
     public class Score
     {
-        public string name { get; set; }
-        public int score { get; set; }
+        #region Fields
+        private string name;
+        private int score;
+        #endregion
 
+        #region Properties
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+        public int _Score
+        {
+            get { return score; }
+            set { score = value; }
+        }
+        #endregion
+
+        #region Constructors
         public Score(string name, int score)
         {
             this.name = name;
             this.score = score; 
         }
+        #endregion
     }
 }

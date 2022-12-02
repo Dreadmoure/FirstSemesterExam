@@ -10,12 +10,14 @@ namespace FirstSemesterExam
 {
     internal class LaserGun : Weapon
     {
-
+        #region Constructors
         public LaserGun(Player player, float attackDamage) : base(player)
         {
             this.attackDamage = attackDamage;
         }
+        #endregion
 
+        #region Methods
         public override void Shoot(GameTime gameTime)
         {
             if (timeSinceFire > 1/player.AttackSpeed)
@@ -25,6 +27,7 @@ namespace FirstSemesterExam
                 GameState.InstantiateGameObject(projectile);
             }
         }
+        #endregion
 
     }
 }

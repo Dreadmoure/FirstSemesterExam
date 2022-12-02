@@ -68,6 +68,7 @@ namespace FirstSemesterExam.Menu
         }
         #endregion
 
+        #region Constructors
         public TextBox(Vector2 position, string text)
         {
             this.position = position;
@@ -76,7 +77,9 @@ namespace FirstSemesterExam.Menu
             scale = 1.5f;
             isActive = true; 
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             textboxTexture = content.Load<Texture2D>("Menus\\Button");
@@ -141,7 +144,7 @@ namespace FirstSemesterExam.Menu
                 spriteBatch.DrawString(textFont, text, new Vector2(x, y), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, layer + 0.01f);
             }
         }
-
+        #endregion
 
     }
 }
