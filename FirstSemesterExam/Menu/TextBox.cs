@@ -25,8 +25,6 @@ namespace FirstSemesterExam.Menu
         private float scale;
         private float layer;
 
-        private MouseState _currentMouse;
-        private MouseState _previousMouse;
         public bool isActive;
 
         private KeyboardState currentKeyState;
@@ -87,35 +85,24 @@ namespace FirstSemesterExam.Menu
 
         public override void Update(GameTime gameTime)
         {
-            _previousMouse = _currentMouse;
-            _currentMouse = Mouse.GetState();
-
-            Rectangle mouseRectangle = new Rectangle(_currentMouse.X, _currentMouse.Y, 1, 1);
-
-            // input text 
-            UpdateTextInput(); 
-        }
-
-        private void UpdateTextInput()
-        {
             previousKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
 
-            if(string.Equals(text, ""))
+            if (string.Equals(text, ""))
             {
-                text = "Enter name"; 
+                text = "Enter name";
             }
 
             if (currentKeyState != previousKeyState)
             {
-                if(string.Equals(text, "Enter name"))
+                if (string.Equals(text, "Enter name"))
                 {
-                    text = ""; 
+                    text = "";
                 }
-                
+
                 if (text.Length > 0 && currentKeyState.IsKeyDown(Keys.Back))
                 {
-                    text = text.Remove(text.Length - 1); 
+                    text = text.Remove(text.Length - 1);
                 }
 
                 if (text.Length < 12)
@@ -124,13 +111,15 @@ namespace FirstSemesterExam.Menu
                     {
                         string keyValue = key.ToString();
 
-                        if (AllowedInput(keyValue) && keyValue.Length <= 1) {
+                        if (AllowedInput(keyValue) && keyValue.Length <= 1)
+                        {
                             text += keyValue;
                         }
                     }
-                } 
+                }
             }
         }
+
         private bool AllowedInput(string s)
         {
             Regex regex = new Regex("[A-Z]");
