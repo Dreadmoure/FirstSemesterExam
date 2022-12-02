@@ -82,13 +82,6 @@ namespace FirstSemesterExam.Menu
         }
 
 
-        public List<GameObject> GetEnemies
-        { 
-            get { return enemies; } 
-        }
-        #endregion
-
-        #region Constructors
         public GameState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             player = new Player();
@@ -300,7 +293,7 @@ namespace FirstSemesterExam.Menu
 
                 if (enterNameTextbox.isActive)
                 {
-                    name = enterNameTextbox.TextEntered; 
+                    name = enterNameTextbox.GetTextEntered; 
                 }
                 if (saveScoreButton.isClicked)
                 {

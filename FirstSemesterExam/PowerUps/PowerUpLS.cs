@@ -66,7 +66,7 @@ namespace FirstSemesterExam.PowerUps
                     canReflect = true;
                     break;
                 case 4:
-                    timeAlive =+2;
+                    timeAlive = 6;
                     break;
                 case 5:
                     lSAmount = 2;

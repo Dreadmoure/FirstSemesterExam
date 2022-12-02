@@ -23,6 +23,7 @@ namespace FirstSemesterExam
         private Weapon weapon;
         private int exp;
         private int maxExp;
+        private int baseMaxExp;
         private int levelIndicator;
 
         private int attackDamageLvl;
@@ -182,7 +183,8 @@ namespace FirstSemesterExam
 
             levelIndicator = 1;
             exp = 0;
-            maxExp = 100;
+            baseMaxExp = 50;
+            maxExp = baseMaxExp;
 
             animationSpeed = 9;
             
@@ -276,7 +278,7 @@ namespace FirstSemesterExam
 
             expBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
             expBarPosition.Y = position.Y - 35;
-            expBarRectangle = new Rectangle((int)expBarPosition.X, (int)expBarPosition.Y, exp, 5);
+            expBarRectangle = new Rectangle((int)expBarPosition.X, (int)expBarPosition.Y, (int)(expBarTexture.Width * ((double)(exp / maxExp * 100) / 100)), 5);
 
             dashBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
             dashBarPosition.Y = position.Y - 30;
@@ -296,7 +298,7 @@ namespace FirstSemesterExam
             exp = 0;
             levelIndicator += 1;
             leveledUp = true;
-            
+            maxExp += baseMaxExp * (int)(0.1f * levelIndicator); 
             //sets the mouse position to avoid misclick, which was a thing before
             Mouse.SetPosition((int)(GameWorld.GetScreenSize.X / 2), (int)(GameWorld.GetScreenSize.Y / 1.2f));
         }
@@ -366,7 +368,7 @@ namespace FirstSemesterExam
                     else
                     {
                         defenseLvl += 1;
-                        defense = baseDefense * ((1 - 1 / (1 + 0.3f * defenseLvl)) +1);
+                        defense = ((1 - 1 / (1 + 0.1f * defenseLvl)) +1);
                     }
                     
                     break;
@@ -499,8 +501,12 @@ namespace FirstSemesterExam
 
         public override void TakeDamage(float damage)
         {
-            
-            health -= damage * (1-defense);
+            if (!invulnerable)
+            {
+                hasJustBeenHit = true;
+                health -= damage * (1-defense);
+                invulnerable = true;
+            }
             
         }
 
