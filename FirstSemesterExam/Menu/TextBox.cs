@@ -52,7 +52,7 @@ namespace FirstSemesterExam.Menu
                     );
             }
         }
-        public string TextEntered
+        public string GetTextEntered
         {
             get 
             {
