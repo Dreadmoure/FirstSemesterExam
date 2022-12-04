@@ -476,6 +476,18 @@
 /processorParam:TextureFormat=Color
 /build:Player/Exp.png
 
+#begin Player/ExpV2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Player/ExpV2.png
+
 #begin Player/Health.png
 /importer:TextureImporter
 /processor:TextureProcessor

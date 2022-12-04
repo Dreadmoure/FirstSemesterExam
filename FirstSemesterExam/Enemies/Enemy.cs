@@ -157,6 +157,7 @@ namespace FirstSemesterExam.Enemies
         {
             hasJustBeenHit = true;
             health -= damage;
+            GameState.InstantiateGameObject(new FloatingCombatText(position, damage));
         }
 
         public override void OnCollision(GameObject other)
