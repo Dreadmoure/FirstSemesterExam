@@ -21,9 +21,9 @@ namespace FirstSemesterExam
     {
         private MouseState mouseState;
         private Weapon weapon;
-        private int exp;
-        private int maxExp;
-        private int baseMaxExp;
+        private float exp;
+        private float maxExp;
+        private float baseMaxExp;
         private int levelIndicator;
 
         private int attackDamageLvl;
@@ -76,13 +76,13 @@ namespace FirstSemesterExam
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
 
-        public int MaxExp
+        public float MaxExp
         {
             get { return maxExp; }
             set { MaxExp = value; }
         }
 
-        public int Exp
+        public float Exp
         {
             get { return exp; }
             set { exp = value; }
@@ -182,8 +182,8 @@ namespace FirstSemesterExam
             magicMissileLvl = 0;
 
             levelIndicator = 1;
-            exp = 0;
-            baseMaxExp = 50;
+            exp = 0f;
+            baseMaxExp = 50f;
             maxExp = baseMaxExp;
 
             animationSpeed = 9;
@@ -214,7 +214,7 @@ namespace FirstSemesterExam
             }
 
             healthBarTexture = content.Load<Texture2D>("Player\\HealthV2");
-            expBarTexture = content.Load<Texture2D>("Player\\Exp");
+            expBarTexture = content.Load<Texture2D>("Player\\ExpV2");
             healthBarBackgroundTexture = content.Load<Texture2D>("Player\\HealthBackground");
             dashBarTexture = content.Load<Texture2D>("Player\\DashBar");
 
@@ -506,6 +506,7 @@ namespace FirstSemesterExam
                 hasJustBeenHit = true;
                 health -= damage * (1-defense);
                 invulnerable = true;
+                GameState.InstantiateGameObject(new FloatingCombatText(position, damage * (1 - defense)));
             }
             
         }
