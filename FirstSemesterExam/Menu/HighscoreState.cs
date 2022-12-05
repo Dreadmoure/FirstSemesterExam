@@ -12,24 +12,41 @@ using System.Diagnostics;
 
 namespace FirstSemesterExam.Menu
 {
+    /// <summary>
+    /// Made by: Ida 
+    /// Subclass of State, HighscoreState - reached through MenuState, shows the local highscore leaderboard 
+    /// </summary>
     public class HighscoreState : State
     {
         #region fields 
         private Texture2D menuBackgroundTexture;
         private Texture2D highscoreTable; 
         private SpriteFont textFont; 
+
+        // list of buttons 
         private List<Button> buttons;
         private Button backButton;
         private Button nextScoresButton;
         private Button prevScoresButton; 
+
+        // instance of highscore 
         private Highscore highscore = new Highscore();
+
+        // local variables for changing the viewed scores 
         private int indexMin;
         private int indexMax;
         private int indexStart;
         private int indexEnd;
-        private int numberOfViewedScores; 
+        private int numberOfViewedScores;
         #endregion
 
+        #region Constructors 
+        /// <summary>
+        /// Constructor for HighscoreState - sets the buttons 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="graphicsDevice"></param>
+        /// <param name="game"></param>
         public HighscoreState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             Color buttonColor = Color.Green;
@@ -44,6 +61,7 @@ namespace FirstSemesterExam.Menu
 
             Highscore highscore = new Highscore(); 
         }
+        #endregion
 
         #region methods 
         public override void LoadContent()
@@ -52,6 +70,7 @@ namespace FirstSemesterExam.Menu
             highscoreTable = content.Load<Texture2D>("Menus\\HighscoreTableBG"); 
             textFont = content.Load<SpriteFont>("Fonts\\textFont");
 
+            // set initial min and max index, and the max numberOfViewedScores on screen 
             numberOfViewedScores = 10; 
             indexMin = 0;
             indexMax = highscore.GetScores.Count;
@@ -78,17 +97,18 @@ namespace FirstSemesterExam.Menu
                 button.Update(gameTime);
             }
 
-            //Debug.WriteLine("start: " + indexStart + " end: " + indexEnd);
-
             if (backButton.isClicked)
             {
                 backButton.isClicked = false;
+
+                // go back to MenuState 
                 game.ChangeState(GameWorld.GetMenuState);
             }
             if (nextScoresButton.isClicked)
             {
                 nextScoresButton.isClicked = false;
 
+                // move to the next scores on the highscore list if possible 
                 if (indexMax <= numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
@@ -117,6 +137,7 @@ namespace FirstSemesterExam.Menu
             {
                 prevScoresButton.isClicked = false;
 
+                // move to the previous scores on the highscore list, if possible 
                 if (indexMax <= numberOfViewedScores-1)
                 {
                     indexStart = indexMin;
