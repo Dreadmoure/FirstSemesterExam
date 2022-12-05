@@ -211,7 +211,6 @@ namespace FirstSemesterExam
         #endregion
 
         #region Constructors
-
         /// <summary>
         /// Constructor for the Player with all its stats
         /// </summary>
@@ -256,40 +255,48 @@ namespace FirstSemesterExam
         #region Methods
         public override void LoadContent(ContentManager content)
         {
+            //loads the weapon for the player and instantiates it
             weapon = new LaserGun(this, attackDamage);
             GameState.InstantiateGameObject(weapon);
 
-
+            //loads the sprites for the player character
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
             {
                 sprites[i] = content.Load<Texture2D>($"Player\\PlayerWalk_{i +1}");
             }
 
+            //loads sprites for the varios bars
             healthBarTexture = content.Load<Texture2D>("Player\\HealthV2");
             expBarTexture = content.Load<Texture2D>("Player\\ExpV2");
             healthBarBackgroundTexture = content.Load<Texture2D>("Player\\HealthBackground");
             dashBarTexture = content.Load<Texture2D>("Player\\DashBar");
 
+            //sets the player position to the middle of the screen
             position.X = GameWorld.GetScreenSize.X / 2;
             position.Y = GameWorld.GetScreenSize.Y / 2;
 
+            //changes the mouse cursor to a custom sprite
             crosshair = content.Load<Texture2D>("Player\\crosshair");
             Mouse.SetCursor(MouseCursor.FromTexture2D(crosshair, mouseState.X, mouseState.Y));
         }
 
         public override void Update(GameTime gameTime)
         {
-            //KeyboardState keyState = Keyboard.GetState();
+            //updates the mouse position and "click" state
             mouseState = Mouse.GetState();
+
+            //calls methods
             HandleInput(gameTime);
             HandleLimits();
             Move(gameTime);
             Flip();
 
+            //sets the min and max value of health and exp, so it cannot exceed those limits
             health = Math.Clamp(health, 0, maxHealth);
             exp = Math.Clamp(exp, 0, maxExp);
 
+            //looks at the velocity and animates the player character from the value
             if ( velocity != Vector2.Zero)
             {
                 Animate(gameTime);
@@ -298,6 +305,8 @@ namespace FirstSemesterExam
             {
                 CurrentIndex = 0;
             }
+
+            //if the player is invulnerable it sets a timer to determine when the player stops being invulnerable
             if (invulnerable)
             {
                 iFrames -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -308,6 +317,8 @@ namespace FirstSemesterExam
                 }
             }
 
+            //if the player has been hit, sets a red color overlay over the player. sets a timer which determines
+            //when the overlay stops appearing
             if (HasJustBeenHit)
             {
                 hitTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -324,28 +335,33 @@ namespace FirstSemesterExam
                 }
             }
 
+            //sets the position, calculates the rectangle for the healthbar and its baackground
             healthBarPosition.X = position.X - (GetSpriteSize.X /0.70f);
             healthBarPosition.Y = position.Y - 45;
             healthBarRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, (int)(healthBarTexture.Width * ((double)(health / maxHealth * 100)/100)), 10);
             healthBarBackgroundRectangle = new Rectangle((int)healthBarPosition.X, (int)healthBarPosition.Y, 100, 10);
 
+            //sets the position, calculates the rectangle for the expBar
             expBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
             expBarPosition.Y = position.Y - 35;
             expBarRectangle = new Rectangle((int)expBarPosition.X, (int)expBarPosition.Y, (int)(expBarTexture.Width * ((double)(exp / maxExp * 100) / 100)), 5);
 
+            //sets the position, calculates the rectangle for the dasshBar
             dashBarPosition.X = position.X - (GetSpriteSize.X / 0.70f);
             dashBarPosition.Y = position.Y - 30;
             int dashBarOffset = (int)((nextDashCooldown - currentTime) * 50f);
             dashBarRectangle = new Rectangle((int)dashBarPosition.X, (int)dashBarPosition.Y, dashBarOffset, 5);
 
-            
-
+            //checks the current exp against the maxExp
             if (exp >= maxExp)
             {
                 LevelUp();
             }
         }
-
+        /// <summary>
+        /// called when the player has enough exp, used to scale and reset the expBar and importantly
+        /// sets the levelUp bool so the levelup cards will be activated
+        /// </summary>
         private void LevelUp()
         {
             exp = 0;
@@ -355,14 +371,18 @@ namespace FirstSemesterExam
             //sets the mouse position to avoid misclick, which was a thing before
             Mouse.SetPosition((int)(GameWorld.GetScreenSize.X / 2), (int)(GameWorld.GetScreenSize.Y / 1.2f));
         }
-
+        /// <summary>
+        /// called when the user chooses a card and then initializes the upgrade based on the cardIndex
+        /// </summary>
+        /// <param name="cardIndex"></param>
         public void InitializeUpgrade(int cardIndex)
         {
             switch (cardIndex)
             {
                 case 1: //lightsaber
-                    if(lightSaberLvl == 0)
+                    if(lightSaberLvl == 0) //if players current lvl is 0
                     {
+                        //activates the Lightsaber spawner
                         powerUpLS = new PowerUpLS(this);
                         GameState.InstantiateGameObject(powerUpLS);
                         lightSaberLvl += 1;
@@ -370,6 +390,7 @@ namespace FirstSemesterExam
                     }
                     else
                     {
+                        //upgrades the lightsaber
                         lightSaberLvl += 1;
                         powerUpLS.UpdateLightSaber();
                     }
@@ -377,6 +398,7 @@ namespace FirstSemesterExam
                 case 2: //throwingKnife
                     if(throwingKnifeLvl == 0)
                     {
+                        //activates the knife spawner
                         powerUpTK = new PowerUpTK(this);
                         GameState.InstantiateGameObject(powerUpTK);
                         throwingKnifeLvl += 1;
@@ -384,6 +406,7 @@ namespace FirstSemesterExam
                     }
                     else
                     {
+                        //upgrades the knife
                         throwingKnifeLvl += 1;
                         powerUpTK.UpdateTK();
                     }
@@ -391,6 +414,7 @@ namespace FirstSemesterExam
                 case 3: //magicMissile
                     if(magicMissileLvl == 0)
                     {
+                        //activates the magicMissile spawner
                         powerUpMisile = new PowerUpMisile(this);
                         GameState.InstantiateGameObject(powerUpMisile);
                         magicMissileLvl += 1;
@@ -398,24 +422,25 @@ namespace FirstSemesterExam
                     }
                     else
                     {
+                        //upgrades the magicMissile
                         magicMissileLvl += 1;
                         powerUpMisile.UpdateMisile();
                     }
                     break;
-                case 4: //attackDamage
+                case 4: //attackDamage upgrade
                     attackDamageLvl += 1;
-                    attackDamage += 5; //might need to be changed
+                    attackDamage += 5;
                     break;
-                case 5: //attackSpeed
+                case 5: //attackSpeed upgrade
                     attackSpeedLvl += 1;
-                    attackSpeed = baseAttackSpeed * ((0.3f * attackSpeedLvl) +1);
+                    attackSpeed = baseAttackSpeed * ((0.3f * attackSpeedLvl) +1); //adds 30 percent for each lvl
                     break;
-                case 6: //maxHealth
+                case 6: //maxHealth upgrade
                     maxHealthLvl += 1;
                     maxHealth += 10f;
                     break;
-                case 7: //defense
-                    if(defenseLvl == 0)
+                case 7: //defense upgrade
+                    if (defenseLvl == 0)
                     {
                         defenseLvl += 1;
                         defense += 0.1f;
@@ -423,20 +448,22 @@ namespace FirstSemesterExam
                     else
                     {
                         defenseLvl += 1;
-                        defense = ((1 - 1 / (1 + 0.1f * defenseLvl)));
+                        defense = ((1 - 1 / (1 + 0.1f * defenseLvl))); //adds 10 percent for each lvl
                     }
-                    
                     break;
-                case 8: //movementSpeed
+                case 8: //movementSpeed upgrade
                     movementSpeedLvl += 1;
-                    speed = baseSpeed * ((1 - 1 / (1 + 0.3f * movementSpeedLvl)) + 1);
+                    speed = baseSpeed * ((1 - 1 / (1 + 0.3f * movementSpeedLvl)) + 1); //adds 30 percent for each lvl
                     break;
-                case 9: //itemCoolDown
+                case 9: //itemCoolDown upgrade
                     itemAttackCoolDownLvl += 1;
-                    itemAttackCoolDown = ((1 - 1 / (1 + 0.3f * itemAttackCoolDownLvl)));
+                    itemAttackCoolDown = ((1 - 1 / (1 + 0.3f * itemAttackCoolDownLvl))); //adds 30 percent for each lvl
                     break;
             }
         }
+
+        //Jeppe kommentar -
+
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;
         private Keys movementKey;
@@ -448,44 +475,55 @@ namespace FirstSemesterExam
         float dashTime;
         int speedMultiplier = 10;
         float currentTime = 0f;
+
+        //-Jeppe kommentar
         
-        
+        /// <summary>
+        /// checks for input both mouse and keyboard, which is used to aiming, shooting and movement
+        /// </summary>
+        /// <param name="gameTime"></param>
         private void HandleInput(GameTime gameTime)
         {
+            //resets the velocity
             velocity = Vector2.Zero;
-
+            //gets the keyboardstate
             KeyboardState keyState = Keyboard.GetState();
 
-            if (keyState.IsKeyDown(Keys.W))
+            if (keyState.IsKeyDown(Keys.W)) //up
             {
                 velocity.Y -= 1;
                 
             }
-            if (keyState.IsKeyDown(Keys.S))
+            if (keyState.IsKeyDown(Keys.S)) //down
             {
                 velocity.Y += 1;
                 
             }
-            if (keyState.IsKeyDown(Keys.A))
+            if (keyState.IsKeyDown(Keys.A)) //left
             {
                 velocity.X -= 1;
                 
             }
-            if (keyState.IsKeyDown(Keys.D))
+            if (keyState.IsKeyDown(Keys.D)) //right
             {
                 velocity.X += 1;
                 
             }
 
+            //if we are moving we normalize the vector so we dont add 2 vectors and end up moving faster
             if (velocity != Vector2.Zero)
             {
                 velocity.Normalize();
             }
 
+            //press the left mouse button and we shoot
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
                 weapon.Shoot(gameTime);
             }
+
+            //Jeppe kommentar -
+
             //if (keyState.IsKeyDown(Keys.Space))
             //{
             //    float dashDistance = 5f;
@@ -533,6 +571,8 @@ namespace FirstSemesterExam
                     //speed = 600;
                 }
             }
+
+            //-Jeppe kommentar
 
         }
 
