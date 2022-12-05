@@ -6,6 +6,7 @@ using System;
 
 namespace FirstSemesterExam.PowerUps
 {
+    //TK = ThrowingKnife
     internal class PowerUpTK : GameObject
     {
         #region Fields
@@ -52,18 +53,19 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed - (attackSpeed * player.GetItemAttackCoolDown))
             {
-                float angleOffset = (2 * MathF.PI) / tKAmount;
-                float playerAngle = MathF.Atan2(lastVelocity.Y, lastVelocity.X);
+                float angleOffset = (2 * MathF.PI) / tKAmount; // angleoffset based on the amount of TK's fired.
+                float playerAngle = MathF.Atan2(lastVelocity.Y, lastVelocity.X); // gets the last direction the player moved in radians. It is the direction the TK will travel in
                 timeSinceLastAttack = 0;
                 for (int i = 0; i < tKAmount; i++)
                 {
+                    //The angle the TK wil travel in
                     float angle = playerAngle + (angleOffset * i);
                     ThrowingKnife throwingKnife = new ThrowingKnife(player.GetPosition, new Vector2(MathF.Cos(angle), MathF.Sin(angle)), attackDamage, knifeSprite);
                     GameState.InstantiateGameObject(throwingKnife);
                 }
             }
         }
-
+        //upgrades the throwing knife stats based on the level. Gets called on player each time the player picks the throwing knife power up.
         public void UpdateTK()
         {
 

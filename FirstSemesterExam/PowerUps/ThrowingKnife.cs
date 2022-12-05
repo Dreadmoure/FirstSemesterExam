@@ -10,10 +10,11 @@ namespace FirstSemesterExam.PowerUps
     internal class ThrowingKnife : GameObject
     {
         #region Constructors
+        
         public ThrowingKnife(Vector2 position, Vector2 velocity, float attackDamage , Texture2D sprite)
         {
             this.position = position;
-            this.velocity = velocity;
+            this.velocity = velocity; 
             this.attackDamage = attackDamage;
             speed = 1000;
             sprites = new Texture2D[1];
@@ -30,7 +31,7 @@ namespace FirstSemesterExam.PowerUps
 
         public override void Update(GameTime gameTime)
         {
-            Move(gameTime);
+            Move(gameTime); // moves based on the velocity and speed it gets from the contructor
             CheckIfOutsideBounds();
 
         }

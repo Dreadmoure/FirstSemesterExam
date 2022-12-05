@@ -18,6 +18,8 @@ namespace FirstSemesterExam
         #endregion
 
         #region Methods
+        //Shoots a protectile based on the players firerate, the bigger the number og firerate the faster the player shoots.
+        // if firerate is 1 its every second, if its 2 its every 0.5 seconds
         public override void Shoot(GameTime gameTime)
         {
             if (timeSinceFire > 1/player.AttackSpeed)

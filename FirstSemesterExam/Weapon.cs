@@ -37,18 +37,18 @@ namespace FirstSemesterExam
             sprites = new Texture2D[1];
             sprite = content.Load<Texture2D>("Weapons\\testGun");
             sprites[0] = sprite;
-            //originOffset = new Vector2(0, 2);
         }
 
         public override void Update(GameTime gameTime)
         {
             timeSinceFire += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //angle from player to mouse.
             angle = player.MouseAngle();
+            //The position of the weapon based on the mouse angle, player pos and offset. the shootinPos ís the same but it has an extra offset.
             position = new Vector2(offset * MathF.Cos(angle) + player.GetPosition.X, offset * MathF.Sin(angle) + player.GetPosition.Y );
             shootingPos = new Vector2((offset + shootingPosOffset) * MathF.Cos(angle) + player.GetPosition.X, (offset + shootingPosOffset) * MathF.Sin(angle) + player.GetPosition.Y );
-
+            //Calcurlates the direction vector from the player to mouse, based on the angle.
             dirVector = new Vector2(MathF.Cos(angle), MathF.Sin(angle));
-            //dirVector.Normalize();
             rotation = angle;
             Flip();
 

@@ -51,11 +51,12 @@ namespace FirstSemesterExam.PowerUps
             }
         }
 
+        //Finds the closest enemy by looping through all enenies alive, and comparing the distance from the player to the enemy.
         private GameObject FindClosestEnemy()
         {
 
             GameObject enemy = null;
-            float minDist = 999999996999;
+            float minDist = 999999996999; // this just needed to be a very high number
             foreach (GameObject gameObject in GameState.enemies)
             {
                 float distance = Vector2.Distance(gameObject.GetPosition, player.GetPosition);
