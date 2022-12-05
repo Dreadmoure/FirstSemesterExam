@@ -261,7 +261,7 @@ namespace FirstSemesterExam.Menu
 
                 if (resumeGameButton.isClicked)
                 {
-                    GameWorld.soundEffects[13].CreateInstance().Play();
+                    GameWorld.soundEffects[14].CreateInstance().Play();
                     resumeGameButton.isClicked = false;
                     paused = false;
                 }
@@ -273,7 +273,7 @@ namespace FirstSemesterExam.Menu
                 }
                 if (quitGameButton.isClicked)
                 {
-                    GameWorld.soundEffects[14].CreateInstance().Play();
+                    GameWorld.soundEffects[15].CreateInstance().Play();
                     quitGameButton.isClicked = false;
                     game.Exit();
                 }
