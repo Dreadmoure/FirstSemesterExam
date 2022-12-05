@@ -462,7 +462,9 @@ namespace FirstSemesterExam
             }
         }
 
-        //Jeppe kommentar
+
+        //Jeppe kommentar -
+
 
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;
@@ -475,6 +477,8 @@ namespace FirstSemesterExam
         float dashTime;
         int speedMultiplier = 10;
         float currentTime = 0f;
+
+        //-Jeppe kommentar
         
         /// <summary>
         /// checks for input both mouse and keyboard, which is used to aiming, shooting and movement
@@ -519,6 +523,10 @@ namespace FirstSemesterExam
             {
                 weapon.Shoot(gameTime);
             }
+
+
+            //Jeppe kommentar -
+
 
             //if (keyState.IsKeyDown(Keys.Space))
             //{
@@ -567,6 +575,8 @@ namespace FirstSemesterExam
                     //speed = 600;
                 }
             }
+
+            //-Jeppe kommentar
 
         }
 
