@@ -9,7 +9,7 @@ namespace FirstSemesterExam.PowerUps
     internal class Misile : GameObject
     {
         #region Fields
-        GameObject target;
+        private GameObject target;
         #endregion
 
         #region Constructors

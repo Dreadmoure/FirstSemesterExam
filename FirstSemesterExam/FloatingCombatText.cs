@@ -24,7 +24,6 @@ namespace FirstSemesterExam
             this.damage = damage;
             scale = 2f;
             text = $"-{damage}";
-            speed = 100f;
             timer = 1f;
         }
         #endregion

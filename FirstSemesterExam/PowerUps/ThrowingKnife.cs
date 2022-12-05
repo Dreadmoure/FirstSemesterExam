@@ -9,6 +9,7 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class ThrowingKnife : GameObject
     {
+        #region Constructors
         public ThrowingKnife(Vector2 position, Vector2 velocity, float attackDamage , Texture2D sprite)
         {
             this.position = position;
@@ -20,7 +21,9 @@ namespace FirstSemesterExam.PowerUps
             rotation = MathF.Atan2(velocity.Y, velocity.X);
             layerDepth = 0.6f;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
         }
@@ -46,9 +49,15 @@ namespace FirstSemesterExam.PowerUps
         {
             if (other is Enemy)
             {
-                other.TakeDamage(attackDamage);
+                Enemy enemy = (Enemy)other;
+                if (enemy.CanBeDamagedByTK)
+                {
+                    other.TakeDamage(attackDamage);
+                    enemy.CanBeDamagedByTK = false;
+                }
             }
 
         }
+        #endregion
     }
 }
