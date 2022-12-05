@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace FirstSemesterExam.Enemies
 {
     /// <summary>
-    /// Made by: Ida
     /// Subclass of Enemy, BlobMonster - can split into multiple Slime 
     /// </summary>
     public class BlobMonster : Enemy

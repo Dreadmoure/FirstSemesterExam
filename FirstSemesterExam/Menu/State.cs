@@ -10,7 +10,6 @@ using System.Threading.Tasks;
 namespace FirstSemesterExam.Menu
 {
     /// <summary>
-    /// Made by: Ida 
     /// Abstract superclass State - for handling the different states 
     /// </summary>
     public abstract class State

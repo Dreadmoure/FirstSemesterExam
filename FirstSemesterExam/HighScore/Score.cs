@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace FirstSemesterExam.HighScore
 {
     /// <summary>
-    /// Made by: Ida 
     /// Class for storing a score, used for Highscore class 
     /// </summary>
     public class Score

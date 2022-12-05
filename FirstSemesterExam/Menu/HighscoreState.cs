@@ -13,7 +13,6 @@ using System.Diagnostics;
 namespace FirstSemesterExam.Menu
 {
     /// <summary>
-    /// Made by: Ida 
     /// Subclass of State, HighscoreState - reached through MenuState, shows the local highscore leaderboard 
     /// </summary>
     public class HighscoreState : State

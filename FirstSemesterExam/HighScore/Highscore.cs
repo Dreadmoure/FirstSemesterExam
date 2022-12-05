@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 namespace FirstSemesterExam.HighScore
 {
     /// <summary>
-    /// Made by: Ida 
     /// Class for sorting a file of scores from highest to lowest 
     /// </summary>
     public class Highscore

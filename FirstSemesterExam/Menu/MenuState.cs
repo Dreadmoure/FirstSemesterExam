@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 namespace FirstSemesterExam.Menu
 {
     /// <summary>
-    /// Made by: Ida 
     /// Subclass of State, MenuState - the main menu 
     /// </summary>
     public class MenuState : State

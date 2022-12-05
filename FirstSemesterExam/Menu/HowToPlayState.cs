@@ -11,7 +11,6 @@ using System.Threading.Tasks;
 namespace FirstSemesterExam.Menu
 {
     /// <summary>
-    /// Made by: Ida
     /// Subclass of State, HowToPlayState - reached through MenuState, shows game keyboard and mouse interactions 
     /// </summary>
     public class HowToPlayState : State 
