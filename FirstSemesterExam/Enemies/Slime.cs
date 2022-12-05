@@ -14,6 +14,10 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace FirstSemesterExam.Enemies
 {
+    /// <summary>
+    /// Made by: Jeppe & Ida 
+    /// Subclass of Enemy, Slime 
+    /// </summary>
     internal class Slime : Enemy
     {
         #region Fields
@@ -21,6 +25,10 @@ namespace FirstSemesterExam.Enemies
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor for spawning enemy at edge 
+        /// </summary>
+        /// <param name="player"></param>
         public Slime(Player player) : base(player)
         {
             health = 20;
@@ -32,7 +40,12 @@ namespace FirstSemesterExam.Enemies
             expValue = 2;
             this.player = player;
         }
-
+        /// <summary>
+        /// Constructor overload for spawning new Slime at position 
+        /// Used when a BlobMonster dies and splits into slimes 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="parentPosition"></param>
         public Slime(Player player, Vector2 parentPosition) : base(player)
         {
             health = 20f;
@@ -43,6 +56,7 @@ namespace FirstSemesterExam.Enemies
             expValue = 2;
             this.player = player;
 
+            // set random position around the dead BlobMonster position 
             Vector2 offsetPosition = new Vector2(random.Next(-100, 100), random.Next(-100, 100));
             position = parentPosition + offsetPosition; 
         }
