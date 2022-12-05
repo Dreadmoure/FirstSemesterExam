@@ -19,6 +19,7 @@ namespace FirstSemesterExam
 {
     public class Player : GameObject
     {
+        #region Fields
         private MouseState mouseState;
         private Weapon weapon;
         private float exp;
@@ -32,12 +33,10 @@ namespace FirstSemesterExam
         private int maxHealthLvl;
         private float maxHealth;
         private int defenseLvl;
-        private float baseDefense;
         private float defense;
         private int movementSpeedLvl;
         private int itemAttackCoolDownLvl;
         private float itemAttackCoolDown;
-        private float baseItemAttackCoolDown;
         private int lightSaberLvl;
         private int throwingKnifeLvl;
         private int magicMissileLvl;
@@ -75,11 +74,13 @@ namespace FirstSemesterExam
         private Texture2D dashBarTexture;
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
+        #endregion
 
+        #region Properties
         public float MaxExp
         {
             get { return maxExp; }
-            set { MaxExp = value; }
+            set { maxExp = value; }
         }
 
         public float Exp
@@ -129,6 +130,11 @@ namespace FirstSemesterExam
             get { return attackSpeedLvl; }
         }
 
+        public float AttackDamage
+        {
+            get { return attackDamage; }
+        }
+
         public int AttackDamageLvl
         {
             get { return attackDamageLvl; }
@@ -154,6 +160,9 @@ namespace FirstSemesterExam
             get { return magicMissileLvl; }
         }
         public float GetItemAttackCoolDown { get => itemAttackCoolDown;}
+        #endregion
+
+        #region Constructors
         public Player()
         {
             //stats
@@ -171,12 +180,9 @@ namespace FirstSemesterExam
             movementSpeedLvl = 0;
             itemAttackCoolDownLvl = 0;
             itemAttackCoolDown = 0f;
-            baseItemAttackCoolDown = 1f;
             
             defense = 0f;
-            baseDefense = 0f;
             
-
             lightSaberLvl = 0;
             throwingKnifeLvl = 0;
             magicMissileLvl = 0;
@@ -192,15 +198,10 @@ namespace FirstSemesterExam
 
             barLayerDepth = 0.95f;
             barBackgroundLayerDepth = 0.94f;
-
-            
-
-
         }
+        #endregion
 
-        public MouseState MouseState { get => mouseState; }
-       
-
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             weapon = new LaserGun(this, attackDamage);
@@ -338,12 +339,15 @@ namespace FirstSemesterExam
                 case 3: //magicMissile
                     if(magicMissileLvl == 0)
                     {
-                        GameState.InstantiateGameObject(new PowerUpMisile(this));
+                        powerUpMisile = new PowerUpMisile(this);
+                        GameState.InstantiateGameObject(powerUpMisile);
                         magicMissileLvl += 1;
+                        powerUpMisile.UpdateMisile();
                     }
                     else
                     {
                         magicMissileLvl += 1;
+                        powerUpMisile.UpdateMisile();
                     }
                     break;
                 case 4: //attackDamage
@@ -352,7 +356,7 @@ namespace FirstSemesterExam
                     break;
                 case 5: //attackSpeed
                     attackSpeedLvl += 1;
-                    attackSpeed = baseAttackSpeed * (1 - 1 /(1 + 0.3f * attackSpeedLvl) +1);
+                    attackSpeed = baseAttackSpeed * ((0.3f * attackSpeedLvl) +1);
                     break;
                 case 6: //maxHealth
                     maxHealthLvl += 1;
@@ -363,12 +367,11 @@ namespace FirstSemesterExam
                     {
                         defenseLvl += 1;
                         defense += 0.1f;
-                        baseDefense = defense;
                     }
                     else
                     {
                         defenseLvl += 1;
-                        defense = ((1 - 1 / (1 + 0.1f * defenseLvl)) +1);
+                        defense = ((1 - 1 / (1 + 0.1f * defenseLvl)));
                     }
                     
                     break;
@@ -545,6 +548,6 @@ namespace FirstSemesterExam
 
         //    }
         //}
-
-    } 
+        #endregion
+    }
 }

@@ -8,24 +8,28 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class PowerUpTK : GameObject
     {
-
+        #region Fields
         private Texture2D knifeSprite;
         private Player player;
         private Vector2 lastVelocity;
         private int tKAmount;
 
-
         protected float timeSinceLastAttack;
+        #endregion
 
+        #region Constructors
         public PowerUpTK(Player player)
         {
             this.player = player;
             attackSpeed = 2;
-            attackDamage = 2;
+            attackDamage = 5;
             lastVelocity = new Vector2(1, 0);
             layerDepth = 0.6f;
             tKAmount = 1;
         }
+        #endregion
+
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             knifeSprite = content.Load<Texture2D>("PowerUps\\knife");
@@ -73,6 +77,7 @@ namespace FirstSemesterExam.PowerUps
                     break;
                 case 4:
                     tKAmount++;
+                    attackDamage += 5;
                     break;
                 case 5:
                     attackSpeed -= 0.5f ;
@@ -86,6 +91,6 @@ namespace FirstSemesterExam.PowerUps
 
             }
         }
-
+        #endregion
     }
 }

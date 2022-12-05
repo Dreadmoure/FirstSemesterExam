@@ -7,16 +7,20 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 
 
-namespace FirstSemesterExam
+namespace FirstSemesterExam.PowerUps
 {
     internal class LightSaber : GameObject
     {
+        #region Fields
         private float offset;
         private Player player;
         private float angle;
         private float timeAlive;
         private float angleOffset;
         private bool canReflect;
+        #endregion
+
+        #region Constructors
         public LightSaber(Player player, float attackDamage, float timeAlive, float angleOffset, bool canReflect)
         {
             this.player = player;
@@ -30,19 +34,21 @@ namespace FirstSemesterExam
             this.angleOffset = angleOffset;
             this.canReflect = canReflect;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[1];
             sprites[0] = content.Load<Texture2D>("PowerUps\\lightSaber_Purple");
-            
+
         }
 
         public override void Update(GameTime gameTime)
         {
-            angle += ((float)gameTime.ElapsedGameTime.TotalSeconds * speed);
+            angle += (float)gameTime.ElapsedGameTime.TotalSeconds * speed;
             timeAlive -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-            rotation = angle* 3;
+            rotation = angle * 3;
             position = new Vector2(offset * MathF.Cos(angle + angleOffset) + player.GetPosition.X, offset * MathF.Sin(angle + angleOffset) + player.GetPosition.Y);
 
             if (timeAlive <= 0)
@@ -53,13 +59,13 @@ namespace FirstSemesterExam
 
         public override void OnCollision(GameObject other)
         {
-            if (other is Enemy )
+            if (other is Enemy)
             {
                 Enemy enemy = (Enemy)other;
-                if (enemy.canBeDamagedByLs)
+                if (enemy.CanBeDamagedByLs)
                 {
                     other.TakeDamage(attackDamage);
-                    enemy.canBeDamagedByLs = false;
+                    enemy.CanBeDamagedByLs = false;
                 }
             }
 
@@ -72,6 +78,6 @@ namespace FirstSemesterExam
                 other.ShouldBeRemoved = true;
             }
         }
-
+        #endregion
     }
 }

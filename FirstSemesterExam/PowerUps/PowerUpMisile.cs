@@ -10,16 +10,22 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class PowerUpMisile : GameObject
     {
+        #region Fields
         private Texture2D sprite;
         private float timeSinceLastAttack;
         private Player player;
+        #endregion
+
+        #region Constructors
         public PowerUpMisile(Player player)
         {
             this.player = player;
             attackSpeed = 1;
             layerDepth = 0.6f;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("PowerUps\\magicMissile");
@@ -66,7 +72,7 @@ namespace FirstSemesterExam.PowerUps
         public void UpdateMisile()
         {
 
-            switch (player.ThrowingKnifeLvl)
+            switch (player.MagicMissileLvl)
             {
                 case 2:
                     attackSpeed -= 0.1f;
@@ -89,6 +95,6 @@ namespace FirstSemesterExam.PowerUps
 
             }
         }
-
+        #endregion
     }
 }

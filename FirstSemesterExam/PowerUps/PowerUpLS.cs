@@ -11,12 +11,16 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class PowerUpLS : GameObject
     {
+        #region Fields
         private Player player;
 
         private float timeSinceLastAttack;
         private float timeAlive;
         private int lSAmount;
         private bool canReflect;
+        #endregion
+
+        #region Constructors
         public PowerUpLS (Player player)
         {
             this.player = player;
@@ -27,7 +31,9 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack = timeAlive;
             canReflect = false;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             
@@ -77,5 +83,6 @@ namespace FirstSemesterExam.PowerUps
 
             }
         }
+        #endregion
     }
 }

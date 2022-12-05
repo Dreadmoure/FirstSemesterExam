@@ -23,7 +23,7 @@ namespace FirstSemesterExam
             if (timeSinceFire > 1/player.AttackSpeed)
             {
                 timeSinceFire = 0;
-                PlayerProjectile projectile = new PlayerProjectile(shootingPos, dirVector, angle, attackDamage);
+                PlayerProjectile projectile = new PlayerProjectile(shootingPos, dirVector, angle, player.AttackDamage);
                 GameState.InstantiateGameObject(projectile);
             }
         }

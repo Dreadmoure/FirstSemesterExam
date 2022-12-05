@@ -23,9 +23,25 @@ namespace FirstSemesterExam.Enemies
         protected float attackRange;
         private Player player;
         protected int expValue;
-        protected float iFrames;
-        public bool canBeDamagedByLs;
+        protected float iFrames1;
+        protected float iFrames2;
+        private bool canBeDamagedByLs;
+        private bool canBeDamagedByTK;
         enum Edge { Upper, Lower, Left, Right }
+        #endregion
+
+        #region Properties
+        public bool CanBeDamagedByLs
+        {
+            get { return canBeDamagedByLs; }
+            set { canBeDamagedByLs = value; }
+        }
+
+        public bool CanBeDamagedByTK
+        {
+            get { return canBeDamagedByTK; }
+            set { canBeDamagedByTK = value; }
+        }
         #endregion
 
         #region Constructors
@@ -108,14 +124,22 @@ namespace FirstSemesterExam.Enemies
 
             if (!canBeDamagedByLs)
             {
-                iFrames -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (iFrames <= 0)
+                iFrames1 -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (iFrames1 <= 0)
                 {
                     canBeDamagedByLs = true;
-                    iFrames = 0.3f;
+                    iFrames1 = 0.3f;
                 }
             }
-
+            if (!canBeDamagedByTK)
+            {
+                iFrames2 -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (iFrames2 <= 0)
+                {
+                    canBeDamagedByTK = true;
+                    iFrames2 = 0.3f;
+                }
+            }
         }
 
         private bool IsInRange()
