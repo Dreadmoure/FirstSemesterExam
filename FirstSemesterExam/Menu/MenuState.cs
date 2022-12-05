@@ -60,7 +60,7 @@ namespace FirstSemesterExam.Menu
 
             if (continueGameButton.isClicked)
             {
-                GameWorld.soundEffects[5].CreateInstance().Play();
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 continueGameButton.isClicked = false;
                 if (GameState.GetGameOver)
                 {
@@ -75,7 +75,7 @@ namespace FirstSemesterExam.Menu
             }
             if (newGameButton.isClicked)
             {
-                GameWorld.soundEffects[5].CreateInstance().Play();
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 newGameButton.isClicked = false;
                 GameState.HandlePause = false;
                 GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
@@ -83,19 +83,19 @@ namespace FirstSemesterExam.Menu
             }
             if (highscoreButton.isClicked)
             {
-                GameWorld.soundEffects[5].CreateInstance().Play();
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 highscoreButton.isClicked = false;
                 game.ChangeState(GameWorld.HandleHighscoreState); 
             }
             if (howToPlayButton.isClicked)
             {
-                GameWorld.soundEffects[5].CreateInstance().Play();
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 howToPlayButton.isClicked = false;
                 game.ChangeState(GameWorld.GetHowToState); 
             }
             if (quitGameButton.isClicked)
             {
-                GameWorld.soundEffects[6].CreateInstance().Play();
+                GameWorld.soundEffects[15].CreateInstance().Play();
                 quitGameButton.isClicked = false;
                 game.Exit();
             }

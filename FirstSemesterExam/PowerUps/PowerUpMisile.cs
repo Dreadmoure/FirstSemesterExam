@@ -33,7 +33,7 @@ namespace FirstSemesterExam.PowerUps
                 Shoot(gameTime);
             }
         }
-
+        
         private void Shoot(GameTime gameTime)
         {
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;

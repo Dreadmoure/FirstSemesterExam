@@ -602,6 +602,12 @@
 /processorParam:Quality=Best
 /build:SoundEffects/GameOver/GameOver.wav
 
+#begin SoundEffects/Menu/Retro5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Menu/Retro5.wav
+
 #begin SoundEffects/Menu/Retro8.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

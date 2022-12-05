@@ -230,13 +230,13 @@ namespace FirstSemesterExam.Menu
                 if(player.Health < 0)
                 {
                     gameOver = true;
-                    GameWorld.soundEffects[7].CreateInstance().Play();
+                    GameWorld.soundEffects[16].CreateInstance().Play();
                 }
 
                 if(player.Exp >= player.MaxExp)
                 {
-                    
-                    foreach(LevelUpCard card in cardArray)
+                    GameWorld.soundEffects[7].CreateInstance().Play();
+                    foreach (LevelUpCard card in cardArray)
                     {
                         card.RandomCard(content);
                     }
@@ -261,19 +261,19 @@ namespace FirstSemesterExam.Menu
 
                 if (resumeGameButton.isClicked)
                 {
-                    GameWorld.soundEffects[5].CreateInstance().Play();
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     resumeGameButton.isClicked = false;
                     paused = false;
                 }
                 if (backToMenuButton.isClicked)
                 {
-                    GameWorld.soundEffects[6].CreateInstance().Play();
+                    GameWorld.soundEffects[14].CreateInstance().Play();
                     backToMenuButton.isClicked = false;
                     game.ChangeState(GameWorld.GetMenuState);
                 }
                 if (quitGameButton.isClicked)
                 {
-                    GameWorld.soundEffects[6].CreateInstance().Play();
+                    GameWorld.soundEffects[14].CreateInstance().Play();
                     quitGameButton.isClicked = false;
                     game.Exit();
                 }
@@ -293,7 +293,7 @@ namespace FirstSemesterExam.Menu
                 }
                 if (saveScoreButton.isClicked)
                 {
-                    GameWorld.soundEffects[5].CreateInstance().Play();
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     //string name = "kage";
                     File.AppendAllText("./scores.txt", name + " " + score + "\n");
 
@@ -312,6 +312,7 @@ namespace FirstSemesterExam.Menu
 
                 if (card1.isClicked)
                 {
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     card1.isClicked = false;
 
                     Player.LeveledUp = false;
@@ -319,6 +320,7 @@ namespace FirstSemesterExam.Menu
                 }
                 if (card2.isClicked)
                 {
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     card2.isClicked = false;
 
                     Player.LeveledUp = false;
@@ -326,6 +328,7 @@ namespace FirstSemesterExam.Menu
                 }
                 if (card3.isClicked)
                 {
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     card3.isClicked = false;
 
                     Player.LeveledUp = false;

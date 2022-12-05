@@ -76,6 +76,7 @@ namespace FirstSemesterExam.Menu
 
             if (mouseRectangle.Intersects(GetRectangle))
             {
+                
                 ColorShift(); 
 
                 if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
@@ -92,8 +93,10 @@ namespace FirstSemesterExam.Menu
 
         private void ColorShift()
         {
+            
             if (color.A == 255)
             {
+                GameWorld.soundEffects[15].Play();
                 colorShiftDown = false;
             }
             if (color.A == 0)

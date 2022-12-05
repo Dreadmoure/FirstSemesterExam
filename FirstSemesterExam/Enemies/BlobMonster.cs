@@ -51,7 +51,7 @@ namespace FirstSemesterExam.Enemies
         {
             if(health <= 0)
             {
-                GameWorld.soundEffects[4].CreateInstance().Play();
+                GameWorld.soundEffects[10].CreateInstance().Play();
                 int numberOfChildren = random.Next(1, 4);
                 for (int i = 0; i < numberOfChildren; i++)
                 {

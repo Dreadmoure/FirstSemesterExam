@@ -73,7 +73,7 @@ namespace FirstSemesterExam.Enemies
             if (health <= 0)
             {
                 //skal ændres
-                GameWorld.soundEffects[3].CreateInstance().Play();
+                GameWorld.soundEffects[10].CreateInstance().Play();
             }
 
             base.Update(gameTime);

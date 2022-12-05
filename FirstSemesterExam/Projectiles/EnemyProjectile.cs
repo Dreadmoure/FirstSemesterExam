@@ -38,6 +38,7 @@ namespace FirstSemesterExam.Projectiles
         {
             if (other is Player)
             {
+                GameWorld.soundEffects[6].CreateInstance().Play();
                 other.TakeDamage(attackDamage);
                 other.HasJustBeenHit = true;
                 ShouldBeRemoved = true;

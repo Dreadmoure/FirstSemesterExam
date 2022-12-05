@@ -259,10 +259,12 @@ namespace FirstSemesterExam
 
             if (HasJustBeenHit)
             {
+                
                 hitTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
 
                 if (hitTimer <= 0.1f)
                 {
+                    
                     color = Color.Red;
                 }
                 else

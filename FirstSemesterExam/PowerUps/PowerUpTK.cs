@@ -44,10 +44,11 @@ namespace FirstSemesterExam.PowerUps
 
         private void Shoot(GameTime gameTime)
         {
-
+            
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed)
             {
+                GameWorld.soundEffects[5].CreateInstance().Play();
                 float angleOffset = (2 * MathF.PI) / tKAmount;
                 float playerAngle = MathF.Atan2(lastVelocity.Y, lastVelocity.X);
                 timeSinceLastAttack = 0;

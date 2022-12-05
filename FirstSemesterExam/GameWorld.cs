@@ -22,7 +22,7 @@ namespace FirstSemesterExam
         private static State highscoreState;
         private static State gameState;
 
-        public static List<SoundEffect> soundEffects;
+        public static List<SoundEffectInstance> soundEffects;
 
         public static State GetMenuState
         {
@@ -99,30 +99,34 @@ namespace FirstSemesterExam
             _nextState = null;
 
             //Player SFX
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/LaserSound"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 02"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 16"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/MagicMissile"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/LaserSound")); //Lasergun shot
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/Retro Swooosh 02"));
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/SwordOn")); // Lightsaber spawn
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/Retro Swooosh 16"));
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/MagicMissile")); // Magic Missile Spawn
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/SaberSound")); // knife
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/Retro Negative Short 23")); // player getting hit
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/Retro PowerUP StereoUP 05")); // Level up
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Player and Weapons/Retro PowerUP 09")); // Power up
             //Enemy SFX
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/EnemyDeath"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/PainSound"));
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Monster/EnemyDeath")); // Turned and Horned guy death
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Monster/PainSound"));// Blob Monster and slime death
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Monster/Retro Impact Metal 36"));// Robot Death
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Monster/Retro Impact Punch Hurt 01"));// robot Shoot
             //Menu SFX
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Menu/Retro8"));
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Menu/Retro9"));
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Menu/Retro8")); // Menu Buttons for everything but "back" and "exit" buttons
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Menu/Retro9")); // Sound for "back" and "exit" buttons
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/Menu/Retro5")); // Hoverover sound effect
             //GameOver SFX
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/GameOver/GameOver"));
+            soundEffects.Add(Content.Load<SoundEffectInstance>("SoundEffects/GameOver/GameOver")); // Gameover
 
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
-            //soundEffects.Add(Content.Load<SoundEffect>("SwordSwoosh"));
             
 
-            var instance = soundEffects[0].CreateInstance();
-            
+
+
+
+            //var instance = soundEffects[0].CreateInstance();
+
         }
 
         /// <summary>
