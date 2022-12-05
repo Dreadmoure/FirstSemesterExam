@@ -10,16 +10,22 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class PowerUpMisile : GameObject
     {
+        #region Fields
         private Texture2D sprite;
         private float timeSinceLastAttack;
         private Player player;
+        #endregion
+
+        #region Constructors
         public PowerUpMisile(Player player)
         {
             this.player = player;
             attackSpeed = 1;
             layerDepth = 0.6f;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprite = content.Load<Texture2D>("PowerUps\\magicMissile");
@@ -45,11 +51,12 @@ namespace FirstSemesterExam.PowerUps
             }
         }
 
+        //Finds the closest enemy by looping through all enenies alive, and comparing the distance from the player to the enemy.
         private GameObject FindClosestEnemy()
         {
 
             GameObject enemy = null;
-            float minDist = 999999996999;
+            float minDist = 999999996999; // this just needed to be a very high number
             foreach (GameObject gameObject in GameState.enemies)
             {
                 float distance = Vector2.Distance(gameObject.GetPosition, player.GetPosition);
@@ -66,7 +73,7 @@ namespace FirstSemesterExam.PowerUps
         public void UpdateMisile()
         {
 
-            switch (player.ThrowingKnifeLvl)
+            switch (player.MagicMissileLvl)
             {
                 case 2:
                     attackSpeed -= 0.1f;
@@ -89,6 +96,6 @@ namespace FirstSemesterExam.PowerUps
 
             }
         }
-
+        #endregion
     }
 }

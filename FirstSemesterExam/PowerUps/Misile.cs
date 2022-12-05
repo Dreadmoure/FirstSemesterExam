@@ -9,7 +9,7 @@ namespace FirstSemesterExam.PowerUps
     internal class Misile : GameObject
     {
         #region Fields
-        GameObject target;
+        private GameObject target;
         #endregion
 
         #region Constructors
@@ -34,13 +34,25 @@ namespace FirstSemesterExam.PowerUps
 
         public override void Update(GameTime gameTime)
         {
+            CheckIfOutsideBounds();
             Move(gameTime);
+            //Changes the velocity to always be the directeion from this to the target.
             if (target.ShouldBeRemoved == false && !target.Equals(null))
             {
                 velocity = target.GetPosition - position;
                 velocity.Normalize();
                 rotation = MathF.Atan2(velocity.Y, velocity.X);
 
+            }
+        }
+
+        private void CheckIfOutsideBounds()
+        {
+            Vector2 min = new Vector2(GetSpriteSize.X / 2, GetSpriteSize.Y / 2);
+            Vector2 max = new Vector2(GameWorld.GetScreenSize.X - GetSpriteSize.X / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
+            if (position.X <= min.X || position.X >= max.X || position.Y <= min.Y || position.Y >= max.Y)
+            {
+                ShouldBeRemoved = true;
             }
         }
 

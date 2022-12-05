@@ -9,14 +9,19 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.PowerUps
 {
+    //LS = LightSaber
     internal class PowerUpLS : GameObject
     {
+        #region Fields
         private Player player;
 
         private float timeSinceLastAttack;
         private float timeAlive;
         private int lSAmount;
         private bool canReflect;
+        #endregion
+
+        #region Constructors
         public PowerUpLS (Player player)
         {
             this.player = player;
@@ -27,7 +32,9 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack = timeAlive;
             canReflect = false;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             
@@ -45,7 +52,7 @@ namespace FirstSemesterExam.PowerUps
             if (timeSinceLastAttack > (attackSpeed - (attackSpeed * player.GetItemAttackCoolDown)) + timeAlive)
             {
 
-                float angleOffset = (2 * MathF.PI) / lSAmount;
+                float angleOffset = (2 * MathF.PI) / lSAmount; // angleoffset based on the amount of lightsabers. 
                 timeSinceLastAttack = 0;
                 for (int i = 0; i < lSAmount; i++)
                 {
@@ -77,5 +84,6 @@ namespace FirstSemesterExam.PowerUps
 
             }
         }
+        #endregion
     }
 }

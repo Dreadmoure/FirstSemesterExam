@@ -211,6 +211,7 @@ namespace FirstSemesterExam
         #endregion
 
         #region Constructors
+
         /// <summary>
         /// Constructor for the Player with all its stats
         /// </summary>
@@ -452,11 +453,7 @@ namespace FirstSemesterExam
         private void HandleInput(GameTime gameTime)
         {
             velocity = Vector2.Zero;
-            //bool isIdle = velocity.X == 0 && velocity.Y == 0;
-            //if (isIdle)
-            //{
 
-            //}
             KeyboardState keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.W))
@@ -541,8 +538,9 @@ namespace FirstSemesterExam
 
         public float MouseAngle()
         {
-            //Regner vinkel ud mellem spiller og musen.
-            float f = MathF.Atan2((mouseState.Y ) - position.Y, mouseState.X - position.X);
+            //Calculates the angle between the player and mouse. Atan2 gives an angle measured in radians, between -Pi abd Pi
+            float f = MathF.Atan2((mouseState.Y) - position.Y, mouseState.X - position.X);
+            // plusser med 2 pi hvis vinklen er negativ så det er nemmere at regne med.
             if (f < 0)
             {
                 return f + 2 * MathF.PI;
@@ -552,7 +550,10 @@ namespace FirstSemesterExam
                 return f;
             }
         }
-
+        /// <summary>
+        /// The player takes damage based on the parameter, but only if the player is not invulnerable.
+        /// </summary>
+        /// <param name="damage"></param>
         public override void TakeDamage(float damage)
         {
             if (!invulnerable)
@@ -564,7 +565,7 @@ namespace FirstSemesterExam
             }
             
         }
-
+        //Flips the sprite based on the angle to the mouse
         protected void Flip()
         {
             if (MouseAngle() > (MathF.PI / 2) && MouseAngle() < (3 * Math.PI) / 2)
@@ -576,7 +577,7 @@ namespace FirstSemesterExam
                 spriteEffects = SpriteEffects.None;
             }
         }
-
+        //clamps the playerspostion based on the screen size
         private void HandleLimits()
         {
             position.X = Math.Clamp(position.X, GetSpriteSize.X / 2, GameWorld.GetScreenSize.X - GetSpriteSize.X / 2);
