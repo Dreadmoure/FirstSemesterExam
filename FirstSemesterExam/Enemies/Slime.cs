@@ -16,7 +16,7 @@ namespace FirstSemesterExam.Enemies
 {
     /// <summary>
     /// Made by: Jeppe & Ida 
-    /// Subclass of Enemy, Slime 
+    /// Subclass of Enemy, Slime - can merge into a BlobMonster 
     /// </summary>
     internal class Slime : Enemy
     {

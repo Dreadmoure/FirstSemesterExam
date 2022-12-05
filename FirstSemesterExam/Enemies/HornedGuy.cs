@@ -8,9 +8,16 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.Enemies
 {
+    /// <summary>
+    /// Subclass of Enemy, HornedGuy - a faster enemy 
+    /// </summary>
     public class HornedGuy : Enemy
     {
         #region Constructors
+        /// <summary>
+        /// Constructor for HornedGuy that sets its initial variables 
+        /// </summary>
+        /// <param name="player"></param>
         public HornedGuy(Player player) : base(player)
         {
             health = 20f;
