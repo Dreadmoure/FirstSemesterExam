@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace FirstSemesterExam.Enemies
 {
     /// <summary>
-    /// Subclass of Enemy, HornedGuy - a faster enemy 
+    /// Subclass of Enemy, HornedGuy - nothing special about it 
     /// </summary>
     public class HornedGuy : Enemy
     {
