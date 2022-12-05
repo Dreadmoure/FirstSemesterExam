@@ -14,6 +14,9 @@ using Keys = Microsoft.Xna.Framework.Input.Keys;
 
 namespace FirstSemesterExam.Menu
 {
+    /// <summary>
+    /// Subclass of Component, TextBox - for writing text input 
+    /// </summary>
     public class TextBox : Component
     {
         #region fields 
@@ -32,14 +35,23 @@ namespace FirstSemesterExam.Menu
         #endregion
 
         #region properties 
+        /// <summary>
+        /// Property to get the size of the textbox texture 
+        /// </summary>
         private Vector2 GetSpriteSize
         {
             get { return new Vector2(textboxTexture.Width * scale, textboxTexture.Height * scale); }
         }
+        /// <summary>
+        /// Property to get the origin/ the center of the textbox 
+        /// </summary>
         private Vector2 GetOrigin
         {
             get { return new Vector2(textboxTexture.Width / 2, textboxTexture.Height / 2); }
         }
+        /// <summary>
+        /// Property to get the rectangle 
+        /// </summary>
         private Rectangle GetRectangle
         {
             get
@@ -52,10 +64,14 @@ namespace FirstSemesterExam.Menu
                     );
             }
         }
+        /// <summary>
+        /// Property to get the text from the textbox 
+        /// </summary>
         public string GetTextEntered
         {
             get 
             {
+                // checks if text is the same as initial text 
                 if (string.Equals(text, "Enter name"))
                 {
                     return "";
@@ -69,12 +85,18 @@ namespace FirstSemesterExam.Menu
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor for TextBox - sets the initial variabels 
+        /// </summary>
+        /// <param name="position"></param>
+        /// <param name="text"></param>
         public TextBox(Vector2 position, string text)
         {
             this.position = position;
             this.text = text;
             layer = 0.2f;
             scale = 1.5f;
+            // the textbox is always active, and can be interacted with 
             isActive = true; 
         }
         #endregion
@@ -88,32 +110,39 @@ namespace FirstSemesterExam.Menu
 
         public override void Update(GameTime gameTime)
         {
+            // sets the key states 
             previousKeyState = currentKeyState;
             currentKeyState = Keyboard.GetState();
 
             if (string.Equals(text, ""))
             {
+                // if string is empty, then display the string
                 text = "Enter name";
             }
 
+            // the user needs to lift key 
             if (currentKeyState != previousKeyState)
             {
                 if (string.Equals(text, "Enter name"))
                 {
+                    // if text was the initial displayed text, it removes it 
                     text = "";
                 }
 
+                // delete letter from the text 
                 if (text.Length > 0 && currentKeyState.IsKeyDown(Keys.Back))
                 {
                     text = text.Remove(text.Length - 1);
                 }
 
+                // make sure text length is not over 12 characters 
                 if (text.Length < 12)
                 {
                     foreach (var key in currentKeyState.GetPressedKeys())
                     {
                         string keyValue = key.ToString();
 
+                        // checks if input is allowed 
                         if (AllowedInput(keyValue) && keyValue.Length <= 1)
                         {
                             text += keyValue;
@@ -123,6 +152,11 @@ namespace FirstSemesterExam.Menu
             }
         }
 
+        /// <summary>
+        /// Validates the input - can only be letters from A-Z (automaticly allCaps) 
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         private bool AllowedInput(string s)
         {
             Regex regex = new Regex("[A-Z]");
@@ -145,6 +179,5 @@ namespace FirstSemesterExam.Menu
             }
         }
         #endregion
-
     }
 }
