@@ -14,6 +14,8 @@ using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch; //blev added f
 using System.Drawing.Text;
 using System.Dynamic;
 using FirstSemesterExam.PowerUps;
+using Microsoft.Xna.Framework.Audio;
+using System.Reflection.Metadata;
 
 namespace FirstSemesterExam
 {
@@ -75,6 +77,7 @@ namespace FirstSemesterExam
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
 
+        
         public int MaxExp
         {
             get { return maxExp; }
@@ -192,6 +195,8 @@ namespace FirstSemesterExam
             barBackgroundLayerDepth = 0.94f;
 
             
+            
+            
 
 
         }
@@ -203,7 +208,7 @@ namespace FirstSemesterExam
             weapon = new LaserGun(this, attackDamage);
             GameState.InstantiateGameObject(weapon);
 
-
+            
             sprites = new Texture2D[2];
             for (int i = 0; i < sprites.Length; i++)
             {
@@ -430,6 +435,7 @@ namespace FirstSemesterExam
 
             if (mouseState.LeftButton == ButtonState.Pressed)
             {
+                
                 weapon.Shoot(gameTime);
             }
             //if (keyState.IsKeyDown(Keys.Space))

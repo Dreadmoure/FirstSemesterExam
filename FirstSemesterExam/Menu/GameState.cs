@@ -229,7 +229,8 @@ namespace FirstSemesterExam.Menu
 
                 if(player.Health < 0)
                 {
-                    gameOver = true; 
+                    gameOver = true;
+                    GameWorld.soundEffects[7].CreateInstance().Play();
                 }
 
                 if(player.Exp >= player.MaxExp)
@@ -260,16 +261,19 @@ namespace FirstSemesterExam.Menu
 
                 if (resumeGameButton.isClicked)
                 {
+                    GameWorld.soundEffects[5].CreateInstance().Play();
                     resumeGameButton.isClicked = false;
                     paused = false;
                 }
                 if (backToMenuButton.isClicked)
                 {
+                    GameWorld.soundEffects[6].CreateInstance().Play();
                     backToMenuButton.isClicked = false;
                     game.ChangeState(GameWorld.GetMenuState);
                 }
                 if (quitGameButton.isClicked)
                 {
+                    GameWorld.soundEffects[6].CreateInstance().Play();
                     quitGameButton.isClicked = false;
                     game.Exit();
                 }
@@ -289,6 +293,7 @@ namespace FirstSemesterExam.Menu
                 }
                 if (saveScoreButton.isClicked)
                 {
+                    GameWorld.soundEffects[5].CreateInstance().Play();
                     //string name = "kage";
                     File.AppendAllText("./scores.txt", name + " " + score + "\n");
 

@@ -47,6 +47,7 @@ namespace FirstSemesterExam
             {
                 shouldBeRemoved = true;
             }
+            
         }
 
         public override void OnCollision(GameObject other)
@@ -66,6 +67,7 @@ namespace FirstSemesterExam
 
 
             }
+            
         }
 
     }

@@ -68,5 +68,15 @@ namespace FirstSemesterExam.Enemies
 
             base.OnCollision(other); 
         }
+        public override void Update(GameTime gameTime)
+        {
+            if (health <= 0)
+            {
+                //skal ændres
+                GameWorld.soundEffects[3].CreateInstance().Play();
+            }
+
+            base.Update(gameTime);
+        }
     }
 }

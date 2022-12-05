@@ -46,11 +46,12 @@ namespace FirstSemesterExam.Enemies
             sprites[0] = content.Load<Texture2D>("Enemies\\BlobMonster1");
             sprites[1] = content.Load<Texture2D>("Enemies\\BlobMonster2");
         }
-
+        
         public override void Update(GameTime gameTime)
         {
             if(health <= 0)
             {
+                GameWorld.soundEffects[4].CreateInstance().Play();
                 int numberOfChildren = random.Next(1, 4);
                 for (int i = 0; i < numberOfChildren; i++)
                 {

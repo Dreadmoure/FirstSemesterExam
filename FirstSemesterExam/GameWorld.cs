@@ -3,6 +3,7 @@ using FirstSemesterExam.Menu;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System;
 using System.Collections.Generic;
 
@@ -19,7 +20,9 @@ namespace FirstSemesterExam
         private static State menuState;
         private static State howToPlayState; 
         private static State highscoreState;
-        private static State gameState; 
+        private static State gameState;
+
+        public static List<SoundEffect> soundEffects;
 
         public static State GetMenuState
         {
@@ -55,6 +58,8 @@ namespace FirstSemesterExam
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            soundEffects = new List<SoundEffect>();
+            
             IsMouseVisible = true;
 
             // set screensize 
@@ -92,6 +97,32 @@ namespace FirstSemesterExam
             _currentState = menuState;
             _currentState.LoadContent();
             _nextState = null;
+
+            //Player SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/LaserSound"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 02"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 16"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/MagicMissile"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
+            //Enemy SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/EnemyDeath"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/PainSound"));
+            //Menu SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Menu/Retro8"));
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Menu/Retro9"));
+            //GameOver SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/GameOver/GameOver"));
+
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn"));
+            //soundEffects.Add(Content.Load<SoundEffect>("SwordSwoosh"));
+            
+
+            var instance = soundEffects[0].CreateInstance();
+            
         }
 
         /// <summary>

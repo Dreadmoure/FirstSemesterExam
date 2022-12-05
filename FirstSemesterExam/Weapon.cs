@@ -51,7 +51,7 @@ namespace FirstSemesterExam
 
         public virtual void Shoot(GameTime gameTime)
         {
-
+            
         }
 
         protected void Flip()

@@ -42,7 +42,7 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed + timeAlive)
             {
-
+                GameWorld.soundEffects[2].CreateInstance().Play();
                 float angleOffset = (2 * MathF.PI) / lSAmount;
                 timeSinceLastAttack = 0;
                 for (int i = 0; i < lSAmount; i++)

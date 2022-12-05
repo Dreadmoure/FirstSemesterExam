@@ -119,6 +119,7 @@ namespace FirstSemesterExam.Enemies
             }
             player.Exp += expValue;
             ShouldBeRemoved = true;
+            //GameWorld.soundEffects[3].CreateInstance().Play();
         }
 
         private void HandlePosition()
@@ -147,6 +148,7 @@ namespace FirstSemesterExam.Enemies
             if ( other is Player)
             {
                 other.TakeDamage(attackDamage);
+                
             }
         }
 

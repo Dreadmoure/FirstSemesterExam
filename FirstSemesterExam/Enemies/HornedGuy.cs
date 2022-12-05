@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,16 @@ namespace FirstSemesterExam.Enemies
             sprites = new Texture2D[2];
             sprites[0] = content.Load<Texture2D>("Enemies\\HornGuy1");
             sprites[1] = content.Load<Texture2D>("Enemies\\HornGuy2");
+        }
+        public override void Update(GameTime gameTime)
+        {
+            if (health <= 0)
+            {
+                //Skal ændres
+                GameWorld.soundEffects[3].CreateInstance().Play();
+            }
+
+            base.Update(gameTime);
         }
     }
 }
