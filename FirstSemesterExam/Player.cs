@@ -609,7 +609,9 @@ namespace FirstSemesterExam
             }
             
         }
-        //Flips the sprite based on the angle to the mouse
+        /// <summary>
+        /// Flips the sprite based on the angle to the mouse
+        /// </summary>
         protected void Flip()
         {
             if (MouseAngle() > (MathF.PI / 2) && MouseAngle() < (3 * Math.PI) / 2)
@@ -621,13 +623,18 @@ namespace FirstSemesterExam
                 spriteEffects = SpriteEffects.None;
             }
         }
-        //clamps the playerspostion based on the screen size
+        /// <summary>
+        /// clamps the playerspostion based on the screen size
+        /// </summary>
         private void HandleLimits()
         {
             position.X = Math.Clamp(position.X, GetSpriteSize.X / 2, GameWorld.GetScreenSize.X - GetSpriteSize.X / 2);
             position.Y = Math.Clamp(position.Y, GetSpriteSize.Y / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
         }
-
+        /// <summary>
+        /// draws the players health, exp and dash bars
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(healthBarTexture, healthBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, barLayerDepth);
@@ -636,6 +643,8 @@ namespace FirstSemesterExam
             spriteBatch.Draw(dashBarTexture, dashBarRectangle, null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, barLayerDepth);
             base.Draw(spriteBatch);
         }
+
+        //Jeppe kommentar -
         //Overvejde at lave Dash til en funktion der kunne blive kaldt
         //private void Dash()
         //{
@@ -644,6 +653,7 @@ namespace FirstSemesterExam
 
         //    }
         //}
+        //-Jeppe kommentar
         #endregion
     }
 }
