@@ -17,41 +17,49 @@ using FirstSemesterExam.PowerUps;
 
 namespace FirstSemesterExam
 {
+    /// <summary>
+    /// The player gameobject which the user controls
+    /// </summary>
     public class Player : GameObject
     {
+        #region Fields
+        //mouse related
+        private Texture2D crosshair;
         private MouseState mouseState;
+
+        //weapon
         private Weapon weapon;
+
+        //exp related
         private float exp;
         private float maxExp;
         private float baseMaxExp;
         private int levelIndicator;
+        private static bool leveledUp = false;
 
+        //stat related
         private int attackDamageLvl;
         private int attackSpeedLvl;
         private float baseAttackSpeed;
         private int maxHealthLvl;
         private float maxHealth;
         private int defenseLvl;
-        private float baseDefense;
         private float defense;
         private int movementSpeedLvl;
         private int itemAttackCoolDownLvl;
         private float itemAttackCoolDown;
-        private float baseItemAttackCoolDown;
         private int lightSaberLvl;
         private int throwingKnifeLvl;
         private int magicMissileLvl;
-
+        
+        //Powerup related
         private PowerUpLS powerUpLS;
         private PowerUpMisile powerUpMisile;
         private PowerUpTK powerUpTK;
 
-        private Texture2D crosshair;
-        
-
+        //iFrames related
         private bool invulnerable = false;
         private float iFrames = 0.5f;
-
 
         //health bar
         private Texture2D healthBarTexture;
@@ -60,6 +68,7 @@ namespace FirstSemesterExam
         private Rectangle healthBarBackgroundRectangle;
         private Vector2 healthBarPosition;
 
+        //bar layerdepths
         private float barLayerDepth;
         private float barBackgroundLayerDepth;
 
@@ -68,92 +77,143 @@ namespace FirstSemesterExam
         private Rectangle expBarRectangle;
         private Vector2 expBarPosition;
 
-        private static bool leveledUp = false;
-
-
         //dash indicator bar
         private Texture2D dashBarTexture;
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// used to check if the player has enough exp to level up
+        /// if exp is bigger or equal to maxExp
+        /// </summary>
         public float MaxExp
         {
             get { return maxExp; }
-            set { MaxExp = value; }
         }
 
+        /// <summary>
+        /// used to check if the player has enough exp to level up
+        /// if exp is bigger or equal to maxExp
+        /// </summary>
         public float Exp
         {
             get { return exp; }
-            set { exp = value; }
+            set { exp = value; } //used to add exp to the players value
         }
 
+        /// <summary>
+        /// returns a bool if the player levels up, which is used to call the levelUp method
+        /// </summary>
         public static bool LeveledUp
         {
             get { return leveledUp; }
             set { leveledUp = value; }
         }
 
-        public int LevelIndicator
-        {
-            get { return levelIndicator; }
-        }
-
+        /// <summary>
+        /// used to check if the players current health is lower than its Max value
+        /// </summary>
         public float MaxHealth
         {
             get { return maxHealth; }
         }
 
+        /// <summary>
+        /// used to determine the rate at which the player can shoot
+        /// </summary>
         public float AttackSpeed
         {
             get { return attackSpeed; }
         }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int DefenseLvl
         {
             get { return defenseLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int MovementSpeedLvl
         {
             get { return movementSpeedLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int ItemAttackCoolDownLvl
         {
             get { return itemAttackCoolDownLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int AttackSpeedLvl
         {
             get { return attackSpeedLvl; }
         }
+        /// <summary>
+        /// used to get the players attackDamage to the weapon, which shoots
+        /// </summary>
+        public float AttackDamage
+        {
+            get { return attackDamage; }
+        }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int AttackDamageLvl
         {
             get { return attackDamageLvl; }
         }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int MaxHealthLvl
         {
             get { return maxHealthLvl; }
         }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// Also used to determine how many lightsabers the player and its power
+        /// </summary>
         public int LightSaberLvl
         {
             get { return lightSaberLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// Also used to determine how many knives the player and its power
+        /// </summary>
         public int ThrowingKnifeLvl
         {
             get { return throwingKnifeLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// Also used to determine the missiles power
+        /// </summary>
         public int MagicMissileLvl
         {
             get { return magicMissileLvl; }
         }
+        /// <summary>
+        /// used in determining the rate at which the powerup weapons activates
+        /// </summary>
         public float GetItemAttackCoolDown { get => itemAttackCoolDown;}
+        #endregion
+
+        #region Constructors
+        /// <summary>
+        /// Constructor for the Player with all its stats
+        /// </summary>
         public Player()
         {
             //stats
@@ -171,12 +231,9 @@ namespace FirstSemesterExam
             movementSpeedLvl = 0;
             itemAttackCoolDownLvl = 0;
             itemAttackCoolDown = 0f;
-            baseItemAttackCoolDown = 1f;
             
             defense = 0f;
-            baseDefense = 0f;
             
-
             lightSaberLvl = 0;
             throwingKnifeLvl = 0;
             magicMissileLvl = 0;
@@ -192,15 +249,10 @@ namespace FirstSemesterExam
 
             barLayerDepth = 0.95f;
             barBackgroundLayerDepth = 0.94f;
-
-            
-
-
         }
+        #endregion
 
-        public MouseState MouseState { get => mouseState; }
-       
-
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             weapon = new LaserGun(this, attackDamage);
@@ -338,12 +390,15 @@ namespace FirstSemesterExam
                 case 3: //magicMissile
                     if(magicMissileLvl == 0)
                     {
-                        GameState.InstantiateGameObject(new PowerUpMisile(this));
+                        powerUpMisile = new PowerUpMisile(this);
+                        GameState.InstantiateGameObject(powerUpMisile);
                         magicMissileLvl += 1;
+                        powerUpMisile.UpdateMisile();
                     }
                     else
                     {
                         magicMissileLvl += 1;
+                        powerUpMisile.UpdateMisile();
                     }
                     break;
                 case 4: //attackDamage
@@ -352,7 +407,7 @@ namespace FirstSemesterExam
                     break;
                 case 5: //attackSpeed
                     attackSpeedLvl += 1;
-                    attackSpeed = baseAttackSpeed * (1 - 1 /(1 + 0.3f * attackSpeedLvl) +1);
+                    attackSpeed = baseAttackSpeed * ((0.3f * attackSpeedLvl) +1);
                     break;
                 case 6: //maxHealth
                     maxHealthLvl += 1;
@@ -363,12 +418,11 @@ namespace FirstSemesterExam
                     {
                         defenseLvl += 1;
                         defense += 0.1f;
-                        baseDefense = defense;
                     }
                     else
                     {
                         defenseLvl += 1;
-                        defense = ((1 - 1 / (1 + 0.1f * defenseLvl)) +1);
+                        defense = ((1 - 1 / (1 + 0.1f * defenseLvl)));
                     }
                     
                     break;
@@ -545,6 +599,6 @@ namespace FirstSemesterExam
 
         //    }
         //}
-
-    } 
+        #endregion
+    }
 }
