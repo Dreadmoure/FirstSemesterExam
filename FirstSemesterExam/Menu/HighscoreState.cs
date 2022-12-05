@@ -82,11 +82,13 @@ namespace FirstSemesterExam.Menu
 
             if (backButton.isClicked)
             {
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 backButton.isClicked = false;
                 game.ChangeState(GameWorld.GetMenuState);
             }
             if (nextScoresButton.isClicked)
             {
+                GameWorld.soundEffects[13].CreateInstance().Play();
                 nextScoresButton.isClicked = false;
 
                 if (indexMax <= numberOfViewedScores-1)
@@ -115,6 +117,7 @@ namespace FirstSemesterExam.Menu
             }
             if (prevScoresButton.isClicked)
             {
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 prevScoresButton.isClicked = false;
 
                 if (indexMax <= numberOfViewedScores-1)
