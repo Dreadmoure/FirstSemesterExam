@@ -20,13 +20,21 @@ namespace FirstSemesterExam
     public class Player : GameObject
     {
         #region Fields
+        //mouse related
+        private Texture2D crosshair;
         private MouseState mouseState;
+
+        //weapon
         private Weapon weapon;
+
+        //exp related
         private float exp;
         private float maxExp;
         private float baseMaxExp;
         private int levelIndicator;
+        private static bool leveledUp = false;
 
+        //stat related
         private int attackDamageLvl;
         private int attackSpeedLvl;
         private float baseAttackSpeed;
@@ -40,17 +48,15 @@ namespace FirstSemesterExam
         private int lightSaberLvl;
         private int throwingKnifeLvl;
         private int magicMissileLvl;
-
+        
+        //Powerup related
         private PowerUpLS powerUpLS;
         private PowerUpMisile powerUpMisile;
         private PowerUpTK powerUpTK;
 
-        private Texture2D crosshair;
-        
-
+        //iFrames related
         private bool invulnerable = false;
         private float iFrames = 0.5f;
-
 
         //health bar
         private Texture2D healthBarTexture;
@@ -59,6 +65,7 @@ namespace FirstSemesterExam
         private Rectangle healthBarBackgroundRectangle;
         private Vector2 healthBarPosition;
 
+        //bar layerdepths
         private float barLayerDepth;
         private float barBackgroundLayerDepth;
 
@@ -67,9 +74,6 @@ namespace FirstSemesterExam
         private Rectangle expBarRectangle;
         private Vector2 expBarPosition;
 
-        private static bool leveledUp = false;
-
-
         //dash indicator bar
         private Texture2D dashBarTexture;
         private Rectangle dashBarRectangle;
@@ -77,88 +81,129 @@ namespace FirstSemesterExam
         #endregion
 
         #region Properties
+        /// <summary>
+        /// used to check if the player has enough exp to level up
+        /// if exp is bigger or equal to maxExp
+        /// </summary>
         public float MaxExp
         {
             get { return maxExp; }
-            set { maxExp = value; }
         }
 
+        /// <summary>
+        /// used to check if the player has enough exp to level up
+        /// if exp is bigger or equal to maxExp
+        /// </summary>
         public float Exp
         {
             get { return exp; }
-            set { exp = value; }
+            set { exp = value; } //used to add exp to the players value
         }
 
+        /// <summary>
+        /// returns a bool if the player levels up, which is used to call the levelUp method
+        /// </summary>
         public static bool LeveledUp
         {
             get { return leveledUp; }
             set { leveledUp = value; }
         }
 
-        public int LevelIndicator
-        {
-            get { return levelIndicator; }
-        }
-
+        /// <summary>
+        /// used to check if the players current health is lower than its Max value
+        /// </summary>
         public float MaxHealth
         {
             get { return maxHealth; }
         }
 
+        /// <summary>
+        /// used to determine the rate at which the player can shoot
+        /// </summary>
         public float AttackSpeed
         {
             get { return attackSpeed; }
         }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int DefenseLvl
         {
             get { return defenseLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int MovementSpeedLvl
         {
             get { return movementSpeedLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int ItemAttackCoolDownLvl
         {
             get { return itemAttackCoolDownLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int AttackSpeedLvl
         {
             get { return attackSpeedLvl; }
         }
-
+        /// <summary>
+        /// used to get the players attackDamage to the weapon, which shoots
+        /// </summary>
         public float AttackDamage
         {
             get { return attackDamage; }
         }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int AttackDamageLvl
         {
             get { return attackDamageLvl; }
         }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// </summary>
         public int MaxHealthLvl
         {
             get { return maxHealthLvl; }
         }
 
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// Also used to determine how many lightsabers the player and its power
+        /// </summary>
         public int LightSaberLvl
         {
             get { return lightSaberLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// Also used to determine how many knives the player and its power
+        /// </summary>
         public int ThrowingKnifeLvl
         {
             get { return throwingKnifeLvl; }
         }
-
+        /// <summary>
+        /// Used to draw the current level + 1 on the level up card
+        /// Also used to determine the missiles power
+        /// </summary>
         public int MagicMissileLvl
         {
             get { return magicMissileLvl; }
         }
+        /// <summary>
+        /// used in determining the rate at which the powerup weapons activates
+        /// </summary>
         public float GetItemAttackCoolDown { get => itemAttackCoolDown;}
         #endregion
 
