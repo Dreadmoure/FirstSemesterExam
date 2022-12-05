@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.HighScore
 {
+    /// <summary>
+    /// Made by: Ida 
+    /// Class for sorting a file of scores from highest to lowest 
+    /// </summary>
     public class Highscore
     {
         #region Fields
-        // make list for scores 
+        // List used for sorting scores 
         private List<Score> scores = new List<Score>();
         private string filePath = "./scores.txt";
         private string[] fileDataLines;
@@ -18,6 +22,9 @@ namespace FirstSemesterExam.HighScore
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Property to get the list of scores 
+        /// </summary>
         public List<Score> GetScores
         {
             get { return scores; }
@@ -25,6 +32,9 @@ namespace FirstSemesterExam.HighScore
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor that calls the methods of this class 
+        /// </summary>
         public Highscore()
         {
             CreateFile();
@@ -38,56 +48,69 @@ namespace FirstSemesterExam.HighScore
         #endregion
 
         #region Methods
-        // check if file exist, if not then create it 
+        /// <summary>
+        /// Checks if file exists, and creates the file if it does not exist
+        /// </summary>
         private void CreateFile()
         {
+            // check if file exists 
             if (!File.Exists(filePath))
             {
+                // create file with filePath 
                 file = File.Create(filePath);
                 file.Close(); 
             }
         }
 
-
-        // read scores from file, and parse them into the list 
+        /// <summary>
+        /// Reads the scores from the file and parses them into the list 
+        /// </summary>
         private void ReadFile()
         {
-            // Score: name, score \n 
+            // Score text format: "name score\n" 
 
-            // read file 
+            // read each line of the file 
             fileDataLines = File.ReadAllLines(filePath);
 
             // split the string of fileData, and put it into the list 
             foreach (string line in fileDataLines)
             {
+                // split at space 
                 string[] sub = line.Split(" "); 
                 
                 string name = sub[0];
                 int score = Int32.Parse(sub[1]);
 
+                // add the score to the list of scores 
                 scores.Add(new Score(name, score)); 
             }
         }
 
-
-        // sort the list according to scores - highest to lowest 
+        /// <summary>
+        /// Sorts the list according to the scores - from highest to lowest 
+        /// </summary>
         private void Sort()
         {
+            // sort by the Score types second parameter: _Score 
             scores = scores.OrderBy(x => -x._Score).ToList(); 
         }
 
-
-        // rewrite the file in the order of the scores 
+        /// <summary>
+        /// Rewrite the file, so the scores are in sorted order 
+        /// </summary>
         private void WriteToFile()
         {
+            // delete file 
             File.Delete(filePath); 
 
+            // create file again 
             if (!File.Exists(filePath))
             {
                 file = File.Create(filePath);
                 file.Close();
             }
 
+            // write the scores from the now sorted list to the file 
             for (int i = 0; i < scores.Count; i++)
             {
                 File.AppendAllText(filePath, scores[i].Name + " " + scores[i]._Score + "\n");
