@@ -121,7 +121,7 @@ namespace FirstSemesterExam.Enemies
             {
                 Die();
             }
-
+            //Iframes for Lightsaber
             if (!canBeDamagedByLs)
             {
                 iFrames1 -= (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -131,6 +131,7 @@ namespace FirstSemesterExam.Enemies
                     iFrames1 = 0.3f;
                 }
             }
+            //Iframes for ThrowingKnife
             if (!canBeDamagedByTK)
             {
                 iFrames2 -= (float)gameTime.ElapsedGameTime.TotalSeconds;
