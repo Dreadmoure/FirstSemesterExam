@@ -16,7 +16,6 @@ using Color = Microsoft.Xna.Framework.Color;
 namespace FirstSemesterExam.Enemies
 {
     /// <summary>
-    /// Made by: Ida 
     /// Superclass for all enemy types 
     /// </summary>
     public abstract class Enemy : GameObject

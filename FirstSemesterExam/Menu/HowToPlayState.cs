@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.Menu
 {
+    /// <summary>
+    /// Subclass of State, HowToPlayState - reached through MenuState, shows game keyboard and mouse interactions 
+    /// </summary>
     public class HowToPlayState : State 
     {
         #region Fields
@@ -20,6 +23,12 @@ namespace FirstSemesterExam.Menu
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor for HowToPlayState - sets the buttons 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="graphicsDevice"></param>
+        /// <param name="game"></param>
         public HowToPlayState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             backButton = new Button(new Vector2(150, 60), "Back", Color.Yellow);

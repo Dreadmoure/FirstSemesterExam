@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.Menu
 {
+    /// <summary>
+    /// Abstract superclass State - for handling the different states 
+    /// </summary>
     public abstract class State
     {
         #region Fields
@@ -18,6 +21,12 @@ namespace FirstSemesterExam.Menu
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor for State - sets the initial variables 
+        /// </summary>
+        /// <param name="content">The ContentManager</param>
+        /// <param name="graphicsDevice">The GraphicsDevice</param>
+        /// <param name="game">The GameWorld</param>
         public State(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game)
         {
             this.content = content;
