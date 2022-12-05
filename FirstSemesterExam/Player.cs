@@ -34,6 +34,8 @@ namespace FirstSemesterExam
         private Texture2D crosshair;
 
         private bool invulnerable = false;
+        private bool dashSpeed = false;
+        private float dashFrames = 0.1f;
         private float iFrames = 0.5f;
 
 
@@ -159,11 +161,23 @@ namespace FirstSemesterExam
             }
             if (invulnerable)
             {
+                
                 iFrames -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                 if (iFrames <= 0)
                 {
                     invulnerable = false;
                     iFrames = 0.5f;
+                }
+            }
+            if (dashSpeed)
+            {
+
+                dashFrames -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (dashFrames >= 0)
+                {
+                    speed += 500;
+                    dashSpeed = false;
+                    dashFrames = 0.1f;
                 }
             }
 
@@ -213,25 +227,19 @@ namespace FirstSemesterExam
         }
         //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
         //private KeyboardState oldState;
-        private Keys movementKey;
+        
         //private Vector2 lastMovedDirection;
         
         float dashCooldown = 2;
 
         float nextDashCooldown = 0; //start cooldown ligger på 0, så man kan bruge dash til at starte med
-        float dashTime;
-        int speedMultiplier = 10;
         float currentTime = 0f;
         
         
         private void HandleInput(GameTime gameTime)
         {
             velocity = Vector2.Zero;
-            //bool isIdle = velocity.X == 0 && velocity.Y == 0;
-            //if (isIdle)
-            //{
-
-            //}
+            
             KeyboardState keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.W))
@@ -264,12 +272,8 @@ namespace FirstSemesterExam
             {
                 weapon.Shoot(gameTime);
             }
-            //if (keyState.IsKeyDown(Keys.Space))
-            //{
-            //    float dashDistance = 5f;
+            
 
-
-            //}
             currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;//Tjekker hvor lang tid der er gået i spillet
             //Velocity skal være den samme. Den skal dashe i længere tid hvor den ganger speed med 10, når vi har fået vores dash input. Dash skal have en timer, hvor speed er forhøjet i det antal tid
             if (currentTime >= nextDashCooldown)
@@ -279,36 +283,45 @@ namespace FirstSemesterExam
                 {
 
                     //velocity.Y = -10;
-                    speed *= speedMultiplier;
-
-                    
+                    invulnerable = true;
+                    dashSpeed = true;
                     nextDashCooldown = currentTime + dashCooldown;
-
+                    
                     
                     
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.S))
                 {
 
-                    velocity.Y = 10;
+                    //velocity.Y = 10;
+                    invulnerable = true;
+                    dashSpeed = true;
                     nextDashCooldown = currentTime + dashCooldown;
+                    
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.A))
                 {
 
-                    velocity.X = -10;
+                    //velocity.X = -10;
+                    invulnerable = true;
+                    dashSpeed = true;
                     nextDashCooldown = currentTime + dashCooldown;
+                    
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.D))
                 {
 
-                    velocity.X = 10;
+                    //velocity.X = 10;
+                    invulnerable = true;
+                    dashSpeed = true;
                     nextDashCooldown = currentTime + dashCooldown;
+                    
 
                 }
                 else
                 {
                     speed = 600;
+                    
                 }
             }
 
@@ -327,11 +340,15 @@ namespace FirstSemesterExam
                 return f;
             }
         }
-
+        // if not != invulnerable kør dette kode
         public override void TakeDamage(float damage)
         {
+            if (!invulnerable)
+            {
+                health -= damage;
+                
+            }
             
-            health -= damage;
             
         }
 
