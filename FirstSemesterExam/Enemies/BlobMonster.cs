@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.Enemies
 {
+    /// <summary>
+    /// Made by: Ida
+    /// Subclass of Enemy, BlobMonster 
+    /// </summary>
     public class BlobMonster : Enemy
     {
         #region Fields
@@ -17,6 +21,10 @@ namespace FirstSemesterExam.Enemies
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor for spawning enemy at edge 
+        /// </summary>
+        /// <param name="player"></param>
         public BlobMonster(Player player) : base(player)
         {
             health = 20f;
@@ -28,6 +36,13 @@ namespace FirstSemesterExam.Enemies
             expValue = 5;
             this.player = player; 
         }
+        /// <summary>
+        /// Constructor overload for spawning new BlobMonster at position 
+        /// Used when two Slime collide and merge into BlobMonster 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="child1Position"></param>
+        /// <param name="child2Position"></param>
         public BlobMonster(Player player, Vector2 child1Position, Vector2 child2Position) : base(player)
         {
             health = 20f;
@@ -38,6 +53,7 @@ namespace FirstSemesterExam.Enemies
             expValue = 5;
             this.player = player;
 
+            // calculate position between the two Slime
             Vector2 midPointPosition;
             midPointPosition.X = (child1Position.X + child2Position.X) / 2; 
             midPointPosition.Y = (child1Position.Y + child2Position.Y) / 2; 
@@ -57,6 +73,7 @@ namespace FirstSemesterExam.Enemies
         {
             if(health <= 0)
             {
+                // when a BlobMonster dies it spawns 1-3 new Slime 
                 int numberOfChildren = random.Next(1, 4);
                 for (int i = 0; i < numberOfChildren; i++)
                 {
