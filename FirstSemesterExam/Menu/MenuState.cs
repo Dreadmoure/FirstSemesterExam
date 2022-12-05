@@ -11,20 +11,33 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.Menu
 {
+    /// <summary>
+    /// Made by: Ida 
+    /// Subclass of State, MenuState - the main menu 
+    /// </summary>
     public class MenuState : State
     {
         #region Fields 
         private Texture2D menuBackgroundTexture;
+
+        // list of the buttons in the menu 
         private List<Button> buttons;
         private Button continueGameButton; 
         private Button newGameButton;
         private Button highscoreButton;
         private Button howToPlayButton; 
         private Button quitGameButton;
+
         private static Song menuMusic;
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor for MenuState, sets the buttons in the menu 
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="graphicsDevice"></param>
+        /// <param name="game"></param>
         public MenuState(ContentManager content, GraphicsDevice graphicsDevice, GameWorld game) : base(content, graphicsDevice, game)
         {
             Vector2 buttonPosition = new Vector2(GameWorld.GetScreenSize.X / 2, GameWorld.GetScreenSize.Y / 2 - GameWorld.GetScreenSize.Y / 6);
@@ -66,12 +79,14 @@ namespace FirstSemesterExam.Menu
             {
                 button.Update(gameTime);
             }
-
+            // when a button is clicked: 
             if (continueGameButton.isClicked)
             {
                 continueGameButton.isClicked = false;
+
                 if (GameState.GetGameOver)
                 {
+                    // if there were no previous game played, make new game 
                     GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
                     game.ChangeState(GameWorld.HandleGameState);
                     MediaPlayer.Stop();
@@ -79,43 +94,51 @@ namespace FirstSemesterExam.Menu
                 }
                 else
                 {
+                    // resume game from previously paused game instance 
                     GameState.HandlePause = false;
                     game.ChangeState(GameWorld.HandleGameState);
                     MediaPlayer.Stop();
                     GameState.UnpauseGameMusic();
-
-                    Debug.WriteLine("new: " + GameWorld.HandleGameState.GetHashCode());
                 }
             }
             if (newGameButton.isClicked)
             {
                 newGameButton.isClicked = false;
+
+                // create new GameState 
                 GameState.HandlePause = false;
                 GameWorld.HandleGameState = new GameState(content, graphicsDevice, game);
                 game.ChangeState(GameWorld.HandleGameState);
                 MediaPlayer.Stop();
                 GameState.RestartGameMusic();
-
-                Debug.WriteLine("old: " + GameWorld.HandleGameState.GetHashCode());
             }
             if (highscoreButton.isClicked)
             {
                 highscoreButton.isClicked = false;
+
+                // change state to HighscoreState 
                 game.ChangeState(GameWorld.HandleHighscoreState); 
             }
             if (howToPlayButton.isClicked)
             {
                 howToPlayButton.isClicked = false;
+
+                // change state to HowToPlayState 
                 game.ChangeState(GameWorld.GetHowToState); 
             }
             if (quitGameButton.isClicked)
             {
                 quitGameButton.isClicked = false;
+
+                // exit game 
                 MediaPlayer.Stop();
                 game.Exit();
             }
         }
 
+        /// <summary>
+        /// Restarts music when entering main menu 
+        /// </summary>
         public static void RestartMenuMusic()
         {
             MediaPlayer.Play(menuMusic);
