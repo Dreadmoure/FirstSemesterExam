@@ -17,6 +17,9 @@ using FirstSemesterExam.PowerUps;
 
 namespace FirstSemesterExam
 {
+    /// <summary>
+    /// The player gameobject which the user controls
+    /// </summary>
     public class Player : GameObject
     {
         #region Fields
@@ -208,6 +211,10 @@ namespace FirstSemesterExam
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Constructor for the Player with all its stats
+        /// </summary>
         public Player()
         {
             //stats
