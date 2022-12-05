@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.Menu
 {
+    /// <summary>
+    /// Made by: Ida 
+    /// Abstract superclass for differnet components, Button and TextBox 
+    /// </summary>
     public abstract class Component
     {
         #region Methods
