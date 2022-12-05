@@ -8,8 +8,12 @@ using System.Collections.Generic;
 
 namespace FirstSemesterExam
 {
+    /// <summary>
+    /// Class GameWorld - used as State handler 
+    /// </summary>
     public class GameWorld : Game
     {
+        #region Fields
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private static Vector2 screenSize;
@@ -17,18 +21,41 @@ namespace FirstSemesterExam
         private State _currentState;
         private State _nextState;
         private static State menuState;
+        private static State howToPlayState; 
         private static State highscoreState;
-        private static State gameState; 
+        private static State gameState;
+        #endregion
 
+        #region Properties
+        /// <summary>
+        /// Property to get the menuState 
+        /// </summary>
         public static State GetMenuState
         {
             get { return menuState; }
         }
+        /// <summary>
+        /// Property to get the HowToPlayState 
+        /// </summary>
+        public static State GetHowToState
+        {
+            get { return howToPlayState; }
+        }
+        /// <summary>
+        /// Property for both getting and setting the HighscoreState 
+        /// Get - returns the current local leaderboard 
+        /// Set - after GameState gameOver, loads new highscore file, and hence a new HighscoreState 
+        /// </summary>
         public static State HandleHighscoreState
         {
             get { return highscoreState; }
             set { highscoreState = value; }
         }
+        /// <summary>
+        /// Property for getting and setting the GameState 
+        /// Get - the game that was previously exited through GameState pauseMenu and is now paused 
+        /// Set - instantiates a new game, hence a new GameState 
+        /// </summary>
         public static State HandleGameState
         {
             get { return gameState; }
@@ -42,7 +69,9 @@ namespace FirstSemesterExam
         {
             get { return screenSize; }
         }
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Constructor for the GameWorld
         /// </summary>
@@ -51,19 +80,19 @@ namespace FirstSemesterExam
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
-            Mouse.SetCursor(MouseCursor.Crosshair);
 
             // set screensize 
             _graphics.PreferredBackBufferWidth = 1920;
             _graphics.PreferredBackBufferHeight = 1080;
-            //_graphics.PreferredBackBufferWidth = 900;
-            //_graphics.PreferredBackBufferHeight = 800;
 
-            _graphics.IsFullScreen = false;
+            // set screen fullscreen 
+            _graphics.IsFullScreen = true;
 
             screenSize = new Vector2(_graphics.PreferredBackBufferWidth, _graphics.PreferredBackBufferHeight);
         }
+        #endregion
 
+        #region Methods
         /// <summary>
         /// Method for initializing objects into the gameworld
         /// </summary>
@@ -71,7 +100,9 @@ namespace FirstSemesterExam
         {
             this.Window.Title = "Survive Us";
 
+            // set initial states  
             menuState = new MenuState(Content, GraphicsDevice, this);
+            howToPlayState = new HowToPlayState(Content, GraphicsDevice, this); 
             highscoreState = new HighscoreState(Content, GraphicsDevice, this);
 
             base.Initialize();
@@ -84,7 +115,7 @@ namespace FirstSemesterExam
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            _currentState = new MenuState(Content, GraphicsDevice, this);
+            _currentState = menuState;
             _currentState.LoadContent();
             _nextState = null;
         }
@@ -95,9 +126,7 @@ namespace FirstSemesterExam
         /// <param name="gameTime"></param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
+            // checks if a new state is available 
             if (_nextState != null)
             {
                 _currentState = _nextState;
@@ -110,6 +139,10 @@ namespace FirstSemesterExam
             base.Update(gameTime);
         }
 
+        /// <summary>
+        /// Change the state to property: state 
+        /// </summary>
+        /// <param name="state">The next state</param>
         public void ChangeState(State state)
         {
             _nextState = state;
@@ -123,10 +156,11 @@ namespace FirstSemesterExam
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            // draws the currentstate 
             _currentState.Draw(gameTime, _spriteBatch);
 
             base.Draw(gameTime);
         }
+        #endregion
     }
 }

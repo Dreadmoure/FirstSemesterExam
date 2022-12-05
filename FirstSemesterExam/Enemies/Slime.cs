@@ -14,21 +14,37 @@ using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace FirstSemesterExam.Enemies
 {
+    /// <summary>
+    /// Subclass of Enemy, Slime - can merge into a BlobMonster 
+    /// </summary>
     internal class Slime : Enemy
     {
+        #region Fields
         private Player player;
+        #endregion
 
+        #region Constructors
+        /// <summary>
+        /// Constructor for spawning enemy at edge 
+        /// </summary>
+        /// <param name="player"></param>
         public Slime(Player player) : base(player)
         {
             health = 20;
             speed = 100f;
-            attackSpeed = 10f;
-            attackRange = 10f;
+            attackSpeed = 15f;
+            attackDamage = 5;
+            attackRange = 25f;
             animationSpeed = 3f;
             expValue = 2;
             this.player = player;
         }
-
+        /// <summary>
+        /// Constructor overload for spawning new Slime at position 
+        /// Used when a BlobMonster dies and splits into slimes 
+        /// </summary>
+        /// <param name="player"></param>
+        /// <param name="parentPosition"></param>
         public Slime(Player player, Vector2 parentPosition) : base(player)
         {
             health = 20f;
@@ -39,10 +55,13 @@ namespace FirstSemesterExam.Enemies
             expValue = 2;
             this.player = player;
 
+            // set random position around the dead BlobMonster position 
             Vector2 offsetPosition = new Vector2(random.Next(-100, 100), random.Next(-100, 100));
             position = parentPosition + offsetPosition; 
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];
@@ -52,8 +71,8 @@ namespace FirstSemesterExam.Enemies
 
         public override void OnCollision(GameObject other)
         {
-            // 5% chance of slimes merging to BlobMonster 
-            if (random.Next(100) < 5)
+            // 0.1% chance of slimes merging to BlobMonster 
+            if (random.Next(1000) < 1)
             {
                 if (other is Slime)
                 {
@@ -68,5 +87,6 @@ namespace FirstSemesterExam.Enemies
 
             base.OnCollision(other); 
         }
+        #endregion
     }
 }

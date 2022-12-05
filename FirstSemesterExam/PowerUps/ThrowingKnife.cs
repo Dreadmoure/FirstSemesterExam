@@ -9,25 +9,29 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class ThrowingKnife : GameObject
     {
-        public ThrowingKnife(Vector2 position, Vector2 velocity, Texture2D sprite)
+        #region Constructors
+        
+        public ThrowingKnife(Vector2 position, Vector2 velocity, float attackDamage , Texture2D sprite)
         {
             this.position = position;
-            this.velocity = velocity;
-            attackDamage = 10;
+            this.velocity = velocity; 
+            this.attackDamage = attackDamage;
             speed = 1000;
             sprites = new Texture2D[1];
             sprites[0] = sprite;
             rotation = MathF.Atan2(velocity.Y, velocity.X);
             layerDepth = 0.6f;
         }
+        #endregion
 
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
         }
 
         public override void Update(GameTime gameTime)
         {
-            Move(gameTime);
+            Move(gameTime); // moves based on the velocity and speed it gets from the contructor
             CheckIfOutsideBounds();
 
         }
@@ -42,13 +46,19 @@ namespace FirstSemesterExam.PowerUps
             }
         }
 
-        public override void OnCollisionEnter(GameObject other)
+        public override void OnCollision(GameObject other)
         {
             if (other is Enemy)
             {
-                other.TakeDamage(attackDamage);
+                Enemy enemy = (Enemy)other;
+                if (enemy.CanBeDamagedByTK)
+                {
+                    other.TakeDamage(attackDamage);
+                    enemy.CanBeDamagedByTK = false;
+                }
             }
 
         }
+        #endregion
     }
 }

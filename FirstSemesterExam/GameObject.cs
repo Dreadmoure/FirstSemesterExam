@@ -7,8 +7,10 @@ namespace FirstSemesterExam
 {
     public abstract class GameObject
     {
+        #region Fields
         //stats
         protected float health;
+        protected float baseSpeed;
         protected float speed;
         protected float attackSpeed;
         protected float attackDamage;
@@ -17,7 +19,6 @@ namespace FirstSemesterExam
         protected Vector2 velocity;
         protected float rotation;
         
-
         //Sprite
         protected Texture2D[] sprites;
         protected float scale = 3f;
@@ -35,13 +36,11 @@ namespace FirstSemesterExam
         private int currentIndex = 0;
 
         protected bool shouldBeRemoved;
+        #endregion
 
+        #region Properties
         public bool HasJustBeenHit { get => hasJustBeenHit; set => hasJustBeenHit = value; }
 
-        public float GetAttackDamage
-        {
-            get { return attackDamage; }
-        }
 
         public Rectangle GetCollisionBox
         {
@@ -99,7 +98,9 @@ namespace FirstSemesterExam
         }
 
         public int CurrentIndex { get => currentIndex; set => currentIndex = value; }
+        #endregion
 
+        #region Methods
         public abstract void LoadContent(ContentManager content);
 
         public abstract void Update(GameTime gameTime);
@@ -159,6 +160,6 @@ namespace FirstSemesterExam
         {
 
         }
-
+        #endregion
     }
 }

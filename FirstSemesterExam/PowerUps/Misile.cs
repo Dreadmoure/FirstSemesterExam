@@ -8,7 +8,11 @@ namespace FirstSemesterExam.PowerUps
 {
     internal class Misile : GameObject
     {
-        GameObject target;
+        #region Fields
+        private GameObject target;
+        #endregion
+
+        #region Constructors
         public Misile(Vector2 position, GameObject go, Texture2D sprite)
         {
             this.position = position;
@@ -20,6 +24,9 @@ namespace FirstSemesterExam.PowerUps
             velocity = new Vector2(1, 0);
             layerDepth = 0.6f;
         }
+        #endregion
+
+        #region Methods
         public override void LoadContent(ContentManager content)
         {
 
@@ -27,13 +34,25 @@ namespace FirstSemesterExam.PowerUps
 
         public override void Update(GameTime gameTime)
         {
+            CheckIfOutsideBounds();
             Move(gameTime);
-            if (target.ShouldBeRemoved == false)
+            //Changes the velocity to always be the directeion from this to the target.
+            if (target.ShouldBeRemoved == false && !target.Equals(null))
             {
                 velocity = target.GetPosition - position;
                 velocity.Normalize();
                 rotation = MathF.Atan2(velocity.Y, velocity.X);
 
+            }
+        }
+
+        private void CheckIfOutsideBounds()
+        {
+            Vector2 min = new Vector2(GetSpriteSize.X / 2, GetSpriteSize.Y / 2);
+            Vector2 max = new Vector2(GameWorld.GetScreenSize.X - GetSpriteSize.X / 2, GameWorld.GetScreenSize.Y - GetSpriteSize.Y / 2);
+            if (position.X <= min.X || position.X >= max.X || position.Y <= min.Y || position.Y >= max.Y)
+            {
+                ShouldBeRemoved = true;
             }
         }
 
@@ -45,6 +64,7 @@ namespace FirstSemesterExam.PowerUps
                 shouldBeRemoved = true;
             }
         }
+        #endregion
 
     }
 }
