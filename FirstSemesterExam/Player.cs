@@ -606,9 +606,13 @@ namespace FirstSemesterExam
 
         }
 
+        /// <summary>
+        /// Calculates the angle between the player and mouse.
+        /// </summary>
+        /// <returns></returns>
         public float MouseAngle()
         {
-            //Calculates the angle between the player and mouse. Atan2 gives an angle measured in radians, between -Pi abd Pi
+            //Atan2 gives an angle measured in radians, between -Pi abd Pi
             float f = MathF.Atan2((mouseState.Y) - position.Y, mouseState.X - position.X);
             // plusser med 2 pi hvis vinklen er negativ så det er nemmere at regne med.
             if (f < 0)
