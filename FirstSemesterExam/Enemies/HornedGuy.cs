@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework.Content;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,16 @@ namespace FirstSemesterExam.Enemies
         #endregion
 
         #region Method
+        public override void Update(GameTime gameTime)
+        {
+            if (health <= 0)
+            {
+                
+                GameWorld.soundEffects[9].CreateInstance().Play();
+            }
+
+            base.Update(gameTime);
+        }
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];

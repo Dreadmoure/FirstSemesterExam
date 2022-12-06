@@ -57,6 +57,7 @@ namespace FirstSemesterExam.Projectiles
             //then removes the projectile
             if (other is Player)
             {
+                GameWorld.soundEffects[6].CreateInstance().Play();
                 other.TakeDamage(attackDamage);
                 
                 ShouldBeRemoved = true;

@@ -62,6 +62,15 @@ namespace FirstSemesterExam.Enemies
         #endregion
 
         #region Methods
+        public override void Update(GameTime gameTime)
+        {
+            if (health <= 0)
+            {
+                GameWorld.soundEffects[10].CreateInstance().Play();
+            }
+
+            base.Update(gameTime);
+        }
         public override void LoadContent(ContentManager content)
         {
             sprites = new Texture2D[2];

@@ -81,6 +81,7 @@ namespace FirstSemesterExam.Menu
             // when a button is clicked: 
             if (continueGameButton.isClicked)
             {
+                GameWorld.soundEffects[13].CreateInstance().Play();
                 continueGameButton.isClicked = false;
 
                 if (GameState.GetGameOver)
@@ -102,6 +103,7 @@ namespace FirstSemesterExam.Menu
             }
             if (newGameButton.isClicked)
             {
+                GameWorld.soundEffects[13].CreateInstance().Play();
                 newGameButton.isClicked = false;
 
                 // create new GameState 
@@ -113,6 +115,7 @@ namespace FirstSemesterExam.Menu
             }
             if (highscoreButton.isClicked)
             {
+                GameWorld.soundEffects[13].CreateInstance().Play();
                 highscoreButton.isClicked = false;
 
                 // change state to HighscoreState 
@@ -120,6 +123,7 @@ namespace FirstSemesterExam.Menu
             }
             if (howToPlayButton.isClicked)
             {
+                GameWorld.soundEffects[13].CreateInstance().Play();
                 howToPlayButton.isClicked = false;
 
                 // change state to HowToPlayState 
@@ -127,6 +131,7 @@ namespace FirstSemesterExam.Menu
             }
             if (quitGameButton.isClicked)
             {
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 quitGameButton.isClicked = false;
 
                 // exit game 

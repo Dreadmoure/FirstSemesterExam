@@ -537,17 +537,9 @@ namespace FirstSemesterExam
             {
                 weapon.Shoot(gameTime);
             }
-  //Jeppe kommentar -
-
-
-            //if (keyState.IsKeyDown(Keys.Space))
-            //{
-            //    float dashDistance = 5f;
-
-
-
-            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;//Tjekker hvor lang tid der er gået i spillet
-            //Velocity skal være den samme. Den skal dashe i længere tid hvor den ganger speed med 10, når vi har fået vores dash input. Dash skal have en timer, hvor speed er forhøjet i det antal tid
+  
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;//Checks how long time has passed in the game
+            
             if (currentTime >= nextDashCooldown)
             {
                 
@@ -556,10 +548,7 @@ namespace FirstSemesterExam
 
 
                     velocity.Y = -10;
-                    //speed *= speedMultiplier;
-
-                    
-
+                    invulnerable = true;
                     nextDashCooldown = currentTime + dashCooldown;
                     
                     
@@ -568,27 +557,24 @@ namespace FirstSemesterExam
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.S))
                 {
 
-                    //velocity.Y = 10;
+                    velocity.Y = 10;
                     invulnerable = true;
-                    dashSpeed = true;
                     nextDashCooldown = currentTime + dashCooldown;
                     
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.A))
                 {
 
-                    //velocity.X = -10;
+                    velocity.X = -10;
                     invulnerable = true;
-                    dashSpeed = true;
                     nextDashCooldown = currentTime + dashCooldown;
                     
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.D))
                 {
 
-                    //velocity.X = 10;
+                    velocity.X = 10;
                     invulnerable = true;
-                    dashSpeed = true;
                     nextDashCooldown = currentTime + dashCooldown;
                     
 
@@ -596,13 +582,8 @@ namespace FirstSemesterExam
                 else
                 {
         
-
-                    //speed = 600;
-
                 }
             }
-
-            //-Jeppe kommentar
 
         }
 
@@ -678,16 +659,6 @@ namespace FirstSemesterExam
             base.Draw(spriteBatch);
         }
 
-        //Jeppe kommentar -
-        //Overvejde at lave Dash til en funktion der kunne blive kaldt
-        //private void Dash()
-        //{
-        //    if (keyState.IsKeyDown(Keys.S))
-        //    {
-
-        //    }
-        //}
-        //-Jeppe kommentar
         #endregion
     }
 }
