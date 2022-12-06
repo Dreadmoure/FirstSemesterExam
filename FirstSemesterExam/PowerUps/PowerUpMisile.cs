@@ -56,7 +56,7 @@ namespace FirstSemesterExam.PowerUps
         {
 
             GameObject enemy = null;
-            float minDist = 999999996999; // this just needed to be a very high number
+            float minDist = float.PositiveInfinity;
             foreach (GameObject gameObject in GameState.enemies)
             {
                 float distance = Vector2.Distance(gameObject.GetPosition, player.GetPosition);

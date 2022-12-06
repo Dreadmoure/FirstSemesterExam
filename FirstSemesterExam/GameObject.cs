@@ -105,6 +105,7 @@ namespace FirstSemesterExam
 
         public abstract void Update(GameTime gameTime);
 
+        //Moves the gameobject based on the objects velocity and speed .Move gets called in update. 
         protected void Move(GameTime gameTime)
         {
             float deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
@@ -113,6 +114,10 @@ namespace FirstSemesterExam
 
         }
 
+        /// <summary>
+        /// Choses the currentIndex, based on the animationTime. Animationtimes counts up to the amount of spirtes the sprites list and then resets.
+        /// Current Index os used to chose the currentSprite
+        /// </summary>
         protected void Animate(GameTime gameTime)
         {
             animationTime += (float)gameTime.ElapsedGameTime.TotalSeconds * animationSpeed;
@@ -137,7 +142,11 @@ namespace FirstSemesterExam
             
 
         }
-
+        /// <summary>
+        /// Checks if this gameobjects collisionBox is intersecting with another collisionbox, and returns the other gameobject.
+        /// </summary>
+        /// <param name="other">the gameobject that this gameobject is currently collidning with</param>
+        /// <returns></returns>
         public bool IsColliding(GameObject other)
         {
             if (this == other)
@@ -145,12 +154,18 @@ namespace FirstSemesterExam
 
             return GetCollisionBox.Intersects(other.GetCollisionBox);
         }
-
+        /// <summary>
+        /// subtracts the amount of damage dealth from health.
+        /// </summary>
+        /// <param name="damage">The amount of damage</param>
         public virtual void TakeDamage(float damage)
         {
             health -= damage;
         }
-
+        /// <summary>
+        /// Gets called when two gameobjects are colliding. gets called in Update in gamestate where it checks for all gameObjects.
+        /// </summary>
+        /// <param name="other">the gameobject that this gameobject is currently collidning with</param>
         public virtual void OnCollision(GameObject other)
         {
 
