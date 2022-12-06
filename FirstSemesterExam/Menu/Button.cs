@@ -121,6 +121,7 @@ namespace FirstSemesterExam.Menu
         {
             if (color.A == 255)
             {
+                GameWorld.soundEffects[15].Play();
                 colorShiftDown = false;
             }
             if (color.A == 0)

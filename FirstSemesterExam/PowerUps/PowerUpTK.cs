@@ -53,6 +53,7 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed - (attackSpeed * player.GetItemAttackCoolDown))
             {
+                GameWorld.soundEffects[5].CreateInstance().Play();
                 float angleOffset = (2 * MathF.PI) / tKAmount; // angleoffset based on the amount of TK's fired.
                 float playerAngle = MathF.Atan2(lastVelocity.Y, lastVelocity.X); // gets the last direction the player moved in radians. It is the direction the TK will travel in
                 timeSinceLastAttack = 0;

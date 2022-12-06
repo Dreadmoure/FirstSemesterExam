@@ -184,6 +184,7 @@ namespace FirstSemesterExam.Enemies
             }
             player.Exp += expValue;
             ShouldBeRemoved = true;
+            
         }
 
         /// <summary>

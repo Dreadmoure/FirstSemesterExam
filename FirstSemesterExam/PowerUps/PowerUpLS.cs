@@ -51,7 +51,7 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > (attackSpeed - (attackSpeed * player.GetItemAttackCoolDown)) + timeAlive)
             {
-
+                GameWorld.soundEffects[2].CreateInstance().Play();
                 float angleOffset = (2 * MathF.PI) / lSAmount; // angleoffset based on the amount of lightsabers. 
                 timeSinceLastAttack = 0;
                 for (int i = 0; i < lSAmount; i++)

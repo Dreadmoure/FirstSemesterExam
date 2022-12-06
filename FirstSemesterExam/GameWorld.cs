@@ -1,6 +1,7 @@
 ﻿using FirstSemesterExam.Enemies;
 using FirstSemesterExam.Menu;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
@@ -24,6 +25,8 @@ namespace FirstSemesterExam
         private static State howToPlayState; 
         private static State highscoreState;
         private static State gameState;
+
+        public static List<SoundEffect> soundEffects;
         #endregion
 
         #region Properties
@@ -79,6 +82,8 @@ namespace FirstSemesterExam
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            soundEffects = new List<SoundEffect>();
+
             IsMouseVisible = true;
 
             // set screensize 
@@ -118,6 +123,28 @@ namespace FirstSemesterExam
             _currentState = menuState;
             _currentState.LoadContent();
             _nextState = null;
+
+            //Player SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/LaserSound")); //Lasergun shot
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 02")); //  not used yet
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn")); // Lightsaber spawn
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 16")); // not used yet
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/MagicMissile")); // Magic Missile Spawn
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SaberSound")); // knife
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Negative Short 23")); // player getting hit
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro PowerUP StereoUP 05")); // Level up
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro PowerUP 09")); // Power up
+            //Enemy SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/EnemyDeath")); // Turned and Horned guy death
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/PainSound"));// Blob Monster and slime death
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/Retro Impact Metal 36"));// Robot Death
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Monster/Retro Impact Punch Hurt 01"));// robot Shoot
+            //Menu SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Menu/Retro8")); // Menu Buttons for everything but "back" and "exit" buttons
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Menu/Retro9")); // Sound for "back" and "exit" buttons
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Menu/Retro5")); // Hoverover sound effect
+            //GameOver SFX
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/GameOver/GameOver")); // Gameover
         }
 
         /// <summary>
