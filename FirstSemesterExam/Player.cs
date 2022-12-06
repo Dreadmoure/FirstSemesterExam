@@ -473,6 +473,8 @@ namespace FirstSemesterExam
                     itemAttackCoolDownLvl += 1;
                     itemAttackCoolDown = ((1 - 1 / (1 + 0.3f * itemAttackCoolDownLvl))); //adds 30 percent for each lvl
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException("Unknown value");
             }
         }
 
