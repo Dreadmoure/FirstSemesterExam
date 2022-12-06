@@ -9,11 +9,14 @@ using System;
 
 namespace FirstSemesterExam.PowerUps
 {
+    /// <summary>
+    /// Lightsaber class, inherits from the superclass GameObject
+    /// And upgrade which spins around the player and damages enemies and reflects enemy projectiles
+    /// </summary>
     internal class LightSaber : GameObject
     {
         #region Fields
         private Player player;
-
         private float offset; // distance from player to ligtsaber
         private float angle;
         private float timeAlive; //The object removes itself after this time has expired.
@@ -22,15 +25,21 @@ namespace FirstSemesterExam.PowerUps
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Constructor for a lightsaber
+        /// </summary>
+        /// <param name="player">Gets the player object as it constantly needs the players position</param>
+        /// <param name="attackDamage">Sets the attackDamage of the lightsaber</param>
+        /// <param name="timeAlive">Time the lightsaber is alive before it is removed</param>
+        /// <param name="angleOffset">The angle which the saber is offset, when you have more than 1, the 2nd it needs to be offset from the 1st </param>
+        /// <param name="canReflect">Wether or not it can reflect projectiles</param>
         public LightSaber(Player player, float attackDamage, float timeAlive, float angleOffset, bool canReflect)
         {
             this.player = player;
             this.timeAlive = timeAlive;
             offset = 150;
             speed = 2;
-            canReflect = false;
             this.attackDamage = attackDamage;
-
             layerDepth = 0.6f;
             this.angleOffset = angleOffset;
             this.canReflect = canReflect;
@@ -40,6 +49,7 @@ namespace FirstSemesterExam.PowerUps
         #region Methods
         public override void LoadContent(ContentManager content)
         {
+            //loads the sprite
             sprites = new Texture2D[1];
             sprites[0] = content.Load<Texture2D>("PowerUps\\lightSaber_Purple");
 
@@ -47,12 +57,15 @@ namespace FirstSemesterExam.PowerUps
 
         public override void Update(GameTime gameTime)
         {
+            //rotating around the player
             angle += (float)gameTime.ElapsedGameTime.TotalSeconds * speed;
             timeAlive -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //rotates 3 times faster around itself
             rotation = angle * 3;
             //position based on angle, playersPosition and offset. Makes the ligtsaber fly around the player
             position = new Vector2(offset * MathF.Cos(angle + angleOffset) + player.GetPosition.X, offset * MathF.Sin(angle + angleOffset) + player.GetPosition.Y);
 
+            //removes the lightsaber when the timer reaches 0
             if (timeAlive <= 0)
             {
                 shouldBeRemoved = true;
