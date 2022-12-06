@@ -8,6 +8,11 @@ using System.Collections.Generic;
 
 namespace FirstSemesterExam.PowerUps
 {
+    /// <summary>
+    /// Has all the stats of the misile and changes them based on the upgrade level.
+    /// Spawns misiles based on the attackspeed and the ItemAttackCooldown stat.
+    /// When the player choses this powerup for the first time this object will be instanciated.
+    /// </summary>
     internal class PowerUpMisile : GameObject
     {
         #region Fields
@@ -69,6 +74,7 @@ namespace FirstSemesterExam.PowerUps
 
             return enemy;
         }
+        //upgrades the misile stats based on the level. Gets called on player each time the player picks the misile power up.
 
         public void UpdateMisile()
         {
