@@ -143,7 +143,7 @@ namespace FirstSemesterExam
             get { return movementSpeedLvl; }
         }
         /// <summary>
-        /// Used to draw the current level + 1 on the level up card
+        /// Used to draw the current level + 1 on the level up card 
         /// </summary>
         public int ItemAttackCoolDownLvl
         {
