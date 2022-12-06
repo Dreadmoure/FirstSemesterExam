@@ -253,14 +253,18 @@ namespace FirstSemesterExam.Menu
                 //if the player is dead, gameover
                 if(player.Health < 0)
                 {
-                    gameOver = true; 
+                    gameOver = true;
+                    GameWorld.soundEffects[16].CreateInstance().Play();
                 }
 
                 //if the players current exp exceeds the max value, the player levels up
                 if(player.Exp >= player.MaxExp)
                 {
+
                     //a random card is chosen
-                    foreach(LevelUpCard card in cardArray)
+                    GameWorld.soundEffects[7].CreateInstance().Play();
+                    foreach (LevelUpCard card in cardArray)
+
                     {
                         card.RandomCard(content);
                     }
@@ -287,6 +291,7 @@ namespace FirstSemesterExam.Menu
                 //resumes game and music
                 if (resumeGameButton.isClicked)
                 {
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     resumeGameButton.isClicked = false;
                     MediaPlayer.Resume();
                     paused = false;
@@ -294,6 +299,7 @@ namespace FirstSemesterExam.Menu
                 //back to the main menu, restarts the menu music
                 if (backToMenuButton.isClicked)
                 {
+                    GameWorld.soundEffects[14].CreateInstance().Play();
                     backToMenuButton.isClicked = false;
                     game.ChangeState(GameWorld.GetMenuState);
                     MediaPlayer.Pause();
@@ -303,6 +309,7 @@ namespace FirstSemesterExam.Menu
                 //stops music, closes application
                 if (quitGameButton.isClicked)
                 {
+                    GameWorld.soundEffects[14].CreateInstance().Play();
                     MediaPlayer.Stop(); 
                     quitGameButton.isClicked = false;
                     game.Exit();
@@ -327,6 +334,10 @@ namespace FirstSemesterExam.Menu
                 //saves the value of the input field to a file, with the score
                 if (saveScoreButton.isClicked)
                 {
+
+                    GameWorld.soundEffects[13].CreateInstance().Play();
+
+
                     File.AppendAllText("./scores.txt", name + " " + score + "\n");
 
                     saveScoreButton.isClicked = false;
@@ -349,6 +360,7 @@ namespace FirstSemesterExam.Menu
                 //initialises the upgrade of the card that is chosen below, either 1, 2 or 3
                 if (card1.isClicked)
                 {
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     card1.isClicked = false;
 
                     Player.LeveledUp = false;
@@ -356,6 +368,7 @@ namespace FirstSemesterExam.Menu
                 }
                 if (card2.isClicked)
                 {
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     card2.isClicked = false;
 
                     Player.LeveledUp = false;
@@ -363,6 +376,7 @@ namespace FirstSemesterExam.Menu
                 }
                 if (card3.isClicked)
                 {
+                    GameWorld.soundEffects[13].CreateInstance().Play();
                     card3.isClicked = false;
 
                     Player.LeveledUp = false;

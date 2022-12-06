@@ -620,6 +620,108 @@
 /processorParam:TextureFormat=Color
 /build:Projectiles/testEnemyProjectile.png
 
+#begin SoundEffects/GameOver/GameOver.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/GameOver/GameOver.wav
+
+#begin SoundEffects/Menu/Retro5.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Menu/Retro5.wav
+
+#begin SoundEffects/Menu/Retro8.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Menu/Retro8.wav
+
+#begin SoundEffects/Menu/Retro9.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Menu/Retro9.wav
+
+#begin SoundEffects/Monster/EnemyDeath.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Monster/EnemyDeath.wav
+
+#begin SoundEffects/Monster/PainSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Monster/PainSound.wav
+
+#begin SoundEffects/Monster/Retro Impact Metal 36.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Monster/Retro Impact Metal 36.wav
+
+#begin SoundEffects/Monster/Retro Impact Punch Hurt 01.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Monster/Retro Impact Punch Hurt 01.wav
+
+#begin SoundEffects/Player and Weapons/LaserSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/LaserSound.wav
+
+#begin SoundEffects/Player and Weapons/MagicMissile.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/MagicMissile.wav
+
+#begin SoundEffects/Player and Weapons/Retro Negative Short 23.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/Retro Negative Short 23.wav
+
+#begin SoundEffects/Player and Weapons/Retro PowerUP 09.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/Retro PowerUP 09.wav
+
+#begin SoundEffects/Player and Weapons/Retro PowerUP StereoUP 05.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/Retro PowerUP StereoUP 05.wav
+
+#begin SoundEffects/Player and Weapons/Retro Swooosh 02.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/Retro Swooosh 02.wav
+
+#begin SoundEffects/Player and Weapons/Retro Swooosh 16.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/Retro Swooosh 16.wav
+
+#begin SoundEffects/Player and Weapons/SaberSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/SaberSound.wav
+
+#begin SoundEffects/Player and Weapons/SwordOn.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:SoundEffects/Player and Weapons/SwordOn.wav
+
 #begin Weapons/testGun.png
 /importer:TextureImporter
 /processor:TextureProcessor

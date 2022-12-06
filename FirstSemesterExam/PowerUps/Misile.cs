@@ -6,6 +6,9 @@ using System;
 
 namespace FirstSemesterExam.PowerUps
 {
+    /// <summary>
+    /// Seeking misile that follows enemies and deals damage on collision.
+    /// </summary>
     internal class Misile : GameObject
     {
         #region Fields
@@ -13,6 +16,12 @@ namespace FirstSemesterExam.PowerUps
         #endregion
 
         #region Constructors
+        /// <summary>
+        /// Contructor
+        /// </summary>
+        /// <param name="position">position of the player</param>
+        /// <param name="go">The gameobject that the misile will follow. the target</param>
+        /// <param name="sprite">Gets the sprite from the PowerUpTK class</param>
         public Misile(Vector2 position, GameObject go, Texture2D sprite)
         {
             this.position = position;

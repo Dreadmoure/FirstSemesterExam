@@ -98,6 +98,7 @@ namespace FirstSemesterExam.Menu
 
             if (backButton.isClicked)
             {
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 backButton.isClicked = false;
 
                 // go back to MenuState 
@@ -105,6 +106,7 @@ namespace FirstSemesterExam.Menu
             }
             if (nextScoresButton.isClicked)
             {
+                GameWorld.soundEffects[13].CreateInstance().Play();
                 nextScoresButton.isClicked = false;
 
                 // move to the next scores on the highscore list if possible 
@@ -134,6 +136,7 @@ namespace FirstSemesterExam.Menu
             }
             if (prevScoresButton.isClicked)
             {
+                GameWorld.soundEffects[14].CreateInstance().Play();
                 prevScoresButton.isClicked = false;
 
                 // move to the previous scores on the highscore list, if possible 

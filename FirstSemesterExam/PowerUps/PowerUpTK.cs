@@ -6,7 +6,12 @@ using System;
 
 namespace FirstSemesterExam.PowerUps
 {
-    //TK = ThrowingKnife
+    /// <summary>
+    /// TK = throwingknife
+    /// Has all the stats of the throwingkife and changes them based on the upgrade level.
+    /// Spawns throwing knifes based on the attackspeed and the ItemAttackCooldown stat.
+    /// When the player choses this powerup for the first time this object will be instanciated.
+    /// </summary>
     internal class PowerUpTK : GameObject
     {
         #region Fields
@@ -53,6 +58,7 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed - (attackSpeed * player.GetItemAttackCoolDown))
             {
+                GameWorld.soundEffects[5].CreateInstance().Play();
                 float angleOffset = (2 * MathF.PI) / tKAmount; // angleoffset based on the amount of TK's fired.
                 float playerAngle = MathF.Atan2(lastVelocity.Y, lastVelocity.X); // gets the last direction the player moved in radians. It is the direction the TK will travel in
                 timeSinceLastAttack = 0;

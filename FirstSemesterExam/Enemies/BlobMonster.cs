@@ -72,6 +72,7 @@ namespace FirstSemesterExam.Enemies
         {
             if(health <= 0)
             {
+                GameWorld.soundEffects[10].CreateInstance().Play();
                 // when a BlobMonster dies it spawns 1-3 new Slime 
                 int numberOfChildren = random.Next(1, 4);
                 for (int i = 0; i < numberOfChildren; i++)

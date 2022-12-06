@@ -36,6 +36,7 @@ namespace FirstSemesterExam
         {
             if (timeSinceFire > 1/player.AttackSpeed)
             {
+                GameWorld.soundEffects[0].CreateInstance().Play();
                 timeSinceFire = 0;
                 //creates a new projectile object
                 PlayerProjectile projectile = new PlayerProjectile(shootingPos, dirVector, angle, player.AttackDamage);

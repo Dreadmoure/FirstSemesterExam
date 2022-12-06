@@ -10,7 +10,13 @@ namespace FirstSemesterExam.PowerUps
     internal class ThrowingKnife : GameObject
     {
         #region Constructors
-        
+        /// <summary>
+        /// Contructor for the ThrowingKnife
+        /// </summary>
+        /// <param name="position">The players position</param>
+        /// <param name="velocity">The diretion the player last went</param>
+        /// <param name="attackDamage">The attackdamage defined in the PowerUpTK class</param>
+        /// <param name="sprite">Sprite from the PowerUpTK class</param>
         public ThrowingKnife(Vector2 position, Vector2 velocity, float attackDamage , Texture2D sprite)
         {
             this.position = position;
