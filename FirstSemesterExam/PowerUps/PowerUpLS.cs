@@ -9,7 +9,13 @@ using System.Threading.Tasks;
 
 namespace FirstSemesterExam.PowerUps
 {
-    //LS = LightSaber
+    /// <summary>
+    /// LS = Lightsaber
+    /// Has all the stats of the lightsaber and changes them based on the upgrade level.
+    /// Spawns Lightsabers based on the attackspeed and the ItemAttackCooldown stat.
+    /// Only the chosen amount of ligtsabers (LSAmount) can be active at the same time.
+    /// When the player choses this powerup for the first time this object will be instanciated.
+    /// </summary>
     internal class PowerUpLS : GameObject
     {
         #region Fields
@@ -61,6 +67,8 @@ namespace FirstSemesterExam.PowerUps
                 }
             }
         }
+
+        //upgrades the lightsaber stats based on the level. Gets called on player each time the player picks the lightsaber power up.
         public void UpdateLightSaber()
         {
 

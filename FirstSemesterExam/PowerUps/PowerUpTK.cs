@@ -6,7 +6,12 @@ using System;
 
 namespace FirstSemesterExam.PowerUps
 {
-    //TK = ThrowingKnife
+    /// <summary>
+    /// TK = throwingknife
+    /// Has all the stats of the throwingkife and changes them based on the upgrade level.
+    /// Spawns throwing knifes based on the attackspeed and the ItemAttackCooldown stat.
+    /// When the player choses this powerup for the first time this object will be instanciated.
+    /// </summary>
     internal class PowerUpTK : GameObject
     {
         #region Fields
