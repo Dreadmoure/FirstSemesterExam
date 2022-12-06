@@ -6,7 +6,10 @@ using System;
 
 namespace FirstSemesterExam.PowerUps
 {
-    //TK = ThrowingKnife
+    /// <summary>
+    /// TK = throwingknife
+    /// 
+    /// </summary>
     internal class PowerUpTK : GameObject
     {
         #region Fields
