@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 namespace FirstSemesterExam
 {
+    /// <summary>
+    /// GameObject superclass.
+    /// holds all the stats for the objects that inherits from gameobjects, which is almost all the objects in the game.
+    /// the gameobject, can draw a sprite, animate the sprite, move the sprite, detect collision, take damage, and be removed.
+    /// </summary>
     public abstract class GameObject
     {
         #region Fields
@@ -167,11 +172,6 @@ namespace FirstSemesterExam
         /// </summary>
         /// <param name="other">the gameobject that this gameobject is currently collidning with</param>
         public virtual void OnCollision(GameObject other)
-        {
-
-        }
-
-        public virtual void OnCollisionEnter(GameObject other)
         {
 
         }
