@@ -10,7 +10,7 @@ using FirstSemesterExam.Projectiles;
 using SharpDX.Direct3D9;
 using SharpDX.MediaFoundation;
 using SharpDX.Direct2D1;
-using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch; //blev added for a fixe linje 183 spritebatch, why I dunno
+using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.Drawing.Text;
 using System.Dynamic;
 using FirstSemesterExam.PowerUps;

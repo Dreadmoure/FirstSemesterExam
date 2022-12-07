@@ -49,6 +49,7 @@ namespace FirstSemesterExam.PowerUps
             timeSinceLastAttack += (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeSinceLastAttack > attackSpeed - (attackSpeed * player.GetItemAttackCoolDown))
             {
+                GameWorld.soundEffects[4].Play(volume: 0.5f, pitch: 0.0f, pan: 0.5f);
                 GameWorld.soundEffects[4].CreateInstance().Play();
                 timeSinceLastAttack = 0;
                 GameObject gameObject = FindClosestEnemy();
