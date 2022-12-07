@@ -124,11 +124,12 @@ namespace FirstSemesterExam
             _currentState.LoadContent();
             _nextState = null;
 
+            //Our content sound files from our SoundEffect List
             //Player SFX
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/LaserSound")); //Lasergun shot
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 02")); //  not used yet
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 02")); //
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SwordOn")); // Lightsaber spawn
-            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 16")); // not used yet
+            soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Swooosh 16")); //
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/MagicMissile")); // Magic Missile Spawn
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/SaberSound")); // knife
             soundEffects.Add(Content.Load<SoundEffect>("SoundEffects/Player and Weapons/Retro Negative Short 23")); // player getting hit

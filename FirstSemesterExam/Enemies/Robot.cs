@@ -35,7 +35,7 @@ namespace FirstSemesterExam.Enemies
         {
             if (health <= 0)
             {
-                
+                GameWorld.soundEffects[11].Play(volume: 0.5f, pitch: 0.0f, pan: 0.5f);
                 GameWorld.soundEffects[11].CreateInstance().Play();
             }
 

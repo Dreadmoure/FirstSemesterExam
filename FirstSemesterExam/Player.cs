@@ -10,7 +10,7 @@ using FirstSemesterExam.Projectiles;
 using SharpDX.Direct3D9;
 using SharpDX.MediaFoundation;
 using SharpDX.Direct2D1;
-using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch; //blev added for a fixe linje 183 spritebatch, why I dunno
+using SpriteBatch = Microsoft.Xna.Framework.Graphics.SpriteBatch;
 using System.Drawing.Text;
 using System.Dynamic;
 using FirstSemesterExam.PowerUps;
@@ -59,8 +59,6 @@ namespace FirstSemesterExam
 
         //iFrames related
         private bool invulnerable = false;
-        private bool dashSpeed = false;
-        private float dashFrames = 0.1f;
         private float iFrames = 0.5f;
 
         //health bar
@@ -83,6 +81,10 @@ namespace FirstSemesterExam
         private Texture2D dashBarTexture;
         private Rectangle dashBarRectangle;
         private Vector2 dashBarPosition;
+
+        float dashCooldown = 2;
+        float nextDashCooldown = 0;
+        float currentTime = 0f;
         #endregion
 
         #region Properties
@@ -319,17 +321,6 @@ namespace FirstSemesterExam
                     iFrames = 0.5f;
                 }
             }
-            if (dashSpeed)
-            {
-
-                dashFrames -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-                if (dashFrames >= 0)
-                {
-                    speed += 500;
-                    dashSpeed = false;
-                    dashFrames = 0.1f;
-                }
-            }
 
             //if the player has been hit, sets a red color overlay over the player. sets a timer which determines
             //when the overlay stops appearing
@@ -479,20 +470,9 @@ namespace FirstSemesterExam
         }
 
 
-        //Jeppe kommentar -
-
-
-        //Prøvede at lave en metode hvor spillerens sidste input ville blive gemt og derfra dash i det sidste movement-inputs retning. Kunne ikke få det til at virke.
-        //private KeyboardState oldState;
         
-        //private Vector2 lastMovedDirection;
         
-        float dashCooldown = 2;
 
-        float nextDashCooldown = 0; //start cooldown ligger på 0, så man kan bruge dash til at starte med
-        float currentTime = 0f;
-
-        //-Jeppe kommentar
         
         /// <summary>
         /// checks for input both mouse and keyboard, which is used to aiming, shooting and movement
@@ -540,46 +520,34 @@ namespace FirstSemesterExam
                 weapon.Shoot(gameTime);
             }
   
-            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds;//Checks how long time has passed in the game
+            currentTime += (float)gameTime.ElapsedGameTime.TotalSeconds; //Checks how long time has passed in the game
             
-            if (currentTime >= nextDashCooldown)
+            if (currentTime >= nextDashCooldown) // If statement that handels our dash cooldown
             {
                 
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.W))
                 {
-
-
                     velocity.Y = -10;
                     invulnerable = true;
                     nextDashCooldown = currentTime + dashCooldown;
-                    
-                    
-                    
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.S))
                 {
-
                     velocity.Y = 10;
                     invulnerable = true;
                     nextDashCooldown = currentTime + dashCooldown;
-                    
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.A))
                 {
-
                     velocity.X = -10;
                     invulnerable = true;
                     nextDashCooldown = currentTime + dashCooldown;
-                    
                 }
                 if (keyState.IsKeyDown(Keys.Space) && keyState.IsKeyDown(Keys.D))
                 {
-
                     velocity.X = 10;
                     invulnerable = true;
                     nextDashCooldown = currentTime + dashCooldown;
-                    
-
                 }
                 else
                 {
