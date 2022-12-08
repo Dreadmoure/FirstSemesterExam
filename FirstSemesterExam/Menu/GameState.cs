@@ -89,7 +89,9 @@ namespace FirstSemesterExam.Menu
         {
             get { return gameOver; }
         }
+        #endregion
 
+        #region Constructors
         /// <summary>
         /// Constructor for the GameState
         /// </summary>
