@@ -549,10 +549,10 @@ namespace FirstSemesterExam
                     invulnerable = true;
                     nextDashCooldown = currentTime + dashCooldown;
                 }
-                else
-                {
+                //else
+                //{
         
-                }
+                //}
             }
 
         }
