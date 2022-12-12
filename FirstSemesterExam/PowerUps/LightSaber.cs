@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 
 
 namespace FirstSemesterExam.PowerUps
@@ -57,15 +58,17 @@ namespace FirstSemesterExam.PowerUps
 
         public override void Update(GameTime gameTime)
         {
-            //rotating around the player
+            //Changes the angle based on time and speed
             angle += (float)gameTime.ElapsedGameTime.TotalSeconds * speed;
-            timeAlive -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+            //Direction vector based on angle and angle offset
+            Vector2 dirVector = new Vector2(MathF.Cos(angle + angleOffset), MathF.Sin(angle + angleOffset));
+            //position based on dirVector, playersPosition and offset. Makes the ligtsaber fly around the player
+            position = offset * dirVector + player.GetPosition;
             //rotates 3 times faster around itself
             rotation = angle * 3;
-            //position based on angle, playersPosition and offset. Makes the ligtsaber fly around the player
-            position = new Vector2(offset * MathF.Cos(angle + angleOffset) + player.GetPosition.X, offset * MathF.Sin(angle + angleOffset) + player.GetPosition.Y);
 
             //removes the lightsaber when the timer reaches 0
+            timeAlive -= (float)gameTime.ElapsedGameTime.TotalSeconds;
             if (timeAlive <= 0)
             {
                 shouldBeRemoved = true;
@@ -74,7 +77,8 @@ namespace FirstSemesterExam.PowerUps
 
         public override void OnCollision(GameObject other)
         {
-            // damages the enemy and sets the bool CanBeDamagedByLs to false, so it can't damage the enemy for the next x time, so it doesn't damage it every frame.
+            // damages the enemy and sets the bool CanBeDamagedByLs to false
+            // so it can't damage the enemy for the next x time, so it doesn't damage it every frame.
             if (other is Enemy)
             {
                 Enemy enemy = (Enemy)other;
@@ -84,7 +88,8 @@ namespace FirstSemesterExam.PowerUps
                     enemy.CanBeDamagedByLs = false;
                 }
             }
-            // if it collides with a EnemyProjectile it gets that object velocity, postion and rotation, and spawns a PlayerProjectile that has the opposite velocity.
+            // if it collides with a EnemyProjectile it gets that object velocity, postion and rotation
+            // and spawns a PlayerProjectile that has the opposite velocity.
             if (other is EnemyProjectile && canReflect)
             {
                 Vector2 _velocity = other.GetVelocity * -1;

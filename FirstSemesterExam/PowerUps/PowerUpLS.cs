@@ -69,7 +69,8 @@ namespace FirstSemesterExam.PowerUps
             }
         }
 
-        //upgrades the lightsaber stats based on the level. Gets called on player each time the player picks the lightsaber power up.
+        //upgrades the lightsaber stats based on the level.
+        //Gets called on player each time the player picks the lightsaber power up.
         public void UpdateLightSaber()
         {
 

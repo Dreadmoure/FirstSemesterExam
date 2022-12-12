@@ -46,7 +46,7 @@ namespace FirstSemesterExam.PowerUps
             CheckIfOutsideBounds();
             Move(gameTime);
             //Changes the velocity to always be the directeion from this to the target.
-            if (target.ShouldBeRemoved == false && !target.Equals(null))
+            if (target.ShouldBeRemoved == false )
             {
                 velocity = target.GetPosition - position;
                 velocity.Normalize();
