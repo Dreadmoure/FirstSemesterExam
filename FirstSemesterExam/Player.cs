@@ -259,6 +259,7 @@ namespace FirstSemesterExam
         #region Methods
         public override void LoadContent(ContentManager content)
         {
+
             //loads the weapon for the player and instantiates it
             weapon = new LaserGun(this, attackDamage);
             GameState.InstantiateGameObject(weapon);
