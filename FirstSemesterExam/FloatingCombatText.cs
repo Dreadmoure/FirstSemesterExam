@@ -34,7 +34,7 @@ namespace FirstSemesterExam
             this.damage = damage;
             scale = 2f;
             //saves the damage as a string to be drawn later
-            text = $"-{damage}";
+            text = $"-{(int)damage}";
             timer = 1f;
         }
         #endregion
@@ -67,7 +67,7 @@ namespace FirstSemesterExam
             float originX = textFont.MeasureString(text).X / 2;
             float originY = textFont.MeasureString(text).Y / 2;
 
-            spriteBatch.DrawString(textFont, text, position, Color.Red, 0f, new Vector2(originX, originY), scale, SpriteEffects.None, 0.90f);
+            spriteBatch.DrawString(textFont, text, position, Color.White, 0f, new Vector2(originX, originY), scale, SpriteEffects.None, 0.90f);
         }
         #endregion
     }

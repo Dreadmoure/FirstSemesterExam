@@ -22,6 +22,7 @@ namespace FirstSemesterExam
         public LaserGun(Player player, float attackDamage) : base(player)
         {
             this.attackDamage = attackDamage;
+            timeSinceFire = 1 / player.AttackSpeed;
         }
         #endregion
 
