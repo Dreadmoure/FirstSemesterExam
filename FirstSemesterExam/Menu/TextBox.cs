@@ -94,7 +94,7 @@ namespace FirstSemesterExam.Menu
         {
             this.position = position;
             this.text = text;
-            layer = 0.2f;
+            layer = 0.96f;
             scale = 1.5f;
             // the textbox is always active, and can be interacted with 
             isActive = true; 
